@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">Diary</string>
+
+
+    <string name="error_unkown">未知错误</string>
+    <string name="error_socket_timeout">网络连接超时</string>
+    <string name="error_socket_error">网络异常</string>
+    <string name="error_system">服务器繁忙</string>
+
+    <string name="error_login">用户名或密码错误</string>
+</resources>
