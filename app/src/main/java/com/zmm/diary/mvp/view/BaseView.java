@@ -9,6 +9,4 @@ package com.zmm.diary.mvp.view;
 
 public interface BaseView {
 
-    void error(String s);
-
 }

@@ -1,4 +1,4 @@
-package com.zmm.diary.ui;
+package com.zmm.diary.ui.activity;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;

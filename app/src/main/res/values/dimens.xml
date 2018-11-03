@@ -1,0 +1,125 @@
+<resources>
+    <!--Margin-->
+    <dimen name="smallerMargin">6dp</dimen>
+    <dimen name="smallMargin">10dp</dimen>
+    <dimen name="notSmallMargin">14dp</dimen>
+    <dimen name="Margin">18dp</dimen>
+    <dimen name="bigMargin">26dp</dimen>
+    <dimen name="smallBiggerMargin">40dp</dimen>
+    <dimen name="biggerMargin">70dp</dimen>
+    <dimen name="biggestMargin">96dp</dimen>
+    <!--viewPager-->
+    <dimen name="viewPager">220dp</dimen>
+    <!--标题栏高度-->
+    <dimen name="titleMenuHeight">100px</dimen>
+    <!--小menu-->
+    <dimen name="smallMenuHeight">30dp</dimen>
+    <!--menu-->
+    <dimen name="menuHeight">42dp</dimen>
+    <!--大menu-->
+    <dimen name="bigMenu">50dp</dimen>
+    <dimen name="smallestTextSize">12sp</dimen>
+    <!--最小字体-->
+    <dimen name="smallerTextSize">13sp</dimen>
+    <!--小字体-->
+    <dimen name="smallTextSize">14sp</dimen>
+    <!--介于小字体和普通字体之间-->
+    <dimen name="notSmallTextSize">16sp</dimen>
+    <!--普通字体-->
+    <dimen name="textSize">17sp</dimen>
+    <!--较大字体-->
+    <dimen name="biggerTextSize">28sp</dimen>
+    <!--大字体-->
+    <dimen name="bigTextSize">22sp</dimen>
+    <!--较小图标-->
+    <dimen name="smallerTuBiao">18dp</dimen>
+    <!--最小图标-->
+    <dimen name="smallestTuBiao">14dp</dimen>
+    <!--小图标-->
+    <dimen name="smallTuBiao">22dp</dimen>
+    <dimen name="notSmallTuBiao">26dp</dimen>
+    <!--普通图标-->
+    <dimen name="tuBiao">30dp</dimen>
+    <dimen name="smallBigTuBiao">48dp</dimen>
+    <!--大图标-->
+    <dimen name="bigTuBiao">56dp</dimen>
+    <!--较大图标-->
+    <dimen name="biggerTuBiao">70dp</dimen>
+    <!--较小图片-->
+    <dimen name="smallPic">100dp</dimen>
+    <!--普通头像-->
+    <dimen name="Icon">60dp</dimen>
+    <!--大头像-->
+    <dimen name="bigIcon">76dp</dimen>
+    <!--较大头像-->
+    <dimen name="biggerIcon">120dp</dimen>
+    <!--图片-->
+    <dimen name="pic">120dp</dimen>
+    <!--popUp高度-->
+    <dimen name="PopUp">240dp</dimen>
+    <!--产品分类宽度-->
+    <dimen name="fenLeiWidth">100dp</dimen>
+    <!-- Default screen margins, per the Android Design guidelines. -->
+
+    <!--dp size-->
+    <dimen name="dp_size_1">1dp</dimen>
+    <dimen name="dp_size_2">2dp</dimen>
+    <dimen name="dp_size_3">3dp</dimen>
+    <dimen name="dp_size_4">4dp</dimen>
+    <dimen name="dp_size_5">5dp</dimen>
+    <dimen name="dp_size_6">6dp</dimen>
+    <dimen name="dp_size_7">7dp</dimen>
+    <dimen name="dp_size_8">8dp</dimen>
+    <dimen name="dp_size_9">9dp</dimen>
+    <dimen name="dp_size_10">10dp</dimen>
+    <dimen name="dp_size_15">15dp</dimen>
+    <dimen name="dp_size_18">18dp</dimen>
+    <dimen name="dp_size_20">20dp</dimen>
+    <dimen name="dp_size_25">25dp</dimen>
+    <dimen name="dp_size_30">30dp</dimen>
+    <dimen name="dp_size_35">35dp</dimen>
+    <dimen name="dp_size_40">40dp</dimen>
+    <dimen name="dp_size_45">45dp</dimen>
+    <dimen name="dp_size_50">50dp</dimen>
+    <dimen name="dp_size_60">60dp</dimen>
+    <dimen name="dp_size_70">70dp</dimen>
+    <dimen name="dp_size_80">80dp</dimen>
+    <dimen name="dp_size_85">85dp</dimen>
+    <dimen name="dp_size_90">90dp</dimen>
+    <dimen name="dp_size_100">100dp</dimen>
+    <dimen name="dp_size_110">110dp</dimen>
+    <dimen name="dp_size_120">120dp</dimen>
+    <dimen name="dp_size_130">130dp</dimen>
+    <dimen name="dp_size_140">140dp</dimen>
+    <dimen name="dp_size_150">150dp</dimen>
+    <dimen name="dp_size_160">160dp</dimen>
+    <dimen name="dp_size_170">170dp</dimen>
+    <dimen name="dp_size_180">180dp</dimen>
+    <dimen name="dp_size_190">190dp</dimen>
+    <dimen name="dp_size_200">200dp</dimen>
+    <dimen name="dp_size_210">210dp</dimen>
+    <dimen name="dp_size_250">250dp</dimen>
+    <dimen name="dp_size_300">300dp</dimen>
+    <!--TextSize-->
+    <dimen name="sp_size_5">5sp</dimen>
+    <dimen name="sp_size_6">6sp</dimen>
+    <dimen name="sp_size_7">7sp</dimen>
+    <dimen name="sp_size_8">8sp</dimen>
+    <dimen name="sp_size_9">9sp</dimen>
+    <dimen name="sp_size_10">10sp</dimen>
+    <dimen name="sp_size_11">11sp</dimen>
+    <dimen name="sp_size_12">12sp</dimen>
+    <dimen name="sp_size_13">13sp</dimen>
+    <dimen name="sp_size_14">14sp</dimen>
+    <dimen name="sp_size_15">15sp</dimen>
+    <dimen name="sp_size_16">16sp</dimen>
+    <dimen name="sp_size_17">17sp</dimen>
+    <dimen name="sp_size_18">18sp</dimen>
+    <dimen name="sp_size_19">19sp</dimen>
+    <dimen name="sp_size_20">20sp</dimen>
+    <dimen name="sp_size_25">25sp</dimen>
+    <dimen name="sp_size_30">30sp</dimen>
+
+
+
+</resources>

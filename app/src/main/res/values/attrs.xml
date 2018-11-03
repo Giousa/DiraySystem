@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!--自定义控件 信息条目控件-->
+    <declare-styleable name="CustomInfoItemView">
+        <!--标题-->
+        <attr name="title" format="string"></attr>
+        <attr name="isShowPic" format="string"></attr>
+
+    </declare-styleable>
+
+</resources>

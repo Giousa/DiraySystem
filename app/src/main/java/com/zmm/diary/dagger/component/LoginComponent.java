@@ -3,6 +3,7 @@ package com.zmm.diary.dagger.component;
 
 import com.zmm.diary.dagger.ActivityScope;
 import com.zmm.diary.dagger.module.LoginModule;
+import com.zmm.diary.ui.activity.LoginActivity;
 
 import dagger.Component;
 
@@ -15,5 +16,7 @@ import dagger.Component;
 @ActivityScope
 @Component(modules = LoginModule.class,dependencies = HttpComponent.class)
 public interface LoginComponent {
+
+    void inject(LoginActivity activity);
 
 }

@@ -2,8 +2,6 @@ package com.zmm.diary.utils;
 
 import android.widget.Toast;
 
-import com.zmm.diary.MyApplication;
-
 /**
  * Description:
  * Author:zhangmengmeng
@@ -17,7 +15,7 @@ public class ToastUtils {
 
     public static void SimpleToast(String string){
         if (toast==null){
-            toast= Toast.makeText(MyApplication.getContext(), string, Toast.LENGTH_SHORT);
+            toast= Toast.makeText(UIUtils.getContext(), string, Toast.LENGTH_SHORT);
         }else{
             toast.setText(string);
         }

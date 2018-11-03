@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView
+        android:id="@+id/sub_image"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="fitXY">
+
+    </com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <!--<include layout="@layout/toolbar_content"/>-->
+
+        <!--用户登录-->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="@dimen/dp_size_120"
+                android:layout_height="@dimen/dp_size_120"
+                android:src="@drawable/login_header"/>
+
+            <!--账号-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/bigMenu"
+                android:layout_marginLeft="@dimen/smallBiggerMargin"
+                android:layout_marginRight="@dimen/smallBiggerMargin"
+                android:layout_marginTop="@dimen/bigMargin"
+                android:background="@drawable/white_solid_small_corner"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingLeft="@dimen/smallerMargin">
+
+                <ImageView
+                    android:layout_width="@dimen/smallTuBiao"
+                    android:layout_height="@dimen/smallTuBiao"
+                    android:src="@drawable/login_phone"/>
+
+                <EditText
+                    android:id="@+id/et_login_phone"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@null"
+                    android:gravity="center_vertical"
+                    android:hint="请输入11位手机号"
+                    android:inputType="number"
+                    android:padding="@dimen/smallerMargin"
+                    android:text=""/>
+            </LinearLayout>
+
+            <!--密码-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/bigMenu"
+                android:layout_marginBottom="@dimen/Margin"
+                android:layout_marginLeft="@dimen/smallBiggerMargin"
+                android:layout_marginRight="@dimen/smallBiggerMargin"
+                android:layout_marginTop="@dimen/bigMargin"
+                android:background="@drawable/white_solid_small_corner"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingLeft="@dimen/smallerMargin">
+
+                <ImageView
+                    android:layout_width="@dimen/smallTuBiao"
+                    android:layout_height="@dimen/smallTuBiao"
+                    android:src="@drawable/login_psd"/>
+
+                <EditText
+                    android:id="@+id/et_login_password"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@null"
+                    android:gravity="center_vertical"
+                    android:hint="请输入6~16位密码"
+                    android:inputType="textPassword"
+                    android:padding="@dimen/smallerMargin"
+                    android:paddingRight="@dimen/smallerMargin"
+                    android:text=""/>
+            </LinearLayout>
+
+
+            <Button
+                android:id="@+id/btn_login"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/smallBiggerMargin"
+                android:layout_marginRight="@dimen/smallBiggerMargin"
+                android:layout_marginTop="@dimen/bigMargin"
+                android:background="@drawable/bg_btn"
+                android:text="登录"
+                android:textSize="@dimen/sp_size_18"
+                android:textColor="@color/white"/>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/smallBiggerMargin"
+                android:layout_marginRight="@dimen/smallBiggerMargin"
+                android:layout_marginTop="@dimen/bigMargin">
+
+                <TextView
+                    android:id="@+id/tv_login_register"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="立即注册"
+                    android:textSize="@dimen/notSmallTextSize"/>
+
+                <TextView
+                    android:id="@+id/tv_login_forget"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:text="忘记密码?"
+                    android:textSize="@dimen/notSmallTextSize"/>
+            </RelativeLayout>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+
+</RelativeLayout>

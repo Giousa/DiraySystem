@@ -70,11 +70,6 @@ public abstract class BaseFragment<T extends BasePresenter> extends Fragment imp
         }
     }
 
-    @Override
-    public void error(String s) {
-        ToastUtils.SimpleToast(s);
-    }
-
     protected abstract void init();
 
     protected abstract void setupActivityComponent(HttpComponent httpComponent);

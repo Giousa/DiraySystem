@@ -1,16 +1,11 @@
 package com.zmm.diary.mvp.presenter;
 
-import com.zmm.diary.bean.BaseBean;
 import com.zmm.diary.bean.UserBean;
 import com.zmm.diary.mvp.presenter.contract.LoginContract;
-import com.zmm.diary.utils.MD5Utils;
+import com.zmm.diary.rx.RxHttpResponseCompat;
+import com.zmm.diary.rx.subscriber.ErrorHandlerSubscriber;
 
 import javax.inject.Inject;
-
-import io.reactivex.Observer;
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.disposables.Disposable;
-import io.reactivex.schedulers.Schedulers;
 
 /**
  * Description:
@@ -33,36 +28,12 @@ public class LoginPresenter extends BasePresenter<LoginContract.ILoginModel,Logi
      */
     public void login(String phone, String password) {
 
-        mModel.login(phone, MD5Utils.encode(password))
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Observer<BaseBean<UserBean>>() {
+        mModel.login(phone,password)
+                .compose(RxHttpResponseCompat.<UserBean>compatResult())
+                .subscribe(new ErrorHandlerSubscriber<UserBean>() {
                     @Override
-                    public void onSubscribe(Disposable d) {
-
-                    }
-
-                    @Override
-                    public void onNext(BaseBean<UserBean> userBeanBaseBean) {
-
-                        int code = userBeanBaseBean.getCode();
-                        if(code == 2000){
-                            UserBean data = userBeanBaseBean.getData();
-                            mView.loginSuccess(data);
-                        }else {
-                            mView.error(userBeanBaseBean.getMessage());
-                        }
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-                        e.printStackTrace();
-                        mView.error("服务器异常");
-                    }
-
-                    @Override
-                    public void onComplete() {
-
+                    public void onNext(UserBean userBean) {
+                        mView.loginSuccess(userBean);
                     }
                 });
     }
