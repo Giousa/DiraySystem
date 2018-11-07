@@ -1,6 +1,5 @@
 package com.zmm.diary.ui.activity;
 
-import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
@@ -17,7 +16,6 @@ import com.zmm.diary.mvp.presenter.contract.LoginContract;
 import com.zmm.diary.utils.ToastUtils;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 /**
@@ -106,5 +104,4 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
 
         mPresenter.login(mUsernameStr.trim(), mPasswordStr.trim());
     }
-
 }

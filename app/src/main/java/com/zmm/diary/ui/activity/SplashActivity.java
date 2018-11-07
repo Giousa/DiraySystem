@@ -52,11 +52,10 @@ public class SplashActivity extends BaseActivity {
                 boolean isLogin = SharedPreferencesUtil.getBoolean(CommonConfig.LOGIN_STATUS, false);
 
                 if (isLogin) {
-                    startActivity(MainActivity.class);
+                    startActivity(MainActivity.class,true);
                 } else {
-                    startActivity(LoginActivity.class);
+                    startActivity(LoginActivity.class,true);
                 }
-
 
             }
         });
