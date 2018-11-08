@@ -8,4 +8,6 @@
     <string name="error_system">服务器繁忙</string>
 
     <string name="error_login">用户名或密码错误</string>
+    <string name="exception">服务器繁忙，请稍后继续</string>
+
 </resources>

@@ -5,6 +5,7 @@ import android.content.Context;
 import android.os.Handler;
 import android.view.View;
 
+import com.zmm.diary.bean.UserBean;
 import com.zmm.diary.dagger.component.DaggerHttpComponent;
 import com.zmm.diary.dagger.component.HttpComponent;
 import com.zmm.diary.dagger.module.HttpModule;
@@ -31,7 +32,7 @@ public class MyApplication extends Application {
     //主线程id
     private static int mMainThreadId;
 
-    private View mView;
+    public static UserBean userBean;
 
     private List<BaseActivity> mBaseActivityList;
 

@@ -1,6 +1,7 @@
 package com.zmm.diary.bean;
 
 import java.io.Serializable;
+import java.util.Date;
 
 /**
  * Description:
@@ -10,13 +11,28 @@ import java.io.Serializable;
  */
 public class UserBean implements Serializable{
 
+
     private String id;
 
-    private String cellphone;
+    private String username;
 
-    private String userName;
+    private String type;
 
-    private String user_type;
+    private String icon;
+
+    private String nickname;
+
+    private Integer gender;
+
+    private Integer age;
+
+    private Integer height;
+
+    private Integer weight;
+
+    private String birthday;
+
+    private Date createTime;
 
     public String getId() {
         return id;
@@ -26,37 +42,83 @@ public class UserBean implements Serializable{
         this.id = id;
     }
 
-    public String getCellphone() {
-        return cellphone;
+    public String getUsername() {
+        return username;
     }
 
-    public void setCellphone(String cellphone) {
-        this.cellphone = cellphone;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
-    public String getUserName() {
-        return userName;
+    public String getType() {
+        return type;
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
+    public void setType(String type) {
+        this.type = type;
     }
 
-    public String getUser_type() {
-        return user_type;
+    public String getIcon() {
+        return icon;
     }
 
-    public void setUser_type(String user_type) {
-        this.user_type = user_type;
+    public void setIcon(String icon) {
+        this.icon = icon;
     }
 
-    @Override
-    public String toString() {
-        return "UserBean{" +
-                "id='" + id + '\'' +
-                ", cellphone='" + cellphone + '\'' +
-                ", userName='" + userName + '\'' +
-                ", user_type='" + user_type + '\'' +
-                '}';
+    public String getNickname() {
+        return nickname;
+    }
+
+    public void setNickname(String nickname) {
+        this.nickname = nickname;
+    }
+
+    public Integer getGender() {
+        return gender;
+    }
+
+    public void setGender(Integer gender) {
+        this.gender = gender;
+    }
+
+    public Integer getAge() {
+        return age;
+    }
+
+    public void setAge(Integer age) {
+        this.age = age;
+    }
+
+    public Integer getHeight() {
+        return height;
+    }
+
+    public void setHeight(Integer height) {
+        this.height = height;
+    }
+
+    public Integer getWeight() {
+        return weight;
+    }
+
+    public void setWeight(Integer weight) {
+        this.weight = weight;
+    }
+
+    public String getBirthday() {
+        return birthday;
+    }
+
+    public void setBirthday(String birthday) {
+        this.birthday = birthday;
+    }
+
+    public Date getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
     }
 }

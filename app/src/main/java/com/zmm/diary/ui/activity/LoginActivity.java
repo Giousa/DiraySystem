@@ -1,5 +1,6 @@
 package com.zmm.diary.ui.activity;
 
+import android.content.Intent;
 import android.graphics.PointF;
 import android.text.TextUtils;
 import android.view.View;
@@ -84,8 +85,14 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
                 login();
                 break;
             case R.id.tv_login_register:
+                Intent intent = new Intent(this,RegisterActivity.class);
+                intent.putExtra("param",1);
+                startActivity(intent);
                 break;
             case R.id.tv_login_forget:
+                Intent intent2 = new Intent(this,RegisterActivity.class);
+                intent2.putExtra("param",2);
+                startActivity(intent2);
                 break;
         }
     }
