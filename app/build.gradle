@@ -64,4 +64,7 @@ dependencies {
 
     //加载长图
     implementation 'com.davemorrissey.labs:subsampling-scale-image-view:3.10.0'
+
+    //BottomBar 底层导航栏
+    implementation 'com.github.chaychan:BottomBarLayout:1.1.2' //建议使用最新版本
 }

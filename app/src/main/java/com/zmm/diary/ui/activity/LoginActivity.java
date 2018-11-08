@@ -9,6 +9,7 @@ import android.widget.EditText;
 import com.davemorrissey.labs.subscaleview.ImageSource;
 import com.davemorrissey.labs.subscaleview.ImageViewState;
 import com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView;
+import com.zmm.diary.MyApplication;
 import com.zmm.diary.R;
 import com.zmm.diary.bean.UserBean;
 import com.zmm.diary.dagger.component.DaggerLoginComponent;
@@ -67,7 +68,8 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
 
     @Override
     public void loginSuccess(UserBean userBean) {
-
+        MyApplication.userBean = userBean;
+        startActivity(MainActivity.class,true);
     }
 
     private boolean isPhoneValid(String phone) {

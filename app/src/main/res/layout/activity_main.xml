@@ -1,18 +1,86 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".ui.activity.MainActivity">
+    android:layout_height="match_parent">
 
-    <TextView
+    <FrameLayout
+        android:id="@+id/frame_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
+    <RelativeLayout
+        android:layout_alignParentBottom="true"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Hello World!"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:layout_height="wrap_content">
+        <com.chaychan.library.BottomBarLayout
+            android:id="@+id/bbl"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:orientation="horizontal">
 
-</android.support.constraint.ConstraintLayout>
+            <com.chaychan.library.BottomBarItem
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                app:iconHeight="30dp"
+                app:iconNormal="@drawable/item1_before"
+                app:iconSelected="@drawable/item1_after"
+                app:iconWidth="30dp"
+                app:itemMarginTop="-3dp"
+                app:itemText="首页"
+                app:itemTextSize="12sp"
+                app:textColorNormal="@color/tab_normal_color"
+                app:textColorSelected="@color/tab_selected_color" />
+
+            <com.chaychan.library.BottomBarItem
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                app:iconHeight="30dp"
+                app:iconNormal="@drawable/item2_before"
+                app:iconSelected="@drawable/item2_after"
+                app:iconWidth="30dp"
+                app:itemMarginTop="-3dp"
+                app:itemText="日历"
+                app:itemTextSize="12sp"
+                app:textColorNormal="@color/tab_normal_color"
+                app:textColorSelected="@color/tab_selected_color" />
+
+
+            <com.chaychan.library.BottomBarItem
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                app:iconHeight="30dp"
+                app:iconNormal="@drawable/item4_before"
+                app:iconSelected="@drawable/item4_after"
+                app:iconWidth="30dp"
+                app:itemMarginTop="-3dp"
+                app:itemText="便签"
+                app:itemTextSize="12sp"
+                app:textColorNormal="@color/tab_normal_color"
+                app:textColorSelected="@color/tab_selected_color" />
+
+            <com.chaychan.library.BottomBarItem
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                app:iconHeight="30dp"
+                app:iconNormal="@drawable/item3_before"
+                app:iconSelected="@drawable/item3_after"
+                app:iconWidth="30dp"
+                app:itemMarginTop="-3dp"
+                app:itemText="我的"
+                app:itemTextSize="12sp"
+                app:textColorNormal="@color/tab_normal_color"
+                app:textColorSelected="@color/tab_selected_color" />
+
+        </com.chaychan.library.BottomBarLayout>
+
+    </RelativeLayout>
+
+
+</RelativeLayout>
