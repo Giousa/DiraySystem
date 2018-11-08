@@ -88,11 +88,13 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
                 Intent intent = new Intent(this,RegisterActivity.class);
                 intent.putExtra("param",1);
                 startActivity(intent);
+                finish();
                 break;
             case R.id.tv_login_forget:
                 Intent intent2 = new Intent(this,RegisterActivity.class);
                 intent2.putExtra("param",2);
                 startActivity(intent2);
+                finish();
                 break;
         }
     }

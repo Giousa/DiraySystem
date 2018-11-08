@@ -32,7 +32,7 @@ public class UserBean implements Serializable{
 
     private String birthday;
 
-    private Date createTime;
+    private String createTime;
 
     public String getId() {
         return id;
@@ -114,11 +114,11 @@ public class UserBean implements Serializable{
         this.birthday = birthday;
     }
 
-    public Date getCreateTime() {
+    public String getCreateTime() {
         return createTime;
     }
 
-    public void setCreateTime(Date createTime) {
+    public void setCreateTime(String createTime) {
         this.createTime = createTime;
     }
 }

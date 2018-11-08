@@ -109,7 +109,7 @@ public class RegisterActivity extends BaseActivity<RegisterPresenter> implements
         mTitleBar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                finish();
+                startActivity(LoginActivity.class,true);
             }
         });
 
