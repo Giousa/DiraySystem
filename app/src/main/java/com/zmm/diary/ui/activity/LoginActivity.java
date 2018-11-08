@@ -1,10 +1,12 @@
 package com.zmm.diary.ui.activity;
 
+import android.graphics.PointF;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
 
 import com.davemorrissey.labs.subscaleview.ImageSource;
+import com.davemorrissey.labs.subscaleview.ImageViewState;
 import com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView;
 import com.zmm.diary.R;
 import com.zmm.diary.bean.UserBean;
@@ -56,8 +58,9 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
     @Override
     protected void init() {
 
-        mSubImage.setImage(ImageSource.resource(R.drawable.login_bg));
-
+        mSubImage.setImage(ImageSource.resource(R.drawable.login_bg),new ImageViewState(1.2f, new PointF(0, 0), 0));
+        mSubImage.setZoomEnabled(false);
+        mSubImage.setPanEnabled(false);
     }
 
 

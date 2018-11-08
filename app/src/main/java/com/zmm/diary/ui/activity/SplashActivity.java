@@ -1,8 +1,10 @@
 package com.zmm.diary.ui.activity;
 
+import android.graphics.PointF;
 import android.os.Bundle;
 
 import com.davemorrissey.labs.subscaleview.ImageSource;
+import com.davemorrissey.labs.subscaleview.ImageViewState;
 import com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView;
 import com.zmm.diary.R;
 import com.zmm.diary.dagger.component.HttpComponent;
@@ -42,7 +44,15 @@ public class SplashActivity extends BaseActivity {
     @Override
     protected void init() {
 
-        mSubImage.setImage(ImageSource.resource(R.drawable.splash_bg));
+        //加载图片，和初始加载比例
+        mSubImage.setImage(ImageSource.resource(R.drawable.splash_bg),new ImageViewState(1.2f, new PointF(0, 0), 0));
+
+        //禁止缩放
+        mSubImage.setZoomEnabled(false);
+
+        //禁止滑动
+        mSubImage.setPanEnabled(false);
+
 
 
         Observable.timer(2, TimeUnit.SECONDS).subscribe(new Consumer<Long>() {
