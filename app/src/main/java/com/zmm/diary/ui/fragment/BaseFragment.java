@@ -70,10 +70,12 @@ public abstract class BaseFragment<T extends BasePresenter> extends Fragment imp
         }
     }
 
-    protected abstract void init();
+    protected abstract int setLayout();
 
     protected abstract void setupActivityComponent(HttpComponent httpComponent);
 
-    protected abstract int setLayout();
+    protected abstract void init();
+
+
 
 }
