@@ -3,6 +3,7 @@ package com.zmm.diary;
 import android.app.Application;
 import android.content.Context;
 import android.os.Handler;
+import android.support.multidex.MultiDex;
 import android.view.View;
 
 import com.zmm.diary.bean.UserBean;
@@ -109,4 +110,8 @@ public class MyApplication extends Application {
         return mMainThreadId;
     }
 
+    protected void attachBaseContext(Context base) {
+        super.attachBaseContext(base);
+        MultiDex.install(this);
+    }
 }
