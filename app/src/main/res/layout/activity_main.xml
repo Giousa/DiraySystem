@@ -61,7 +61,7 @@
                 app:iconSelected="@drawable/item4_after"
                 app:iconWidth="30dp"
                 app:itemMarginTop="-3dp"
-                app:itemText="便签"
+                app:itemText="消费"
                 app:itemTextSize="12sp"
                 app:textColorNormal="@color/tab_normal_color"
                 app:textColorSelected="@color/tab_selected_color" />

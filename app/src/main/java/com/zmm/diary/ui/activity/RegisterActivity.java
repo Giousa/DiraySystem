@@ -18,7 +18,6 @@ import com.zmm.diary.mvp.presenter.RegisterPresenter;
 import com.zmm.diary.mvp.presenter.contract.RegisterContract;
 import com.zmm.diary.ui.widget.TitleBar;
 import com.zmm.diary.utils.ToastUtils;
-import com.zmm.diary.utils.UIUtils;
 import com.zmm.diary.utils.VerificationUtils;
 
 import java.util.concurrent.TimeUnit;
@@ -44,8 +43,6 @@ public class RegisterActivity extends BaseActivity<RegisterPresenter> implements
 
     @BindView(R.id.sub_image)
     SubsamplingScaleImageView mSubImage;
-    @BindView(R.id.title_bar)
-    TitleBar mTitleBar;
     @BindView(R.id.et_phone)
     EditText mEtPhone;
     @BindView(R.id.et_password)
@@ -56,10 +53,12 @@ public class RegisterActivity extends BaseActivity<RegisterPresenter> implements
     TextView mTvGetYzm;
     @BindView(R.id.btn_confirm)
     Button mBtnConfirm;
+    @BindView(R.id.title_bar)
+    TitleBar mTitleBar;
+
     private int mParam;
 
     private String mTitle = "注册";
-    private Disposable mDisposable;
 
     @Override
     protected int setLayout() {
@@ -86,10 +85,6 @@ public class RegisterActivity extends BaseActivity<RegisterPresenter> implements
 
 
     private void initToolBar() {
-        //这里一定要加上，否则menu不显示
-        setSupportActionBar(mTitleBar);
-        getSupportActionBar().setDisplayShowTitleEnabled(false);
-
 
         if (mParam == 1) {
             mTitle = "注册";
@@ -103,10 +98,11 @@ public class RegisterActivity extends BaseActivity<RegisterPresenter> implements
         System.out.println("mTitle = " + mTitle);
 
         mBtnConfirm.setText(mTitle);
-        mTitleBar.setCenterTitle(mTitle);
 
-        mTitleBar.setNavigationIcon(UIUtils.getResources().getDrawable(R.mipmap.back));
-        mTitleBar.setNavigationOnClickListener(new View.OnClickListener() {
+        mTitleBar.setTitle(mTitle);
+        mTitleBar.setLeftImageResource(R.drawable.back);
+        mTitleBar.setLeftText("返回");
+        mTitleBar.setLeftClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startActivity(LoginActivity.class,true);
@@ -141,13 +137,13 @@ public class RegisterActivity extends BaseActivity<RegisterPresenter> implements
         boolean flag2 = checkPassword(password);
         boolean flag3 = checkVerifyCode(verifyCode);
 
-        if(flag1 && flag2 && flag3){
-            if(mParam == 1){
-                register(phone,password,verifyCode);
-            }else if(mParam == 2){
-                resetPassword(phone,password,verifyCode);
-            }else {
-                modifyPassword(phone,password,verifyCode);
+        if (flag1 && flag2 && flag3) {
+            if (mParam == 1) {
+                register(phone, password, verifyCode);
+            } else if (mParam == 2) {
+                resetPassword(phone, password, verifyCode);
+            } else {
+                modifyPassword(phone, password, verifyCode);
             }
         }
     }
@@ -157,7 +153,7 @@ public class RegisterActivity extends BaseActivity<RegisterPresenter> implements
      */
     private void register(String phone, String password, String verifyCode) {
 
-        mPresenter.register(phone,password,verifyCode);
+        mPresenter.register(phone, password, verifyCode);
 
     }
 
@@ -165,7 +161,7 @@ public class RegisterActivity extends BaseActivity<RegisterPresenter> implements
      * 重置密码
      */
     private void resetPassword(String phone, String password, String verifyCode) {
-        mPresenter.modifyPassword(phone,password,verifyCode);
+        mPresenter.modifyPassword(phone, password, verifyCode);
 
     }
 
@@ -173,7 +169,7 @@ public class RegisterActivity extends BaseActivity<RegisterPresenter> implements
      * 修改密码
      */
     private void modifyPassword(String phone, String password, String verifyCode) {
-        mPresenter.modifyPassword(phone,password,verifyCode);
+        mPresenter.modifyPassword(phone, password, verifyCode);
 
     }
 
@@ -185,22 +181,22 @@ public class RegisterActivity extends BaseActivity<RegisterPresenter> implements
         String phoneStr = mEtPhone.getText().toString();
         boolean flag = checkPhone(phoneStr);
 
-        if(flag){
+        if (flag) {
             mPresenter.getVerifyCode(phoneStr);
         }
 
 
     }
 
-    private boolean checkPhone(String phone){
-        if(TextUtils.isEmpty(phone)){
+    private boolean checkPhone(String phone) {
+        if (TextUtils.isEmpty(phone)) {
             ToastUtils.SimpleToast("手机号不能为空");
             return false;
         }
 
         boolean phoneValid = VerificationUtils.matcherPhoneNum(phone);
 
-        if(!phoneValid){
+        if (!phoneValid) {
             ToastUtils.SimpleToast("手机号格式不正确");
             return false;
         }
@@ -209,15 +205,15 @@ public class RegisterActivity extends BaseActivity<RegisterPresenter> implements
     }
 
 
-    private boolean checkPassword(String password){
-        if(TextUtils.isEmpty(password)){
+    private boolean checkPassword(String password) {
+        if (TextUtils.isEmpty(password)) {
             ToastUtils.SimpleToast("密码不能为空");
             return false;
         }
 
         boolean passwordValid = VerificationUtils.matcherPassword(password);
 
-        if(!passwordValid){
+        if (!passwordValid) {
             ToastUtils.SimpleToast("密码格式不正确");
             return false;
         }
@@ -225,9 +221,9 @@ public class RegisterActivity extends BaseActivity<RegisterPresenter> implements
         return true;
     }
 
-    private boolean checkVerifyCode(String code){
+    private boolean checkVerifyCode(String code) {
 
-        if(TextUtils.isEmpty(code)){
+        if (TextUtils.isEmpty(code)) {
             ToastUtils.SimpleToast("验证码不能为空");
             return false;
         }
@@ -262,7 +258,6 @@ public class RegisterActivity extends BaseActivity<RegisterPresenter> implements
                 .subscribe(new Observer<Long>() {
                     @Override
                     public void onSubscribe(Disposable d) {
-                        mDisposable = d;
                     }
 
                     @Override
@@ -290,12 +285,19 @@ public class RegisterActivity extends BaseActivity<RegisterPresenter> implements
     public void registerSuccess(UserBean userBean) {
 
         MyApplication.userBean = userBean;
-        startActivity(MainActivity.class,true);
+        startActivity(MainActivity.class, true);
     }
 
     @Override
     public void modifyPasswordSuccess(String msg) {
         ToastUtils.SimpleToast(msg);
-        startActivity(LoginActivity.class,true);
+        startActivity(LoginActivity.class, true);
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        // TODO: add setContentView(...) invocation
+        ButterKnife.bind(this);
     }
 }
