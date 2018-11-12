@@ -14,7 +14,7 @@ public class NoteBean implements Serializable{
 
     private String uId;
 
-    private String type;
+    private String type;//"私" "公"
 
     private String title;
 

@@ -47,5 +47,10 @@
         <item name="android:background">@color/stroke</item>
     </style>
 
+    <!--弹出框-->
+    <style name="BottomPopAnim" parent="@android:style/Animation.Activity">
+        <item name="android:windowEnterAnimation">@anim/bottom_in</item>
+        <item name="android:windowExitAnimation">@anim/bottom_out</item>
+    </style>
 
 </resources>

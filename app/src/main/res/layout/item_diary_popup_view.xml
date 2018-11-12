@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:background="@color/white">
+
+    <com.yang.flowlayoutlibrary.FlowLayout
+        android:id="@+id/fl_keyword"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="10dp"
+        app:backgroundResource="@drawable/shape_hollow_square_blue"
+        app:itemColor="@color/black"
+        app:itemSize="15sp"
+        app:textPaddingH="5dp"
+        app:textPaddingV="3dp"
+        app:verticalSpacing="10dp"
+        app:horizontalSpacing="10dp" />
+</LinearLayout>

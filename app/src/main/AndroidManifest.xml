@@ -39,6 +39,11 @@
             android:name=".ui.activity.MainActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:launchMode="singleTask"/>
+
+        <activity
+            android:name=".ui.activity.AddDiaryActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:launchMode="singleTask"/>
     </application>
 
 </manifest>

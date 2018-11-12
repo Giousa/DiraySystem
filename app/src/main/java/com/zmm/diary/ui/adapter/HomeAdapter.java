@@ -32,12 +32,12 @@ public class HomeAdapter extends BaseQuickAdapter<NoteBean,BaseViewHolder>{
         final EasySwipeMenuLayout easySwipeMenuLayout = helper.getView(R.id.es);
 
 
-        helper.getView(R.id.content).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ToastUtils.SimpleToast("content click");
-            }
-        });
+//        helper.getView(R.id.content).setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                ToastUtils.SimpleToast("content click");
+//            }
+//        });
 
         helper.getView(R.id.tv_right_delete).setOnClickListener(new View.OnClickListener() {
             @Override

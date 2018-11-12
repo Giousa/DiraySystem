@@ -1,6 +1,7 @@
 package com.zmm.diary.ui.fragment;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
@@ -13,6 +14,7 @@ import android.widget.ImageView;
 import com.zmm.diary.R;
 import com.zmm.diary.bean.NoteBean;
 import com.zmm.diary.dagger.component.HttpComponent;
+import com.zmm.diary.ui.activity.AddDiaryActivity;
 import com.zmm.diary.ui.activity.LoginActivity;
 import com.zmm.diary.ui.activity.MainActivity;
 import com.zmm.diary.ui.adapter.HomeAdapter;
@@ -73,7 +75,8 @@ public class HomeFragment extends BaseFragment {
         mTitleBar.addAction(new TitleBar.ImageAction(R.drawable.add) {
             @Override
             public void performAction(View view) {
-                ToastUtils.SimpleToast("添加");
+
+                mContext.startActivity(new Intent(mContext,AddDiaryActivity.class));
             }
         });
 

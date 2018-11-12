@@ -4,7 +4,7 @@ android {
     compileSdkVersion 28
     defaultConfig {
         applicationId "com.zmm.diary"
-        minSdkVersion 18
+        minSdkVersion 19
         targetSdkVersion 28
         versionCode 1
         versionName "1.0"
@@ -87,4 +87,10 @@ dependencies {
 
     //滑动删除更新
     implementation 'com.github.anzaizai:EasySwipeMenuLayout:1.1.2'
+
+    //popup弹出框
+    implementation 'com.github.zyyoona7:EasyPopup:1.1.2'
+
+    //流式布局  标签
+    implementation 'com.github.alidili:FlowLayout:v1.5'
 }
