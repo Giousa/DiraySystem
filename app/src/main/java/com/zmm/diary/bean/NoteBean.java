@@ -12,9 +12,9 @@ public class NoteBean implements Serializable{
 
     private String id;
 
-    private String uId;
+    private String uid;
 
-    private String type;//"私" "公"
+    private String type;//"私" "公" "支出" "收入"
 
     private String title;
 
@@ -26,6 +26,7 @@ public class NoteBean implements Serializable{
 
     private String updateTime;
 
+
     public String getId() {
         return id;
     }
@@ -34,12 +35,12 @@ public class NoteBean implements Serializable{
         this.id = id;
     }
 
-    public String getuId() {
-        return uId;
+    public String getUid() {
+        return uid;
     }
 
-    public void setuId(String uId) {
-        this.uId = uId;
+    public void setUid(String uid) {
+        this.uid = uid;
     }
 
     public String getType() {

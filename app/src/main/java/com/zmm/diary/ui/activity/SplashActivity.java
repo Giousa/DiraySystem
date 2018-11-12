@@ -6,7 +6,9 @@ import android.os.Bundle;
 import com.davemorrissey.labs.subscaleview.ImageSource;
 import com.davemorrissey.labs.subscaleview.ImageViewState;
 import com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView;
+import com.zmm.diary.MyApplication;
 import com.zmm.diary.R;
+import com.zmm.diary.bean.UserBean;
 import com.zmm.diary.dagger.component.HttpComponent;
 import com.zmm.diary.utils.SharedPreferencesUtil;
 import com.zmm.diary.utils.config.CommonConfig;
@@ -57,11 +59,11 @@ public class SplashActivity extends BaseActivity {
 
         Observable.timer(2, TimeUnit.SECONDS).subscribe(new Consumer<Long>() {
             @Override
-            public void accept(Long aLong) throws Exception {
+            public void accept(Long aLong){
 
-                boolean isLogin = SharedPreferencesUtil.getBoolean(CommonConfig.LOGIN_STATUS, false);
+                UserBean userBean = MyApplication.userBean;
 
-                if (isLogin) {
+                if (userBean != null) {
                     startActivity(MainActivity.class,true);
                 } else {
                     startActivity(LoginActivity.class,true);

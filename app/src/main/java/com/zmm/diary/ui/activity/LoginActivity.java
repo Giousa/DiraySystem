@@ -71,7 +71,6 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
     @Override
     public void loginSuccess(UserBean userBean) {
         MyApplication.userBean = userBean;
-        SharedPreferencesUtil.saveBoolean(CommonConfig.LOGIN_STATUS,true);
         startActivity(MainActivity.class,true);
     }
 
