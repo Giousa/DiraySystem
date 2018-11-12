@@ -11,6 +11,7 @@ import com.zmm.diary.R;
 import com.zmm.diary.dagger.component.HttpComponent;
 import com.zmm.diary.ui.popup.DiaryTitlePopup;
 import com.zmm.diary.ui.widget.TitleBar;
+import com.zmm.diary.utils.ToastUtils;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -71,22 +72,17 @@ public class AddDiaryActivity extends BaseActivity {
     @OnClick(R.id.iv_popup)
     public void onViewClicked() {
 
-        System.out.println("我被点击了跑");
-//        EasyPopup easyPopup = EasyPopup.create()
-//                .setContentView(this, R.layout.item_diary_popup_view)
-//                .setAnimationStyle(R.style.BottomPopAnim)
-//                //是否允许点击PopupWindow之外的地方消失
-//                .setFocusAndOutsideEnable(true)
-//                .apply();
-//
-//        easyPopup.showAtLocation(mLlRoot, Gravity.BOTTOM, 0, 0);
-
-        DiaryTitlePopup.create()
+        DiaryTitlePopup diaryTitlePopup = DiaryTitlePopup.create()
                 .setContext(this)
-                .apply()
-                .showAtLocation(mLlRoot, Gravity.BOTTOM, 0, 0);
+                .apply();
 
-
+        diaryTitlePopup.showAtLocation(mLlRoot, Gravity.BOTTOM, 0, 0);
+        diaryTitlePopup.setOnPopupClickListener(new DiaryTitlePopup.OnPopupClickListener() {
+            @Override
+            public void OnPopupClick(String title) {
+                ToastUtils.SimpleToast("被选中的："+title);
+            }
+        });
     }
 }
 

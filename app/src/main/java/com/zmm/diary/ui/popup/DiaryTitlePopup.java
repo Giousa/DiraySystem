@@ -26,6 +26,11 @@ import java.util.List;
 public class DiaryTitlePopup extends BasePopup<DiaryTitlePopup>{
 
 
+    private OnPopupClickListener mOnPopupClickListener;
+
+    public void setOnPopupClickListener(OnPopupClickListener onPopupClickListener) {
+        mOnPopupClickListener = onPopupClickListener;
+    }
 
     public static DiaryTitlePopup create(){
         return new DiaryTitlePopup();
@@ -72,9 +77,17 @@ public class DiaryTitlePopup extends BasePopup<DiaryTitlePopup>{
         flKeyword.setViews(list, new FlowLayout.OnItemClickListener() {
             @Override
             public void onItemClick(String content) {
-                ToastUtils.SimpleToast(content);
+
+                if(mOnPopupClickListener != null){
+                    mOnPopupClickListener.OnPopupClick(content);
+                }
             }
         });
 
+    }
+
+
+    public interface OnPopupClickListener{
+        void OnPopupClick(String title);
     }
 }
