@@ -70,8 +70,14 @@ public class HomeFragment extends BaseFragment<NotePresenter> implements NoteCon
         initRecyclerView();
 
 
-        requestTodayNotes();
+//        requestTodayNotes();
 
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        requestTodayNotes();
     }
 
     private void requestTodayNotes() {
@@ -106,6 +112,10 @@ public class HomeFragment extends BaseFragment<NotePresenter> implements NoteCon
 
         mRvList.setAdapter(mHomeAdapter);
 
+        //适配器，设置空布局
+        mHomeAdapter.setEmptyView(R.layout.empty_content,mRvList);
+
+
         mHomeAdapter.setOnRightMenuClickListener(this);
 
     }
@@ -132,7 +142,9 @@ public class HomeFragment extends BaseFragment<NotePresenter> implements NoteCon
 
     @Override
     public void findTodayNotesSuccess(List<NoteBean> noteBeanList) {
+
         mHomeAdapter.setNewData(noteBeanList);
+
     }
 
     @Override
