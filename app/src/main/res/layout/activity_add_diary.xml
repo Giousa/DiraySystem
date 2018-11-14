@@ -94,7 +94,7 @@
             android:enabled="true"
             android:gravity="top"
             android:hint="收入或支出金额"
-            android:inputType="number"
+            android:inputType="number|numberDecimal"
             android:maxLines="1"
             android:minLines="1"
             android:scrollbars="vertical"

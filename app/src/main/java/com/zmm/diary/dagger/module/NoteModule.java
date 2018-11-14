@@ -3,6 +3,8 @@ package com.zmm.diary.dagger.module;
 import com.zmm.diary.http.ApiService;
 import com.zmm.diary.mvp.model.NoteModel;
 import com.zmm.diary.mvp.presenter.contract.NoteContract;
+import com.zmm.diary.ui.adapter.HomeAdapter;
+import com.zmm.diary.utils.UIUtils;
 
 import dagger.Module;
 import dagger.Provides;
@@ -30,5 +32,10 @@ public class NoteModule {
     @Provides
     public NoteContract.INoteModel provideNoteModel(ApiService apiService){
         return new NoteModel(apiService);
+    }
+
+    @Provides
+    public HomeAdapter provideHomeAdapter(){
+        return new HomeAdapter(UIUtils.getContext());
     }
 }

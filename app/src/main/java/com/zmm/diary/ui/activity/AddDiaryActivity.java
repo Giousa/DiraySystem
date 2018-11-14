@@ -256,8 +256,9 @@ public class AddDiaryActivity extends BaseActivity<NotePresenter> implements Not
     }
 
     @Override
-    public void findTodaySuccess(NoteBean noteBean) {
+    public void findTodayNotesSuccess(List<NoteBean> noteBeanList) {
 
     }
+
 }
 

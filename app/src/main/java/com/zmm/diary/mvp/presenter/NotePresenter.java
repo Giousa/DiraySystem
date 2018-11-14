@@ -5,6 +5,8 @@ import com.zmm.diary.mvp.presenter.contract.NoteContract;
 import com.zmm.diary.rx.RxHttpResponseCompat;
 import com.zmm.diary.rx.subscriber.ErrorHandlerSubscriber;
 
+import java.util.List;
+
 import javax.inject.Inject;
 
 /**
@@ -32,6 +34,22 @@ public class NotePresenter extends BasePresenter<NoteContract.INoteModel,NoteCon
                     @Override
                     public void onNext(NoteBean noteBean) {
                         mView.addSuccess();
+                    }
+                });
+    }
+
+    /**
+     * 当天日记列表
+     * @param id
+     */
+    public void requestTodayNotes(String id) {
+
+        mModel.findToday(id)
+                .compose(RxHttpResponseCompat.<List<NoteBean>>compatResult())
+                .subscribe(new ErrorHandlerSubscriber<List<NoteBean>>() {
+                    @Override
+                    public void onNext(List<NoteBean> noteBeanList) {
+                        mView.findTodayNotesSuccess(noteBeanList);
                     }
                 });
     }

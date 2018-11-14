@@ -3,6 +3,7 @@ package com.zmm.diary.dagger.component;
 import com.zmm.diary.dagger.ActivityScope;
 import com.zmm.diary.dagger.module.NoteModule;
 import com.zmm.diary.ui.activity.AddDiaryActivity;
+import com.zmm.diary.ui.fragment.HomeFragment;
 
 import dagger.Component;
 
@@ -17,4 +18,6 @@ import dagger.Component;
 public interface NoteComponent {
 
     void inject(AddDiaryActivity addDiaryActivity);
+
+    void inject(HomeFragment fragment);
 }

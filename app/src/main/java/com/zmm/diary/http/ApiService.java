@@ -94,11 +94,11 @@ public interface ApiService {
     Observable<BaseBean<NoteBean>> updateNote(@Body NoteBean noteBean);
 
     @GET("note/findNoteById/{id}")
-    Observable<BaseBean<NoteBean>> findNoteById(String id);
+    Observable<BaseBean<NoteBean>> findNoteById(@Path("id")String id);
 
     @GET("note/deleteNote/{id}")
-    Observable<BaseBean<String>> deleteNote(String id);
+    Observable<BaseBean<String>> deleteNote(@Path("id")String id);
 
     @GET("note/findTodayNotesByUserId/{userId}")
-    Observable<BaseBean<List<NoteBean>>> findToday(String userId);
+    Observable<BaseBean<List<NoteBean>>> findToday(@Path("userId")String userId);
 }

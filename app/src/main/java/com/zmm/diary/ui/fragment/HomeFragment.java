@@ -11,9 +11,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
+import com.zmm.diary.MyApplication;
 import com.zmm.diary.R;
 import com.zmm.diary.bean.NoteBean;
+import com.zmm.diary.bean.UserBean;
+import com.zmm.diary.dagger.component.DaggerNoteComponent;
 import com.zmm.diary.dagger.component.HttpComponent;
+import com.zmm.diary.dagger.module.NoteModule;
+import com.zmm.diary.mvp.presenter.NotePresenter;
+import com.zmm.diary.mvp.presenter.contract.NoteContract;
 import com.zmm.diary.ui.activity.AddDiaryActivity;
 import com.zmm.diary.ui.activity.LoginActivity;
 import com.zmm.diary.ui.activity.MainActivity;
@@ -26,6 +32,8 @@ import com.zmm.diary.utils.config.CommonConfig;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.inject.Inject;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
@@ -36,7 +44,7 @@ import butterknife.Unbinder;
  * Date:2018/11/8
  * Email:65489469@qq.com
  */
-public class HomeFragment extends BaseFragment {
+public class HomeFragment extends BaseFragment<NotePresenter> implements NoteContract.NoteView {
 
     @BindView(R.id.rv_list)
     RecyclerView mRvList;
@@ -45,6 +53,9 @@ public class HomeFragment extends BaseFragment {
 
     private Context mContext;
 
+    @Inject
+    HomeAdapter mHomeAdapter;
+
     @Override
     protected int setLayout() {
         return R.layout.fragment_home;
@@ -52,7 +63,11 @@ public class HomeFragment extends BaseFragment {
 
     @Override
     protected void setupActivityComponent(HttpComponent httpComponent) {
-
+        DaggerNoteComponent.builder()
+                .httpComponent(httpComponent)
+                .noteModule(new NoteModule(this))
+                .build()
+                .inject(this);
     }
 
 
@@ -66,7 +81,17 @@ public class HomeFragment extends BaseFragment {
         initRecyclerView();
 
 
+        requestTodayNotes();
 
+    }
+
+    private void requestTodayNotes() {
+
+        UserBean userBean = MyApplication.userBean;
+
+        if(userBean != null){
+            mPresenter.requestTodayNotes(userBean.getId());
+        }
     }
 
     private void initToolBar() {
@@ -90,19 +115,45 @@ public class HomeFragment extends BaseFragment {
         //添加分割线
         mRvList.addItemDecoration(new DividerItemDecoration(mContext, DividerItemDecoration.VERTICAL));
 
-        HomeAdapter homeAdapter = new HomeAdapter(mContext);
-        mRvList.setAdapter(homeAdapter);
+//        mHomeAdapter = new HomeAdapter(mContext);
+        mRvList.setAdapter(mHomeAdapter);
 
-        List<NoteBean> noteBeans = new ArrayList<>();
-        for (int i = 0; i < 20; i++) {
-            NoteBean noteBean = new NoteBean();
-            noteBean.setTitle("标题_" + i);
-            noteBean.setContent("简略内容大致如下描述_" + i);
-            noteBeans.add(noteBean);
-        }
-
-        homeAdapter.setNewData(noteBeans);
+//        List<NoteBean> noteBeans = new ArrayList<>();
+//        for (int i = 0; i < 20; i++) {
+//            NoteBean noteBean = new NoteBean();
+//            noteBean.setTitle("标题_" + i);
+//            noteBean.setContent("简略内容大致如下描述_" + i);
+//            noteBeans.add(noteBean);
+//        }
+//
+//        mHomeAdapter.setNewData(noteBeans);
 
 //        homeAdapter.setEmptyView(R.layout.empty_content,mRvList);
     }
+
+    @Override
+    public void addSuccess() {
+
+    }
+
+    @Override
+    public void updateSuccess() {
+
+    }
+
+    @Override
+    public void deleteSuccess() {
+
+    }
+
+    @Override
+    public void findNoteSuccess(NoteBean noteBean) {
+
+    }
+
+    @Override
+    public void findTodayNotesSuccess(List<NoteBean> noteBeanList) {
+        mHomeAdapter.setNewData(noteBeanList);
+    }
+
 }

@@ -41,6 +41,6 @@ public interface NoteContract {
 
         void findNoteSuccess(NoteBean noteBean);
 
-        void findTodaySuccess(NoteBean noteBean);
+        void findTodayNotesSuccess(List<NoteBean> noteBeanList);
     }
 }
