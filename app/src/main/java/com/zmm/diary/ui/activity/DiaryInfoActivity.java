@@ -35,7 +35,7 @@ import butterknife.OnClick;
  * Date:2018/11/11
  * Email:65489469@qq.com
  */
-public class AddDiaryActivity extends BaseActivity<NotePresenter> implements NoteContract.NoteView {
+public class DiaryInfoActivity extends BaseActivity<NotePresenter> implements NoteContract.NoteView {
 
 
     @BindView(R.id.ll_root)
@@ -75,10 +75,12 @@ public class AddDiaryActivity extends BaseActivity<NotePresenter> implements Not
     private List<String> mPersonalList =  Arrays.asList("上班","回家","游戏","聚餐","购物","逛街","锻炼","程序","宠物","旅游","拍摄","保密");
     private List<String> mWorkList =  Arrays.asList("工作","上班打卡","下班打卡","请假","工资","加班","程序","奖金","活动","补卡","展会","拓展","面试","考核");
     private List<String> mPopupShowList = new ArrayList<>();
+    private String mId;
+    private NoteBean mNoteBean;
 
     @Override
     protected int setLayout() {
-        return R.layout.activity_add_diary;
+        return R.layout.activity_diary_info;
     }
 
     @Override
@@ -92,6 +94,12 @@ public class AddDiaryActivity extends BaseActivity<NotePresenter> implements Not
 
     @Override
     protected void init() {
+
+        mId = getIntent().getStringExtra("id");
+
+        if(!TextUtils.isEmpty(mId)){
+            mPresenter.findNoteById(mId);
+        }
 
 
         mRadioGroupShiwu.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
@@ -135,6 +143,25 @@ public class AddDiaryActivity extends BaseActivity<NotePresenter> implements Not
         });
 
 
+        initToolBar();
+
+    }
+
+    private void initToolBar() {
+
+        if(TextUtils.isEmpty(mId)){
+            mTitleBar.setTitle("添加日记");
+        }else {
+            mTitleBar.setTitle("修改日记");
+        }
+        mTitleBar.setLeftImageResource(R.drawable.back);
+        mTitleBar.setLeftText("返回");
+        mTitleBar.setLeftClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
     }
 
     private void spendChecked() {
@@ -195,10 +222,12 @@ public class AddDiaryActivity extends BaseActivity<NotePresenter> implements Not
         String content = mEtContent.getText().toString();
         String spend = mEtSpend.getText().toString();
 
-        NoteBean noteBean = new NoteBean();
+        if(mNoteBean == null){
+            mNoteBean = new NoteBean();
+            mNoteBean.setUid(userBean.getId());
+        }
 
-        noteBean.setUid(userBean.getId());
-        noteBean.setContent(content);
+        mNoteBean.setContent(content);
 
         if(mType.equals("私")){
 
@@ -207,8 +236,8 @@ public class AddDiaryActivity extends BaseActivity<NotePresenter> implements Not
                 return;
             }
 
-            noteBean.setType(mType);
-            noteBean.setTitle(title);
+            mNoteBean.setType(mType);
+            mNoteBean.setTitle(title);
 
         }else if(mType.equals("公")){
             if(TextUtils.isEmpty(title) || TextUtils.isEmpty(content)){
@@ -216,8 +245,8 @@ public class AddDiaryActivity extends BaseActivity<NotePresenter> implements Not
                 return;
             }
 
-            noteBean.setType(mType);
-            noteBean.setTitle(title);
+            mNoteBean.setType(mType);
+            mNoteBean.setTitle(title);
         }else {//消费
 
             if(TextUtils.isEmpty(spend) || TextUtils.isEmpty(content)){
@@ -225,12 +254,17 @@ public class AddDiaryActivity extends BaseActivity<NotePresenter> implements Not
                 return;
             }
 
-            noteBean.setType(mSpendType);
-            noteBean.setTitle(spend);
+            mNoteBean.setType(mSpendType);
+            mNoteBean.setTitle(spend);
         }
 
 
-        mPresenter.addNote(noteBean);
+        if(TextUtils.isEmpty(mId)){
+            mPresenter.addNote(mNoteBean);
+        }else {
+            mPresenter.updateNote(mNoteBean);
+
+        }
 
     }
 
@@ -242,7 +276,8 @@ public class AddDiaryActivity extends BaseActivity<NotePresenter> implements Not
 
     @Override
     public void updateSuccess() {
-
+        ToastUtils.SimpleToast("更新成功");
+        finish();
     }
 
     @Override
@@ -252,6 +287,33 @@ public class AddDiaryActivity extends BaseActivity<NotePresenter> implements Not
 
     @Override
     public void findNoteSuccess(NoteBean noteBean) {
+
+        mNoteBean = noteBean;
+
+
+        String type = noteBean.getType();
+
+        if(type.equals("私")){
+            mType = "私";
+            mRbPersonal.setChecked(true);
+        }else if(type.equals("公")){
+            mType = "公";
+            mRbWork.setChecked(true);
+        }else if(type.equals("支出")){
+            mSpendType = "支出";
+            mRbSpend.setChecked(true);
+            mRbZhichu.setChecked(true);
+        }else {
+            mSpendType = "收入";
+            mRbSpend.setChecked(true);
+            mRbShouru.setChecked(true);
+        }
+        spendChecked();
+
+        mEtTitle.setText(noteBean.getTitle());
+        mEtTitle.setSelection(noteBean.getTitle().length());
+        mEtContent.setText(noteBean.getContent());
+        mEtContent.setSelection(noteBean.getContent().length());
 
     }
 

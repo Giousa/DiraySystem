@@ -2,14 +2,10 @@ package com.zmm.diary.ui.fragment;
 
 import android.content.Context;
 import android.content.Intent;
-import android.os.Bundle;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ImageView;
 
 import com.zmm.diary.MyApplication;
 import com.zmm.diary.R;
@@ -20,23 +16,16 @@ import com.zmm.diary.dagger.component.HttpComponent;
 import com.zmm.diary.dagger.module.NoteModule;
 import com.zmm.diary.mvp.presenter.NotePresenter;
 import com.zmm.diary.mvp.presenter.contract.NoteContract;
-import com.zmm.diary.ui.activity.AddDiaryActivity;
-import com.zmm.diary.ui.activity.LoginActivity;
-import com.zmm.diary.ui.activity.MainActivity;
+import com.zmm.diary.ui.activity.DiaryInfoActivity;
 import com.zmm.diary.ui.adapter.HomeAdapter;
+import com.zmm.diary.ui.dialog.SimpleConfirmDialog;
 import com.zmm.diary.ui.widget.TitleBar;
-import com.zmm.diary.utils.SharedPreferencesUtil;
-import com.zmm.diary.utils.ToastUtils;
-import com.zmm.diary.utils.config.CommonConfig;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.Unbinder;
 
 /**
  * Description:
@@ -44,7 +33,7 @@ import butterknife.Unbinder;
  * Date:2018/11/8
  * Email:65489469@qq.com
  */
-public class HomeFragment extends BaseFragment<NotePresenter> implements NoteContract.NoteView {
+public class HomeFragment extends BaseFragment<NotePresenter> implements NoteContract.NoteView, HomeAdapter.OnRightMenuClickListener {
 
     @BindView(R.id.rv_list)
     RecyclerView mRvList;
@@ -101,7 +90,7 @@ public class HomeFragment extends BaseFragment<NotePresenter> implements NoteCon
             @Override
             public void performAction(View view) {
 
-                mContext.startActivity(new Intent(mContext,AddDiaryActivity.class));
+                mContext.startActivity(new Intent(mContext,DiaryInfoActivity.class));
             }
         });
 
@@ -115,20 +104,10 @@ public class HomeFragment extends BaseFragment<NotePresenter> implements NoteCon
         //添加分割线
         mRvList.addItemDecoration(new DividerItemDecoration(mContext, DividerItemDecoration.VERTICAL));
 
-//        mHomeAdapter = new HomeAdapter(mContext);
         mRvList.setAdapter(mHomeAdapter);
 
-//        List<NoteBean> noteBeans = new ArrayList<>();
-//        for (int i = 0; i < 20; i++) {
-//            NoteBean noteBean = new NoteBean();
-//            noteBean.setTitle("标题_" + i);
-//            noteBean.setContent("简略内容大致如下描述_" + i);
-//            noteBeans.add(noteBean);
-//        }
-//
-//        mHomeAdapter.setNewData(noteBeans);
+        mHomeAdapter.setOnRightMenuClickListener(this);
 
-//        homeAdapter.setEmptyView(R.layout.empty_content,mRvList);
     }
 
     @Override
@@ -143,7 +122,7 @@ public class HomeFragment extends BaseFragment<NotePresenter> implements NoteCon
 
     @Override
     public void deleteSuccess() {
-
+        requestTodayNotes();
     }
 
     @Override
@@ -156,4 +135,32 @@ public class HomeFragment extends BaseFragment<NotePresenter> implements NoteCon
         mHomeAdapter.setNewData(noteBeanList);
     }
 
+    @Override
+    public void onRightMenuDelete(final String id) {
+
+        final SimpleConfirmDialog simpleConfirmDialog = new SimpleConfirmDialog(mContext,null);
+        simpleConfirmDialog.setOnClickListener(new SimpleConfirmDialog.OnClickListener() {
+            @Override
+            public void onCancel() {
+                simpleConfirmDialog.dismiss();
+            }
+
+            @Override
+            public void onConfirm() {
+                simpleConfirmDialog.dismiss();
+                mPresenter.deleteNote(id);
+
+            }
+        });
+
+        simpleConfirmDialog.show();
+
+    }
+
+    @Override
+    public void onRightMenuUpdate(String id) {
+        Intent intent = new Intent(mContext,DiaryInfoActivity.class);
+        intent.putExtra("id",id);
+        startActivity(intent);
+    }
 }

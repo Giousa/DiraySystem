@@ -41,7 +41,7 @@
             android:launchMode="singleTask"/>
 
         <activity
-            android:name=".ui.activity.AddDiaryActivity"
+            android:name=".ui.activity.DiaryInfoActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:launchMode="singleTask"/>
     </application>

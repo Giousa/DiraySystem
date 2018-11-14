@@ -53,4 +53,49 @@ public class NotePresenter extends BasePresenter<NoteContract.INoteModel,NoteCon
                     }
                 });
     }
+
+    /**
+     * 删除日记
+     * @param id
+     */
+    public void deleteNote(String id) {
+        mModel.delete(id)
+                .compose(RxHttpResponseCompat.<String>compatResult())
+                .subscribe(new ErrorHandlerSubscriber<String>() {
+                    @Override
+                    public void onNext(String s) {
+                        mView.deleteSuccess();
+                    }
+                });
+    }
+
+    /**
+     * 获取日记详情
+     * @param id
+     */
+    public void findNoteById(String id) {
+        mModel.findNoteById(id)
+                .compose(RxHttpResponseCompat.<NoteBean>compatResult())
+                .subscribe(new ErrorHandlerSubscriber<NoteBean>() {
+                    @Override
+                    public void onNext(NoteBean noteBean) {
+                        mView.findNoteSuccess(noteBean);
+                    }
+                });
+    }
+
+    /**
+     * 更新日记
+     * @param noteBean
+     */
+    public void updateNote(NoteBean noteBean) {
+        mModel.update(noteBean)
+                .compose(RxHttpResponseCompat.<NoteBean>compatResult())
+                .subscribe(new ErrorHandlerSubscriber<NoteBean>() {
+                    @Override
+                    public void onNext(NoteBean noteBean) {
+                        mView.updateSuccess();
+                    }
+                });
+    }
 }

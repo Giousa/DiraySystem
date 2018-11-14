@@ -36,6 +36,6 @@ public class NoteModule {
 
     @Provides
     public HomeAdapter provideHomeAdapter(){
-        return new HomeAdapter(UIUtils.getContext());
+        return new HomeAdapter();
     }
 }
