@@ -60,6 +60,8 @@ public class RegisterActivity extends BaseActivity<RegisterPresenter> implements
 
     private String mTitle = "注册";
 
+    private Disposable mDisposable;
+
     @Override
     protected int setLayout() {
         return R.layout.activity_register;
@@ -251,7 +253,8 @@ public class RegisterActivity extends BaseActivity<RegisterPresenter> implements
                 .observeOn(AndroidSchedulers.mainThread())
                 .doOnSubscribe(new Consumer<Disposable>() {
                     @Override
-                    public void accept(Disposable disposable) throws Exception {
+                    public void accept(Disposable disposable) {
+                        mDisposable = disposable;
                         mTvGetYzm.setClickable(false);
                     }
                 })
@@ -285,6 +288,7 @@ public class RegisterActivity extends BaseActivity<RegisterPresenter> implements
     public void registerSuccess(UserBean userBean) {
 
         MyApplication.userBean = userBean;
+        mDisposable.dispose();
         startActivity(MainActivity.class, true);
     }
 
@@ -294,10 +298,4 @@ public class RegisterActivity extends BaseActivity<RegisterPresenter> implements
         startActivity(LoginActivity.class, true);
     }
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        // TODO: add setContentView(...) invocation
-        ButterKnife.bind(this);
-    }
 }
