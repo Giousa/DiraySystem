@@ -310,6 +310,8 @@ public class DiaryInfoActivity extends BaseActivity<NotePresenter> implements No
         }
         spendChecked();
 
+        mEtSpend.setText(noteBean.getTitle());
+        mEtSpend.setSelection(noteBean.getTitle().length());
         mEtTitle.setText(noteBean.getTitle());
         mEtTitle.setSelection(noteBean.getTitle().length());
         mEtContent.setText(noteBean.getContent());
