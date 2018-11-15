@@ -2,6 +2,7 @@ package com.zmm.diary.ui.adapter;
 
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
@@ -36,12 +37,23 @@ public class HomeAdapter extends BaseQuickAdapter<NoteBean,BaseViewHolder>{
         helper.setText(R.id.tv_home_content,item.getContent());
 
         ImageView icon = helper.getView(R.id.iv_home_icon);
+        TextView tvMoney = helper.getView(R.id.tv_home_money);
+
         String type = item.getType();
         if(type.equals("公")){
             icon.setImageDrawable(UIUtils.getResources().getDrawable(R.drawable.work_icon));
         }else {
             icon.setImageDrawable(UIUtils.getResources().getDrawable(R.drawable.personal_icon));
+
+            if(type.equals("支出")){
+                tvMoney.setVisibility(View.VISIBLE);
+                tvMoney.setText("+"+item.getMoney());
+            }else if(type.equals("收入")){
+                tvMoney.setVisibility(View.VISIBLE);
+                tvMoney.setText("-"+item.getMoney());
+            }
         }
+
 
         final EasySwipeMenuLayout easySwipeMenuLayout = helper.getView(R.id.es);
 

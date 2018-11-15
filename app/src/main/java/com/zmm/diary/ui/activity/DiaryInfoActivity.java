@@ -168,12 +168,12 @@ public class DiaryInfoActivity extends BaseActivity<NotePresenter> implements No
         if (mRbSpend.isChecked()) {
             mLlSpend.setVisibility(View.VISIBLE);
             mRadioGroupSpend.setVisibility(View.VISIBLE);
-            mLlTitle.setVisibility(View.GONE);
+//            mLlTitle.setVisibility(View.GONE);
 
         } else {
             mLlSpend.setVisibility(View.GONE);
             mRadioGroupSpend.setVisibility(View.GONE);
-            mLlTitle.setVisibility(View.VISIBLE);
+//            mLlTitle.setVisibility(View.VISIBLE);
         }
     }
 
@@ -183,10 +183,10 @@ public class DiaryInfoActivity extends BaseActivity<NotePresenter> implements No
         switch (view.getId()) {
             case R.id.iv_popup:
 
-                if(mType.equals("私")){
-                    mPopupShowList = mPersonalList;
-                }else {
+                if(mType.equals("公")){
                     mPopupShowList = mWorkList;
+                }else {
+                    mPopupShowList = mPersonalList;
                 }
 
                 DiaryTitlePopup diaryTitlePopup = DiaryTitlePopup.create(mPopupShowList)
@@ -227,6 +227,7 @@ public class DiaryInfoActivity extends BaseActivity<NotePresenter> implements No
             mNoteBean.setUid(userBean.getId());
         }
 
+        mNoteBean.setTitle(title);
         mNoteBean.setContent(content);
 
         if(mType.equals("私")){
@@ -237,7 +238,6 @@ public class DiaryInfoActivity extends BaseActivity<NotePresenter> implements No
             }
 
             mNoteBean.setType(mType);
-            mNoteBean.setTitle(title);
 
         }else if(mType.equals("公")){
             if(TextUtils.isEmpty(title) || TextUtils.isEmpty(content)){
@@ -246,7 +246,6 @@ public class DiaryInfoActivity extends BaseActivity<NotePresenter> implements No
             }
 
             mNoteBean.setType(mType);
-            mNoteBean.setTitle(title);
         }else {//消费
 
             if(TextUtils.isEmpty(spend) || TextUtils.isEmpty(content)){
@@ -255,7 +254,7 @@ public class DiaryInfoActivity extends BaseActivity<NotePresenter> implements No
             }
 
             mNoteBean.setType(mSpendType);
-            mNoteBean.setTitle(spend);
+            mNoteBean.setMoney(Float.parseFloat(spend));
         }
 
 
@@ -310,8 +309,8 @@ public class DiaryInfoActivity extends BaseActivity<NotePresenter> implements No
         }
         spendChecked();
 
-        mEtSpend.setText(noteBean.getTitle());
-        mEtSpend.setSelection(noteBean.getTitle().length());
+        mEtSpend.setText(Float.toString(noteBean.getMoney()));
+        mEtSpend.setSelection(Float.toString(noteBean.getMoney()).length());
         mEtTitle.setText(noteBean.getTitle());
         mEtTitle.setSelection(noteBean.getTitle().length());
         mEtContent.setText(noteBean.getContent());

@@ -20,12 +20,22 @@ public class NoteBean implements Serializable{
 
     private String content;
 
+    private Float money;
+
     private String pics;
 
     private String createTime;
 
     private String updateTime;
 
+
+    public Float getMoney() {
+        return money;
+    }
+
+    public void setMoney(Float money) {
+        this.money = money;
+    }
 
     public String getId() {
         return id;

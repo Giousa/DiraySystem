@@ -57,6 +57,18 @@
 
             </LinearLayout>
 
+            <TextView
+                android:visibility="invisible"
+                android:id="@+id/tv_home_money"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:layout_weight="2"
+                android:gravity="center"
+                android:text="-234.5"
+                android:textColor="@color/md_green_500"
+                android:textSize="@dimen/sp_size_20" />
+
         </LinearLayout>
 
         <LinearLayout
