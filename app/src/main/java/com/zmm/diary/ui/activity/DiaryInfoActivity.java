@@ -302,15 +302,19 @@ public class DiaryInfoActivity extends BaseActivity<NotePresenter> implements No
             mSpendType = "支出";
             mRbSpend.setChecked(true);
             mRbZhichu.setChecked(true);
+
+            mEtSpend.setText(Float.toString(noteBean.getMoney()));
+            mEtSpend.setSelection(Float.toString(noteBean.getMoney()).length());
         }else {
             mSpendType = "收入";
             mRbSpend.setChecked(true);
             mRbShouru.setChecked(true);
+
+            mEtSpend.setText(Float.toString(noteBean.getMoney()));
+            mEtSpend.setSelection(Float.toString(noteBean.getMoney()).length());
         }
         spendChecked();
 
-        mEtSpend.setText(Float.toString(noteBean.getMoney()));
-        mEtSpend.setSelection(Float.toString(noteBean.getMoney()).length());
         mEtTitle.setText(noteBean.getTitle());
         mEtTitle.setSelection(noteBean.getTitle().length());
         mEtContent.setText(noteBean.getContent());
