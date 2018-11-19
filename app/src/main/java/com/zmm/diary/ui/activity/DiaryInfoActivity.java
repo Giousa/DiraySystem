@@ -95,6 +95,7 @@ public class DiaryInfoActivity extends BaseActivity<NotePresenter> implements No
     @Override
     protected void init() {
 
+        System.out.println("----------胜楠");
         mId = getIntent().getStringExtra("id");
 
         if(!TextUtils.isEmpty(mId)){

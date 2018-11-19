@@ -50,9 +50,9 @@ public abstract class BaseActivity<T extends BasePresenter> extends AppCompatAct
 
         setContentView(setLayout());
 
-        System.out.println("-------------胜楠添加的");
+        System.out.println("-------------啥啥啥");
         System.out.println("-------------胜楠又添加的");
-        System.out.println("-----adasdad");
+        System.out.println("-----帅帅帅帅");
 
         mContext = this;
 
