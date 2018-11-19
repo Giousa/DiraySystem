@@ -50,6 +50,7 @@ public abstract class BaseActivity<T extends BasePresenter> extends AppCompatAct
 
         setContentView(setLayout());
 
+        System.out.println("-------------胜楠添加的");
         mContext = this;
 
         mUnbinder = ButterKnife.bind(this);
