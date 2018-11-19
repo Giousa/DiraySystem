@@ -52,7 +52,12 @@ public abstract class BaseActivity<T extends BasePresenter> extends AppCompatAct
 
         System.out.println("-------------胜楠添加的");
         System.out.println("-------------胜楠又添加的");
+<<<<<<< HEAD
         System.out.println("-========胜楠");
+=======
+        System.out.println("----------hhhhh");
+        
+>>>>>>> 0eb3fc0d797de8cb7393cdc56c5a8ed3dc1eddda
         mContext = this;
 
         mUnbinder = ButterKnife.bind(this);
