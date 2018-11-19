@@ -52,7 +52,7 @@ public abstract class BaseActivity<T extends BasePresenter> extends AppCompatAct
 
         System.out.println("-------------胜楠添加的");
         System.out.println("-------------胜楠又添加的");
-        System.out.println("-----hhhhhh");
+        System.out.println("-----adasdad");
 
         mContext = this;
 
