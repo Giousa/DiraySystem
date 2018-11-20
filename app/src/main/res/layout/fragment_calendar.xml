@@ -9,7 +9,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="120dp"
-        android:background="#38AE80">
+        android:background="@color/calendar_bg">
 
 
         <TextView

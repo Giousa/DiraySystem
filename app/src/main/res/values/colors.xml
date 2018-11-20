@@ -18,6 +18,9 @@
     <color name="stroke">#cac7c7</color>
     <color name="black">#000000</color>
 
+    <!--日历背景颜色-->
+    <color name="calendar_bg">#38AE80</color>
+
 
     <!--底部导航栏-->
     <color name="tab_normal_color">#999999</color>

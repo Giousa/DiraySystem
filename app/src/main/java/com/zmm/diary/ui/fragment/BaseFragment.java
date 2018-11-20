@@ -80,10 +80,11 @@ public abstract class BaseFragment<T extends BasePresenter> extends Fragment imp
         if(hidden){
             //隐藏时调用
             System.out.println("Fragment Hide");
+            onHide();
         }else {
             //再次显示时调用（第一次不会调用）
             System.out.println("Fragment show");
-            refresh();
+            onRefresh();
         }
     }
 
@@ -93,7 +94,11 @@ public abstract class BaseFragment<T extends BasePresenter> extends Fragment imp
 
     protected abstract void init();
 
-    protected void refresh(){
+    protected void onHide(){
+
+    }
+
+    protected void onRefresh(){
 
     }
 

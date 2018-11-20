@@ -7,6 +7,7 @@ import android.support.v7.widget.RecyclerView;
 import android.widget.TextView;
 
 import com.necer.ncalendar.listener.OnCalendarChangedListener;
+import com.yanzhenjie.sofia.Sofia;
 import com.zmm.diary.MyApplication;
 import com.zmm.diary.R;
 import com.zmm.diary.bean.NoteBean;
@@ -19,6 +20,7 @@ import com.zmm.diary.ui.activity.DiaryInfoActivity;
 import com.zmm.diary.ui.adapter.HomeAdapter;
 import com.zmm.diary.ui.dialog.SimpleConfirmDialog;
 import com.zmm.diary.ui.widget.MyNCalendar;
+import com.zmm.diary.utils.UIUtils;
 
 import org.joda.time.DateTime;
 
@@ -93,15 +95,27 @@ public class CalendarFragment extends BaseFragment<NotePresenter> implements OnC
     }
 
     @Override
-    protected void refresh() {
-        System.out.println("CalendarFragment 刷新");
+    protected void onHide() {
+        super.onHide();
+        Sofia.with(getActivity()).statusBarBackground(UIUtils.getResources().getColor(R.color.colorPrimary));
+
+    }
+
+
+    @Override
+    protected void onRefresh() {
+        super.onRefresh();
         mMyNCalendar.toToday();
+        Sofia.with(getActivity()).statusBarBackground(UIUtils.getResources().getColor(R.color.calendar_bg));
+
     }
 
     @Override
     public void onResume() {
         super.onResume();
         System.out.println("CalendarFragment  onResume");
+
+        Sofia.with(getActivity()).statusBarBackground(UIUtils.getResources().getColor(R.color.calendar_bg));
 
     }
 
