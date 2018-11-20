@@ -18,6 +18,7 @@ public interface UserContract {
 
 
     interface IUserModel{
+
         Observable<BaseBean<UserBean>> uploadIcon(String id, MultipartBody.Part file);
 
     }

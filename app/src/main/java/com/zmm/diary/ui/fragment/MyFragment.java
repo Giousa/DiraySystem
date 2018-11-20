@@ -1,5 +1,6 @@
 package com.zmm.diary.ui.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -8,6 +9,9 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
+import com.lzy.imagepicker.ImagePicker;
+import com.lzy.imagepicker.bean.ImageItem;
+import com.lzy.imagepicker.ui.ImageGridActivity;
 import com.zmm.diary.MyApplication;
 import com.zmm.diary.R;
 import com.zmm.diary.bean.UserBean;
@@ -22,8 +26,11 @@ import com.zmm.diary.ui.widget.TitleBar;
 import com.zmm.diary.utils.ToastUtils;
 import com.zmm.diary.utils.config.CommonConfig;
 
+import java.util.ArrayList;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import butterknife.Unbinder;
 
 /**
@@ -32,7 +39,7 @@ import butterknife.Unbinder;
  * Date:2018/11/8
  * Email:65489469@qq.com
  */
-public class MyFragment extends BaseFragment<UserPresenter> implements CustomItemView.OnItemClickListener,UserContract.UserView {
+public class MyFragment extends BaseFragment<UserPresenter> implements CustomItemView.OnItemClickListener, UserContract.UserView {
 
     @BindView(R.id.title_bar)
     TitleBar mTitleBar;
@@ -44,6 +51,10 @@ public class MyFragment extends BaseFragment<UserPresenter> implements CustomIte
     CustomItemView mCustomItemInfo;
     @BindView(R.id.custom_item_spend)
     CustomItemView mCustomItemSpend;
+
+    private ArrayList<ImageItem> mImages;
+    private String mUserId;
+
 
     @Override
     protected int setLayout() {
@@ -72,11 +83,18 @@ public class MyFragment extends BaseFragment<UserPresenter> implements CustomIte
 
         UserBean userBean = MyApplication.userBean;
 
-        if(userBean != null && TextUtils.isEmpty(userBean.getIcon())){
-            Glide.with(mContext)
-                    .load(CommonConfig.BASE_PIC_URL + userBean.getIcon())
-                    .transform(new GlideCircleTransform(mContext))
-                    .into(mIvHeadIcon);
+        if (userBean != null) {
+
+            mUserId = userBean.getId();
+            String icon = userBean.getIcon();
+
+            if(!TextUtils.isEmpty(icon)){
+                Glide.with(mContext)
+                        .load(CommonConfig.BASE_PIC_URL + userBean.getIcon())
+                        .transform(new GlideCircleTransform(mContext))
+                        .into(mIvHeadIcon);
+            }
+
 
         }
 
@@ -88,8 +106,53 @@ public class MyFragment extends BaseFragment<UserPresenter> implements CustomIte
 
     }
 
+
+    @OnClick(R.id.iv_head_icon)
+    public void onViewClicked() {
+
+        Intent intent = new Intent(mContext, ImageGridActivity.class);
+        startActivityForResult(intent, 100);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (resultCode == ImagePicker.RESULT_CODE_ITEMS) {
+            if (data != null && requestCode == 100) {
+
+                mImages = (ArrayList<ImageItem>) data.getSerializableExtra(ImagePicker.EXTRA_RESULT_ITEMS);
+                if(mImages != null && mImages.size() > 0){
+                    System.out.println("选择图片："+ mImages.get(0).path);
+                    if(!TextUtils.isEmpty(mUserId)){
+                        mPresenter.uploadPic(mUserId, mImages.get(0).path);
+                    }else {
+                        ToastUtils.SimpleToast("请登录");
+                    }
+                }
+
+            } else {
+                System.out.println("没有数据");
+            }
+        }
+    }
+
+
     @Override
     public void updateSuccess(UserBean userBean) {
 
+        if (userBean != null) {
+
+            String icon = userBean.getIcon();
+
+            if(!TextUtils.isEmpty(icon)){
+                Glide.with(mContext)
+                        .load(CommonConfig.BASE_PIC_URL + userBean.getIcon())
+                        .transform(new GlideCircleTransform(mContext))
+                        .into(mIvHeadIcon);
+            }
+
+
+        }
     }
 }

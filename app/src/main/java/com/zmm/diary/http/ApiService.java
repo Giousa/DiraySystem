@@ -116,7 +116,7 @@ public interface ApiService {
 
 
     @Multipart
-    @POST("uploadIcon/{id}")
+    @POST("user/uploadIcon/{id}")
     Observable<BaseBean<UserBean>> uploadIcon( @Path("id") String id,  @Part() MultipartBody.Part file);
 }
 

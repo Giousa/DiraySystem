@@ -97,4 +97,7 @@ dependencies {
     //状态栏
     implementation 'com.yanzhenjie:sofia:1.0.5'
 
+    //图片选择器
+    implementation 'com.lzy.widget:imagepicker:0.6.1'
+
 }
