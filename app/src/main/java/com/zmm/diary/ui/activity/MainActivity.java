@@ -45,7 +45,6 @@ public class MainActivity extends BaseActivity {
         mBbl.setOnItemSelectedListener(new BottomBarLayout.OnItemSelectedListener() {
             @Override
             public void onItemSelected(BottomBarItem bottomBarItem, int prePosition, int currentPosition) {
-                ToastUtils.SimpleToast("currentPosition = "+currentPosition);
 
                 startFragmentAdd(FragmentFactory.createFragment(currentPosition));
 

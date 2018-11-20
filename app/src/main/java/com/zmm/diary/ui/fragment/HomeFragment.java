@@ -1,6 +1,5 @@
 package com.zmm.diary.ui.fragment;
 
-import android.content.Context;
 import android.content.Intent;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
