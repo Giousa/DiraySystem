@@ -2,8 +2,16 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
 
     <include layout="@layout/toolbar_content" />
+
+    <com.zmm.diary.ui.widget.CustomItemView
+        android:id="@+id/custom_item_setting"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:title="设置"
+        app:icon="@drawable/add"/>
 
 </LinearLayout>
