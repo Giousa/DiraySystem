@@ -4,6 +4,7 @@ import com.zmm.diary.bean.BaseBean;
 import com.zmm.diary.bean.NoteBean;
 import com.zmm.diary.mvp.view.BaseView;
 
+import java.util.Date;
 import java.util.List;
 
 import io.reactivex.Observable;
@@ -27,6 +28,8 @@ public interface NoteContract {
         Observable<BaseBean<String>> delete(String id);
 
         Observable<BaseBean<List<NoteBean>>> findToday(String userId);
+
+        Observable<BaseBean<List<NoteBean>>> findNotesByCreateTime(String userId,String createTime);
 
 
     }

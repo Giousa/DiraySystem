@@ -5,6 +5,7 @@ import com.zmm.diary.bean.NoteBean;
 import com.zmm.diary.http.ApiService;
 import com.zmm.diary.mvp.presenter.contract.NoteContract;
 
+import java.util.Date;
 import java.util.List;
 
 import io.reactivex.Observable;
@@ -46,5 +47,10 @@ public class NoteModel implements NoteContract.INoteModel{
     @Override
     public Observable<BaseBean<List<NoteBean>>> findToday(String userId) {
         return mApiService.findToday(userId);
+    }
+
+    @Override
+    public Observable<BaseBean<List<NoteBean>>> findNotesByCreateTime(String userId,String createTime) {
+        return mApiService.findNotesByCreateTime(userId,createTime);
     }
 }

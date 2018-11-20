@@ -4,14 +4,21 @@ import android.support.v7.widget.RecyclerView;
 import android.widget.TextView;
 
 import com.necer.ncalendar.listener.OnCalendarChangedListener;
+import com.zmm.diary.MyApplication;
 import com.zmm.diary.R;
+import com.zmm.diary.bean.NoteBean;
+import com.zmm.diary.dagger.component.DaggerNoteComponent;
 import com.zmm.diary.dagger.component.HttpComponent;
+import com.zmm.diary.dagger.module.NoteModule;
+import com.zmm.diary.mvp.presenter.NotePresenter;
+import com.zmm.diary.mvp.presenter.contract.NoteContract;
 import com.zmm.diary.ui.widget.MyNCalendar;
 
 import org.joda.time.DateTime;
 
+import java.util.List;
+
 import butterknife.BindView;
-import butterknife.OnClick;
 
 /**
  * Description:
@@ -19,7 +26,7 @@ import butterknife.OnClick;
  * Date:2018/11/8
  * Email:65489469@qq.com
  */
-public class CalendarFragment extends BaseFragment implements OnCalendarChangedListener {
+public class CalendarFragment extends BaseFragment<NotePresenter> implements OnCalendarChangedListener,NoteContract.NoteView{
 
     @BindView(R.id.tv_month)
     TextView mTvMonth;
@@ -38,7 +45,11 @@ public class CalendarFragment extends BaseFragment implements OnCalendarChangedL
 
     @Override
     protected void setupActivityComponent(HttpComponent httpComponent) {
-
+        DaggerNoteComponent.builder()
+                .httpComponent(httpComponent)
+                .noteModule(new NoteModule(this))
+                .build()
+                .inject(this);
     }
 
     @Override
@@ -66,13 +77,34 @@ public class CalendarFragment extends BaseFragment implements OnCalendarChangedL
         System.out.println("CalendarFragment dateTime = "+dateTime);
         mTvMonth.setText(dateTime.getMonthOfYear() + "月");
         mTvDate.setText(dateTime.getYear() + "年" + dateTime.getMonthOfYear() + "月" + dateTime.getDayOfMonth() + "日");
+
+        mPresenter.findNotesByCreateTime(MyApplication.userBean.getId(),dateTime.getYear()+"-"+dateTime.getMonthOfYear()+"-"+dateTime.getDayOfMonth());
+
     }
 
 
-    @OnClick(R.id.btn_today)
-    public void onViewClicked() {
+    @Override
+    public void addSuccess() {
 
-        mMyNCalendar.toToday();
+    }
+
+    @Override
+    public void updateSuccess() {
+
+    }
+
+    @Override
+    public void deleteSuccess() {
+
+    }
+
+    @Override
+    public void findNoteSuccess(NoteBean noteBean) {
+
+    }
+
+    @Override
+    public void findTodayNotesSuccess(List<NoteBean> noteBeanList) {
 
     }
 }

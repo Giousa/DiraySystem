@@ -5,6 +5,7 @@ import com.zmm.diary.mvp.presenter.contract.NoteContract;
 import com.zmm.diary.rx.RxHttpResponseCompat;
 import com.zmm.diary.rx.subscriber.ErrorHandlerSubscriber;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -95,6 +96,20 @@ public class NotePresenter extends BasePresenter<NoteContract.INoteModel,NoteCon
                     @Override
                     public void onNext(NoteBean noteBean) {
                         mView.updateSuccess();
+                    }
+                });
+    }
+
+    /**
+     * 根据创建时间，获取日记
+     */
+    public void findNotesByCreateTime(String userId,String createTime) {
+        mModel.findNotesByCreateTime(userId,createTime)
+                .compose(RxHttpResponseCompat.<List<NoteBean>>compatResult())
+                .subscribe(new ErrorHandlerSubscriber<List<NoteBean>>() {
+                    @Override
+                    public void onNext(List<NoteBean> noteBeanList) {
+                        System.out.println("获取日记消息: "+noteBeanList);
                     }
                 });
     }

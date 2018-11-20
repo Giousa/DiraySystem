@@ -104,11 +104,6 @@
 
     </RelativeLayout>
 
-    <Button
-        android:id="@+id/btn_today"
-        android:text="点击回到当天"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
 
     <com.zmm.diary.ui.widget.MyNCalendar
         android:id="@+id/my_n_calendar"

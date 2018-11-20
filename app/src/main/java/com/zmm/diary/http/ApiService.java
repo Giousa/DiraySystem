@@ -4,6 +4,7 @@ import com.zmm.diary.bean.BaseBean;
 import com.zmm.diary.bean.NoteBean;
 import com.zmm.diary.bean.UserBean;
 
+import java.util.Date;
 import java.util.List;
 
 import io.reactivex.Observable;
@@ -101,4 +102,8 @@ public interface ApiService {
 
     @GET("note/findTodayNotesByUserId/{userId}")
     Observable<BaseBean<List<NoteBean>>> findToday(@Path("userId")String userId);
+
+    @GET("note/findNotesByCreateTime/{userId}/{createTime}")
+    Observable<BaseBean<List<NoteBean>>> findNotesByCreateTime(@Path("userId")String userId,
+                                                               @Path("createTime")String createTime);
 }
