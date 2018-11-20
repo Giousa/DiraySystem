@@ -1,5 +1,6 @@
 package com.zmm.diary.ui.activity;
 
+import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.view.KeyEvent;
 import android.widget.FrameLayout;
@@ -38,7 +39,7 @@ public class MainActivity extends BaseActivity {
     @Override
     protected void init() {
 
-        changeFragment(FragmentFactory.createFragment(0));
+        startFragmentAdd(FragmentFactory.createFragment(0));
 
 
         mBbl.setOnItemSelectedListener(new BottomBarLayout.OnItemSelectedListener() {
@@ -46,7 +47,7 @@ public class MainActivity extends BaseActivity {
             public void onItemSelected(BottomBarItem bottomBarItem, int prePosition, int currentPosition) {
                 ToastUtils.SimpleToast("currentPosition = "+currentPosition);
 
-                changeFragment(FragmentFactory.createFragment(currentPosition));
+                startFragmentAdd(FragmentFactory.createFragment(currentPosition));
 
             }
         });
@@ -59,6 +60,31 @@ public class MainActivity extends BaseActivity {
                 .setTransitionStyle(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
                 .commit();
 
+    }
+
+    private BaseFragment current_fragment;
+    // fragment的切换
+    private void startFragmentAdd(BaseFragment fragment) {
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager
+                .beginTransaction();
+        if (current_fragment == null) {
+            fragmentTransaction.add(R.id.frame_layout, fragment).commit();
+            current_fragment = fragment;
+        }
+        if (current_fragment != fragment) {
+            // 先判断是否被add过
+            if (!fragment.isAdded()) {
+                // 隐藏当前的fragment，add下一个到Activity中
+                fragmentTransaction.hide(current_fragment)
+                        .add(R.id.frame_layout, fragment).commit();
+            } else {
+                // 隐藏当前的fragment，显示下一个
+                fragmentTransaction.hide(current_fragment).show(fragment)
+                        .commit();
+            }
+            current_fragment = fragment;
+        }
     }
 
     @Override

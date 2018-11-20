@@ -75,8 +75,14 @@ public class HomeFragment extends BaseFragment<NotePresenter> implements NoteCon
     }
 
     @Override
+    protected void refresh() {
+
+    }
+
+    @Override
     public void onResume() {
         super.onResume();
+        System.out.println("HomeFragment onResume");
         requestTodayNotes();
     }
 

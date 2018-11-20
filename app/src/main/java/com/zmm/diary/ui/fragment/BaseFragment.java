@@ -68,11 +68,28 @@ public abstract class BaseFragment<T extends BasePresenter> extends Fragment imp
         }
     }
 
+    //注意，Fragment切换时，走这个方法，不走onResume
+    @Override
+    public void onHiddenChanged(boolean hidden) {
+        super.onHiddenChanged(hidden);
+        if(hidden){
+            //隐藏时调用
+            System.out.println("Fragment Hide");
+        }else {
+            //再次显示时调用（第一次不会调用）
+            System.out.println("Fragment show");
+            refresh();
+        }
+    }
+
     protected abstract int setLayout();
 
     protected abstract void setupActivityComponent(HttpComponent httpComponent);
 
     protected abstract void init();
+
+    protected abstract void refresh();
+
 
 
 

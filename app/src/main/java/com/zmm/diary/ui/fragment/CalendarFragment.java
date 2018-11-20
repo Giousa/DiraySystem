@@ -1,26 +1,17 @@
 package com.zmm.diary.ui.fragment;
 
-import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.necer.ncalendar.listener.OnCalendarChangedListener;
 import com.zmm.diary.R;
 import com.zmm.diary.dagger.component.HttpComponent;
 import com.zmm.diary.ui.widget.MyNCalendar;
-import com.zmm.diary.utils.DateUtils;
 
 import org.joda.time.DateTime;
 
-import java.text.ParseException;
-
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
-import butterknife.Unbinder;
 
 /**
  * Description:
@@ -41,6 +32,7 @@ public class CalendarFragment extends BaseFragment implements OnCalendarChangedL
 
     @Override
     protected int setLayout() {
+        System.out.println("CalendarFragment setLayout");
         return R.layout.fragment_calendar;
     }
 
@@ -55,10 +47,19 @@ public class CalendarFragment extends BaseFragment implements OnCalendarChangedL
         System.out.println("CalendarFragment  初始化");
         mMyNCalendar.setOnCalendarChangedListener(this);
 
-        mMyNCalendar.toToday();
-
     }
 
+    @Override
+    protected void refresh() {
+        mMyNCalendar.toToday();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        System.out.println("CalendarFragment  onResume");
+
+    }
 
     @Override
     public void onCalendarChanged(DateTime dateTime) {

@@ -50,6 +50,11 @@ public class NoteFragment extends BaseFragment {
 
     }
 
+    @Override
+    protected void refresh() {
+
+    }
+
     private void initToolBar() {
 
         mTitleBar.setTitle("笔记");
