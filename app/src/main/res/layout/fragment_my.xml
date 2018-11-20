@@ -7,7 +7,33 @@
 
     <include layout="@layout/toolbar_content" />
 
+
+    <ImageView
+        android:layout_marginTop="@dimen/dp_size_20"
+        android:layout_gravity="center"
+        android:id="@+id/iv_head_icon"
+        android:layout_width="@dimen/dp_size_150"
+        android:layout_height="@dimen/dp_size_150"
+        android:src="@drawable/login_header" />
+
     <com.zmm.diary.ui.widget.CustomItemView
+        android:layout_marginTop="@dimen/dp_size_10"
+        android:id="@+id/custom_item_info"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:title="个人详情"
+        app:icon="@drawable/add"/>
+
+    <com.zmm.diary.ui.widget.CustomItemView
+        android:layout_marginTop="@dimen/dp_size_10"
+        android:id="@+id/custom_item_spend"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:title="消费"
+        app:icon="@drawable/add"/>
+
+    <com.zmm.diary.ui.widget.CustomItemView
+        android:layout_marginTop="@dimen/dp_size_10"
         android:id="@+id/custom_item_setting"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

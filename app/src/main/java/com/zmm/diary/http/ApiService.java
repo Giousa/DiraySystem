@@ -8,11 +8,14 @@ import java.util.Date;
 import java.util.List;
 
 import io.reactivex.Observable;
+import okhttp3.MultipartBody;
 import retrofit2.http.Body;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
+import retrofit2.http.Multipart;
 import retrofit2.http.POST;
+import retrofit2.http.Part;
 import retrofit2.http.Path;
 
 /**
@@ -106,4 +109,14 @@ public interface ApiService {
     @GET("note/findNotesByCreateTime/{userId}/{createTime}")
     Observable<BaseBean<List<NoteBean>>> findNotesByCreateTime(@Path("userId")String userId,
                                                                @Path("createTime")String createTime);
+
+    /**
+     * -----------------------------用户信息接口-----------------------------
+     */
+
+
+    @Multipart
+    @POST("uploadIcon/{id}")
+    Observable<BaseBean<UserBean>> uploadIcon( @Path("id") String id,  @Part() MultipartBody.Part file);
 }
+
