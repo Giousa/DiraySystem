@@ -94,6 +94,4 @@ dependencies {
     //流式布局  标签
     implementation 'com.github.alidili:FlowLayout:v1.5'
 
-    //时间轴
-    implementation 'com.vivian.widgets:TimeLineItemDecoration:1.4'
 }

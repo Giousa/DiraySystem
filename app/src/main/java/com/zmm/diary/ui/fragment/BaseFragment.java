@@ -46,8 +46,6 @@ public abstract class BaseFragment<T extends BasePresenter> extends Fragment imp
         mRootView = inflater.inflate(setLayout(), container, false);
         mUnbinder = ButterKnife.bind(this, mRootView);
 
-
-
         return mRootView;
 
     }

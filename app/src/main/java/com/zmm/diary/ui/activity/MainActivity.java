@@ -1,6 +1,7 @@
 package com.zmm.diary.ui.activity;
 
 import android.support.v4.app.FragmentTransaction;
+import android.view.KeyEvent;
 import android.widget.FrameLayout;
 
 import com.chaychan.library.BottomBarItem;
@@ -20,6 +21,9 @@ public class MainActivity extends BaseActivity {
     FrameLayout mFrameLayout;
     @BindView(R.id.bbl)
     BottomBarLayout mBbl;
+
+    private long time = 0;
+
 
     @Override
     protected int setLayout() {
@@ -54,5 +58,22 @@ public class MainActivity extends BaseActivity {
                 .replace(R.id.frame_layout, targetFragment, "fragment")
                 .setTransitionStyle(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
                 .commit();
+
     }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+
+        if (keyCode == event.KEYCODE_BACK) {
+            if (System.currentTimeMillis() - time > 2000) {
+                time = System.currentTimeMillis();
+                ToastUtils.SimpleToast( "再次点击，退出应用");
+            } else {
+                removeAllActivity();
+            }
+        }
+
+        return true;
+    }
+
 }

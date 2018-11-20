@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/ll_root"
+    android:layout_width="wrap_content"
+    android:layout_height="80dp"
+    android:background="@android:color/white"
+    android:orientation="vertical">
+
+
+    <TextView
+        android:id="@+id/tv_note_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:singleLine="true"
+        android:text="今日事件"
+        android:textColor="@color/black"
+        android:textSize="@dimen/sp_size_18" />
+
+    <TextView
+        android:id="@+id/tv_note_content"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_size_5"
+        android:singleLine="true"
+        android:text="发送事情如下，这个里"
+        android:textSize="@dimen/sp_size_15" />
+
+</LinearLayout>
