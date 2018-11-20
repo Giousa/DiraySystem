@@ -73,7 +73,7 @@ public class DiaryInfoActivity extends BaseActivity<NotePresenter> implements No
     private String mType = "私";
     private String mSpendType = "支出";
 
-    private List<String> mPersonalList =  Arrays.asList("早餐","回家","游戏","聚餐","购物","逛街","锻炼","程序","宠物","旅游","拍摄","保密");
+    private List<String> mPersonalList =  Arrays.asList("早餐","午餐","晚餐","零食","打发时间","回家","游戏","聚餐","购物","逛街","锻炼","程序","宠物","旅游","拍摄","保密");
     private List<String> mWorkList =  Arrays.asList("工作","上班打卡","下班打卡","请假","工资","加班","程序","奖金","活动","补卡","展会","拓展","面试","考核");
     private List<String> mPopupShowList = new ArrayList<>();
     private String mId;
