@@ -17,9 +17,7 @@ import com.zmm.diary.dagger.component.HttpComponent;
 import com.zmm.diary.dagger.module.LoginModule;
 import com.zmm.diary.mvp.presenter.LoginPresenter;
 import com.zmm.diary.mvp.presenter.contract.LoginContract;
-import com.zmm.diary.utils.SharedPreferencesUtil;
 import com.zmm.diary.utils.ToastUtils;
-import com.zmm.diary.utils.config.CommonConfig;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -62,6 +60,8 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
     @Override
     protected void init() {
 
+        System.out.println("-------------ooooooooo");
+        System.out.println("----------hhhhhh");
         mSubImage.setImage(ImageSource.resource(R.drawable.login_bg),new ImageViewState(1.2f, new PointF(0, 0), 0));
         mSubImage.setZoomEnabled(false);
         mSubImage.setPanEnabled(false);
