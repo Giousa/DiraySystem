@@ -27,10 +27,4 @@ public class MyFragment extends BaseFragment{
 
     }
 
-    @Override
-    protected void refresh() {
-
-    }
-
-
 }

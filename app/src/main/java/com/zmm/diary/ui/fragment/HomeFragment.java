@@ -56,7 +56,6 @@ public class HomeFragment extends BaseFragment<NotePresenter> implements NoteCon
                 .inject(this);
     }
 
-
     @Override
     protected void init() {
 
@@ -64,13 +63,6 @@ public class HomeFragment extends BaseFragment<NotePresenter> implements NoteCon
 
         initRecyclerView();
 
-
-//        requestTodayNotes();
-
-    }
-
-    @Override
-    protected void refresh() {
 
     }
 

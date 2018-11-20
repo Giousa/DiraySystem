@@ -93,6 +93,8 @@ public abstract class BaseFragment<T extends BasePresenter> extends Fragment imp
 
     protected abstract void init();
 
-    protected abstract void refresh();
+    protected void refresh(){
+
+    }
 
 }
