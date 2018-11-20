@@ -3,6 +3,7 @@ package com.zmm.diary.ui.activity;
 import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -80,6 +81,9 @@ public class DiaryInfoActivity extends BaseActivity<NotePresenter> implements No
 
     @Override
     protected int setLayout() {
+
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
+
         return R.layout.activity_diary_info;
     }
 

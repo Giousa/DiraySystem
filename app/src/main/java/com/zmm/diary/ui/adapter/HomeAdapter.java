@@ -47,10 +47,10 @@ public class HomeAdapter extends BaseQuickAdapter<NoteBean,BaseViewHolder>{
 
             if(type.equals("支出")){
                 tvMoney.setVisibility(View.VISIBLE);
-                tvMoney.setText("+"+item.getMoney());
+                tvMoney.setText("-"+item.getMoney());
             }else if(type.equals("收入")){
                 tvMoney.setVisibility(View.VISIBLE);
-                tvMoney.setText("-"+item.getMoney());
+                tvMoney.setText("+"+item.getMoney());
             }
         }
 
