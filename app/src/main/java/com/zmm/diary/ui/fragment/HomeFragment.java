@@ -40,8 +40,6 @@ public class HomeFragment extends BaseFragment<NotePresenter> implements NoteCon
     @BindView(R.id.title_bar)
     TitleBar mTitleBar;
 
-    private Context mContext;
-
     @Inject
     HomeAdapter mHomeAdapter;
 
@@ -62,8 +60,6 @@ public class HomeFragment extends BaseFragment<NotePresenter> implements NoteCon
 
     @Override
     protected void init() {
-
-        mContext = getActivity();
 
         initToolBar();
 
@@ -147,7 +143,7 @@ public class HomeFragment extends BaseFragment<NotePresenter> implements NoteCon
     }
 
     @Override
-    public void findTodayNotesSuccess(List<NoteBean> noteBeanList) {
+    public void findNotesListSuccess(List<NoteBean> noteBeanList) {
 
         mHomeAdapter.setNewData(noteBeanList);
 

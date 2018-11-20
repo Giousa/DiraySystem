@@ -50,7 +50,7 @@ public class NotePresenter extends BasePresenter<NoteContract.INoteModel,NoteCon
                 .subscribe(new ErrorHandlerSubscriber<List<NoteBean>>() {
                     @Override
                     public void onNext(List<NoteBean> noteBeanList) {
-                        mView.findTodayNotesSuccess(noteBeanList);
+                        mView.findNotesListSuccess(noteBeanList);
                     }
                 });
     }
@@ -109,7 +109,7 @@ public class NotePresenter extends BasePresenter<NoteContract.INoteModel,NoteCon
                 .subscribe(new ErrorHandlerSubscriber<List<NoteBean>>() {
                     @Override
                     public void onNext(List<NoteBean> noteBeanList) {
-                        System.out.println("获取日记消息: "+noteBeanList);
+                        mView.findNotesListSuccess(noteBeanList);
                     }
                 });
     }

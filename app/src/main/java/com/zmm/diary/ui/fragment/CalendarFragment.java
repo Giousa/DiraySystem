@@ -1,5 +1,8 @@
 package com.zmm.diary.ui.fragment;
 
+import android.content.Intent;
+import android.support.v7.widget.DividerItemDecoration;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.widget.TextView;
 
@@ -12,11 +15,16 @@ import com.zmm.diary.dagger.component.HttpComponent;
 import com.zmm.diary.dagger.module.NoteModule;
 import com.zmm.diary.mvp.presenter.NotePresenter;
 import com.zmm.diary.mvp.presenter.contract.NoteContract;
+import com.zmm.diary.ui.activity.DiaryInfoActivity;
+import com.zmm.diary.ui.adapter.HomeAdapter;
+import com.zmm.diary.ui.dialog.SimpleConfirmDialog;
 import com.zmm.diary.ui.widget.MyNCalendar;
 
 import org.joda.time.DateTime;
 
 import java.util.List;
+
+import javax.inject.Inject;
 
 import butterknife.BindView;
 
@@ -26,7 +34,7 @@ import butterknife.BindView;
  * Date:2018/11/8
  * Email:65489469@qq.com
  */
-public class CalendarFragment extends BaseFragment<NotePresenter> implements OnCalendarChangedListener,NoteContract.NoteView{
+public class CalendarFragment extends BaseFragment<NotePresenter> implements OnCalendarChangedListener,NoteContract.NoteView, HomeAdapter.OnRightMenuClickListener {
 
     @BindView(R.id.tv_month)
     TextView mTvMonth;
@@ -36,6 +44,10 @@ public class CalendarFragment extends BaseFragment<NotePresenter> implements OnC
     RecyclerView mRvList;
     @BindView(R.id.my_n_calendar)
     MyNCalendar mMyNCalendar;
+
+
+    @Inject
+    HomeAdapter mHomeAdapter;
 
     @Override
     protected int setLayout() {
@@ -58,10 +70,31 @@ public class CalendarFragment extends BaseFragment<NotePresenter> implements OnC
         System.out.println("CalendarFragment  初始化");
         mMyNCalendar.setOnCalendarChangedListener(this);
 
+        initRecyclerView();
+    }
+
+
+    private void initRecyclerView() {
+
+        mRvList.setHasFixedSize(true);
+        mRvList.setLayoutManager(new LinearLayoutManager(mContext));
+
+        //添加分割线
+        mRvList.addItemDecoration(new DividerItemDecoration(mContext, DividerItemDecoration.VERTICAL));
+
+        mRvList.setAdapter(mHomeAdapter);
+
+        //适配器，设置空布局
+        mHomeAdapter.setEmptyView(R.layout.empty_content,mRvList);
+
+        mHomeAdapter.setOnRightMenuClickListener(this);
+
+
     }
 
     @Override
     protected void refresh() {
+        System.out.println("CalendarFragment 刷新");
         mMyNCalendar.toToday();
     }
 
@@ -104,7 +137,37 @@ public class CalendarFragment extends BaseFragment<NotePresenter> implements OnC
     }
 
     @Override
-    public void findTodayNotesSuccess(List<NoteBean> noteBeanList) {
+    public void findNotesListSuccess(List<NoteBean> noteBeanList) {
+        mHomeAdapter.setNewData(noteBeanList);
 
+    }
+
+    @Override
+    public void onRightMenuDelete(final String id) {
+
+        final SimpleConfirmDialog simpleConfirmDialog = new SimpleConfirmDialog(mContext,null);
+        simpleConfirmDialog.setOnClickListener(new SimpleConfirmDialog.OnClickListener() {
+            @Override
+            public void onCancel() {
+                simpleConfirmDialog.dismiss();
+            }
+
+            @Override
+            public void onConfirm() {
+                simpleConfirmDialog.dismiss();
+                mPresenter.deleteNote(id);
+
+            }
+        });
+
+        simpleConfirmDialog.show();
+
+    }
+
+    @Override
+    public void onRightMenuUpdate(String id) {
+        Intent intent = new Intent(mContext,DiaryInfoActivity.class);
+        intent.putExtra("id",id);
+        startActivity(intent);
     }
 }

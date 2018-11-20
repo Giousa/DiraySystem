@@ -42,6 +42,7 @@ public class HomeAdapter extends BaseQuickAdapter<NoteBean,BaseViewHolder>{
         String type = item.getType();
         if(type.equals("公")){
             icon.setImageDrawable(UIUtils.getResources().getDrawable(R.drawable.work_icon));
+            tvMoney.setText("");
         }else {
             icon.setImageDrawable(UIUtils.getResources().getDrawable(R.drawable.personal_icon));
 
@@ -51,6 +52,8 @@ public class HomeAdapter extends BaseQuickAdapter<NoteBean,BaseViewHolder>{
             }else if(type.equals("收入")){
                 tvMoney.setVisibility(View.VISIBLE);
                 tvMoney.setText("+"+item.getMoney());
+            }else {
+                tvMoney.setText("");
             }
         }
 

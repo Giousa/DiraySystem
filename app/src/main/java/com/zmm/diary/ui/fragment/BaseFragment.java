@@ -1,5 +1,6 @@
 package com.zmm.diary.ui.fragment;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -35,6 +36,8 @@ public abstract class BaseFragment<T extends BasePresenter> extends Fragment imp
     private View mRootView;
 
 
+    protected Context mContext;
+
     @Inject
     T mPresenter;
 
@@ -56,6 +59,8 @@ public abstract class BaseFragment<T extends BasePresenter> extends Fragment imp
 
         mMyApplication = (MyApplication) getActivity().getApplication();
         setupActivityComponent(mMyApplication.getHttpComponent());
+
+        mContext = getActivity();
 
         init();
     }
@@ -89,8 +94,5 @@ public abstract class BaseFragment<T extends BasePresenter> extends Fragment imp
     protected abstract void init();
 
     protected abstract void refresh();
-
-
-
 
 }

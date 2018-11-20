@@ -329,7 +329,7 @@ public class DiaryInfoActivity extends BaseActivity<NotePresenter> implements No
     }
 
     @Override
-    public void findTodayNotesSuccess(List<NoteBean> noteBeanList) {
+    public void findNotesListSuccess(List<NoteBean> noteBeanList) {
 
     }
 
