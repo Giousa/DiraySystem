@@ -63,6 +63,7 @@ public class HomeFragment extends BaseFragment<NotePresenter> implements NoteCon
 
         initRecyclerView();
 
+        requestTodayNotes();
 
     }
 
@@ -70,7 +71,15 @@ public class HomeFragment extends BaseFragment<NotePresenter> implements NoteCon
     public void onResume() {
         super.onResume();
         System.out.println("HomeFragment onResume");
+    }
+
+    @Override
+    protected void onRefresh() {
+        super.onRefresh();
+        System.out.println("HomeFragment onRefresh");
+
         requestTodayNotes();
+
     }
 
     private void requestTodayNotes() {

@@ -108,6 +108,8 @@ public class CalendarFragment extends BaseFragment<NotePresenter> implements OnC
     @Override
     protected void onRefresh() {
         super.onRefresh();
+        System.out.println("CalendarFragment  onRefresh");
+
         mMyNCalendar.toToday();
         Sofia.with(getActivity()).statusBarBackground(UIUtils.getResources().getColor(R.color.calendar_bg));
 
