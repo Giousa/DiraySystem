@@ -70,6 +70,9 @@ public class CalendarFragment extends BaseFragment<NotePresenter> implements OnC
     protected void init() {
 
         System.out.println("CalendarFragment  初始化");
+
+        Sofia.with(getActivity()).statusBarBackground(UIUtils.getResources().getColor(R.color.calendar_bg));
+
         mMyNCalendar.setOnCalendarChangedListener(this);
 
         initRecyclerView();
@@ -115,7 +118,7 @@ public class CalendarFragment extends BaseFragment<NotePresenter> implements OnC
         super.onResume();
         System.out.println("CalendarFragment  onResume");
 
-        Sofia.with(getActivity()).statusBarBackground(UIUtils.getResources().getColor(R.color.calendar_bg));
+//        Sofia.with(getActivity()).statusBarBackground(UIUtils.getResources().getColor(R.color.calendar_bg));
 
     }
 
