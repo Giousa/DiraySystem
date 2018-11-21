@@ -23,6 +23,7 @@ import com.zmm.diary.mvp.presenter.contract.UserContract;
 import com.zmm.diary.ui.widget.CustomItemView;
 import com.zmm.diary.ui.widget.GlideCircleTransform;
 import com.zmm.diary.ui.widget.TitleBar;
+import com.zmm.diary.utils.SharedPreferencesUtil;
 import com.zmm.diary.utils.ToastUtils;
 import com.zmm.diary.utils.config.CommonConfig;
 
@@ -81,10 +82,12 @@ public class MyFragment extends BaseFragment<UserPresenter> implements CustomIte
         mCustomItemSpend.setOnItemClickListener(this);
         mCustomItemSetting.setOnItemClickListener(this);
 
-        UserBean userBean = MyApplication.userBean;
+        String userJson = SharedPreferencesUtil.getString(CommonConfig.LOGIN_USER, null);
 
-        if (userBean != null) {
 
+        if(!TextUtils.isEmpty(userJson)){
+
+            UserBean userBean = SharedPreferencesUtil.fromJson(userJson, UserBean.class);
             mUserId = userBean.getId();
             String icon = userBean.getIcon();
 
@@ -95,7 +98,6 @@ public class MyFragment extends BaseFragment<UserPresenter> implements CustomIte
                         .into(mIvHeadIcon);
             }
 
-
         }
 
     }
@@ -103,7 +105,7 @@ public class MyFragment extends BaseFragment<UserPresenter> implements CustomIte
 
     @Override
     public void OnItemClick(String title) {
-
+        ToastUtils.SimpleToast(title);
     }
 
 

@@ -4,9 +4,9 @@ import android.content.Intent;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.View;
 
-import com.zmm.diary.MyApplication;
 import com.zmm.diary.R;
 import com.zmm.diary.bean.NoteBean;
 import com.zmm.diary.bean.UserBean;
@@ -19,6 +19,8 @@ import com.zmm.diary.ui.activity.DiaryInfoActivity;
 import com.zmm.diary.ui.adapter.HomeAdapter;
 import com.zmm.diary.ui.dialog.SimpleConfirmDialog;
 import com.zmm.diary.ui.widget.TitleBar;
+import com.zmm.diary.utils.SharedPreferencesUtil;
+import com.zmm.diary.utils.config.CommonConfig;
 
 import java.util.List;
 
@@ -71,6 +73,8 @@ public class HomeFragment extends BaseFragment<NotePresenter> implements NoteCon
     public void onResume() {
         super.onResume();
         System.out.println("HomeFragment onResume");
+
+        requestTodayNotes();
     }
 
     @Override
@@ -84,9 +88,13 @@ public class HomeFragment extends BaseFragment<NotePresenter> implements NoteCon
 
     private void requestTodayNotes() {
 
-        UserBean userBean = MyApplication.userBean;
 
-        if(userBean != null){
+        String userJson = SharedPreferencesUtil.getString(CommonConfig.LOGIN_USER, null);
+
+
+        if(!TextUtils.isEmpty(userJson)){
+
+            UserBean userBean = SharedPreferencesUtil.fromJson(userJson, UserBean.class);
             mPresenter.requestTodayNotes(userBean.getId());
         }
     }

@@ -10,7 +10,6 @@ import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
-import com.zmm.diary.MyApplication;
 import com.zmm.diary.R;
 import com.zmm.diary.bean.NoteBean;
 import com.zmm.diary.bean.UserBean;
@@ -21,7 +20,9 @@ import com.zmm.diary.mvp.presenter.NotePresenter;
 import com.zmm.diary.mvp.presenter.contract.NoteContract;
 import com.zmm.diary.ui.popup.DiaryTitlePopup;
 import com.zmm.diary.ui.widget.TitleBar;
+import com.zmm.diary.utils.SharedPreferencesUtil;
 import com.zmm.diary.utils.ToastUtils;
+import com.zmm.diary.utils.config.CommonConfig;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -217,12 +218,17 @@ public class DiaryInfoActivity extends BaseActivity<NotePresenter> implements No
 
     private void submit() {
 
-        UserBean userBean = MyApplication.userBean;
+        String userJson = SharedPreferencesUtil.getString(CommonConfig.LOGIN_USER, null);
 
-        if(userBean == null || TextUtils.isEmpty(userBean.getId())){
+
+        if(TextUtils.isEmpty(userJson)){
             startActivity(LoginActivity.class,true);
             return;
         }
+
+        UserBean userBean = SharedPreferencesUtil.fromJson(userJson, UserBean.class);
+        mPresenter.requestTodayNotes(userBean.getId());
+
 
         String title = mEtTitle.getText().toString();
         String content = mEtContent.getText().toString();

@@ -19,7 +19,7 @@ public class CommonConfig {
     //Cookie
     public static final String COOKIE="diary_cookie";
 
-    //登录状态
-    public static final String LOGIN_STATUS="LOGIN_STATUS";
+    //登录用户
+    public static final String LOGIN_USER="LOGIN_USER";
 
 }

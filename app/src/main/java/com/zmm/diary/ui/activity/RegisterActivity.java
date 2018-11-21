@@ -1,6 +1,5 @@
 package com.zmm.diary.ui.activity;
 
-import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
@@ -8,7 +7,6 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView;
-import com.zmm.diary.MyApplication;
 import com.zmm.diary.R;
 import com.zmm.diary.bean.UserBean;
 import com.zmm.diary.dagger.component.DaggerRegisterComponent;
@@ -17,13 +15,14 @@ import com.zmm.diary.dagger.module.RegisterModule;
 import com.zmm.diary.mvp.presenter.RegisterPresenter;
 import com.zmm.diary.mvp.presenter.contract.RegisterContract;
 import com.zmm.diary.ui.widget.TitleBar;
+import com.zmm.diary.utils.SharedPreferencesUtil;
 import com.zmm.diary.utils.ToastUtils;
 import com.zmm.diary.utils.VerificationUtils;
+import com.zmm.diary.utils.config.CommonConfig;
 
 import java.util.concurrent.TimeUnit;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 import io.reactivex.Observable;
 import io.reactivex.Observer;
@@ -287,7 +286,8 @@ public class RegisterActivity extends BaseActivity<RegisterPresenter> implements
     @Override
     public void registerSuccess(UserBean userBean) {
 
-        MyApplication.userBean = userBean;
+        SharedPreferencesUtil.saveString(CommonConfig.LOGIN_USER,SharedPreferencesUtil.toJson(userBean));
+
         mDisposable.dispose();
         startActivity(MainActivity.class, true);
     }

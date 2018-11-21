@@ -3,6 +3,11 @@ package com.zmm.diary.utils;
 import android.content.Context;
 import android.content.SharedPreferences;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import java.lang.reflect.Type;
+import java.util.ArrayList;
+
 
 /**
  * Description:
@@ -16,6 +21,26 @@ public class SharedPreferencesUtil {
     private static SharedPreferences sp;
 
     private final static String SP_NAME = "config";
+
+
+    private static final Gson GSON = new Gson();
+    private static final Gson gson = new GsonBuilder()
+            //序列化null，为null的字段也打印出来
+            .serializeNulls()
+            // 设置日期时间格式，另有2个重载方法
+            // 在序列化和反序化时均生效
+            .setDateFormat("yyyy-MM-dd HH:mm:ss")
+            // 禁此序列化内部类
+            //.disableInnerClassSerialization()
+            //生成不可执行的Json（多了 )]}' 这4个字符）
+            //.generateNonExecutableJson()
+            //禁止转义html标签
+            //.disableHtmlEscaping()
+            //格式化输出
+            //.setPrettyPrinting()
+            //配合@Expose注解使用，用于设置该字段是否需要序列化和反序列化
+            //.excludeFieldsWithoutExposeAnnotation()
+            .create();
 
     /**
      * 保存boolean状态
@@ -121,6 +146,70 @@ public class SharedPreferencesUtil {
         }
         return sp.getFloat(key, defValue);
     }
+
+
+    /**
+     * 将Json串反序列化为ArrayList集合
+     * @param json
+     * @param t
+     * @param <T>
+     * @return
+     */
+    public static <T> ArrayList<T> readValuesAsArrayList(String json, Type t) {
+        try {
+            return gson.fromJson(json, t);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    /**
+     * 将对象序列化为Json串
+     * @param obj
+     * @return
+     */
+    public static String toJson(Object obj){
+        try {
+            return gson.toJson(obj);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    /**
+     * 将Json串反序列化成对象
+     * @param json
+     * @param clazz
+     * @param <T>
+     * @return
+     */
+    public static <T> T fromJson(String json, Class<T> clazz){
+        try {
+            return gson.fromJson(json, clazz);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    /**
+     * 将Json串反序列化成对象
+     * @param json
+     * @param type
+     * @param <T>
+     * @return
+     */
+    public static <T> T fromJson(String json, Type type){
+        try {
+            return gson.fromJson(json, type);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
 
 
 }

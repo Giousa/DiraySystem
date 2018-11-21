@@ -4,13 +4,14 @@ import android.content.Intent;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.widget.TextView;
 
 import com.necer.ncalendar.listener.OnCalendarChangedListener;
 import com.yanzhenjie.sofia.Sofia;
-import com.zmm.diary.MyApplication;
 import com.zmm.diary.R;
 import com.zmm.diary.bean.NoteBean;
+import com.zmm.diary.bean.UserBean;
 import com.zmm.diary.dagger.component.DaggerNoteComponent;
 import com.zmm.diary.dagger.component.HttpComponent;
 import com.zmm.diary.dagger.module.NoteModule;
@@ -20,7 +21,9 @@ import com.zmm.diary.ui.activity.DiaryInfoActivity;
 import com.zmm.diary.ui.adapter.HomeAdapter;
 import com.zmm.diary.ui.dialog.SimpleConfirmDialog;
 import com.zmm.diary.ui.widget.MyNCalendar;
+import com.zmm.diary.utils.SharedPreferencesUtil;
 import com.zmm.diary.utils.UIUtils;
+import com.zmm.diary.utils.config.CommonConfig;
 
 import org.joda.time.DateTime;
 
@@ -130,7 +133,17 @@ public class CalendarFragment extends BaseFragment<NotePresenter> implements OnC
         mTvMonth.setText(dateTime.getMonthOfYear() + "月");
         mTvDate.setText(dateTime.getYear() + "年" + dateTime.getMonthOfYear() + "月" + dateTime.getDayOfMonth() + "日");
 
-        mPresenter.findNotesByCreateTime(MyApplication.userBean.getId(),dateTime.getYear()+"-"+dateTime.getMonthOfYear()+"-"+dateTime.getDayOfMonth());
+
+        String userJson = SharedPreferencesUtil.getString(CommonConfig.LOGIN_USER, null);
+
+
+        if(!TextUtils.isEmpty(userJson)){
+
+            UserBean userBean = SharedPreferencesUtil.fromJson(userJson, UserBean.class);
+            mPresenter.findNotesByCreateTime(userBean.getId(),dateTime.getYear()+"-"+dateTime.getMonthOfYear()+"-"+dateTime.getDayOfMonth());
+
+        }
+
 
     }
 

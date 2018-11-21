@@ -9,7 +9,6 @@ import android.widget.EditText;
 import com.davemorrissey.labs.subscaleview.ImageSource;
 import com.davemorrissey.labs.subscaleview.ImageViewState;
 import com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView;
-import com.zmm.diary.MyApplication;
 import com.zmm.diary.R;
 import com.zmm.diary.bean.UserBean;
 import com.zmm.diary.dagger.component.DaggerLoginComponent;
@@ -17,7 +16,9 @@ import com.zmm.diary.dagger.component.HttpComponent;
 import com.zmm.diary.dagger.module.LoginModule;
 import com.zmm.diary.mvp.presenter.LoginPresenter;
 import com.zmm.diary.mvp.presenter.contract.LoginContract;
+import com.zmm.diary.utils.SharedPreferencesUtil;
 import com.zmm.diary.utils.ToastUtils;
+import com.zmm.diary.utils.config.CommonConfig;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -70,7 +71,9 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
 
     @Override
     public void loginSuccess(UserBean userBean) {
-        MyApplication.userBean = userBean;
+
+        SharedPreferencesUtil.saveString(CommonConfig.LOGIN_USER,SharedPreferencesUtil.toJson(userBean));
+
         startActivity(MainActivity.class,true);
     }
 
