@@ -1,7 +1,5 @@
 package com.zmm.diary.ui.activity;
 
-import android.os.Bundle;
-import android.text.TextUtils;
 import android.view.View;
 
 import com.zmm.diary.R;
@@ -12,7 +10,6 @@ import com.zmm.diary.utils.SharedPreferencesUtil;
 import com.zmm.diary.utils.config.CommonConfig;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 
 /**
  * Description:
