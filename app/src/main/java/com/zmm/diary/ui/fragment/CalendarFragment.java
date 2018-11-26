@@ -1,10 +1,14 @@
 package com.zmm.diary.ui.fragment;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.necer.ncalendar.listener.OnCalendarChangedListener;
@@ -21,6 +25,7 @@ import com.zmm.diary.ui.activity.DiaryInfoActivity;
 import com.zmm.diary.ui.adapter.HomeAdapter;
 import com.zmm.diary.ui.dialog.SimpleConfirmDialog;
 import com.zmm.diary.ui.widget.MyNCalendar;
+import com.zmm.diary.utils.DateUtils;
 import com.zmm.diary.utils.SharedPreferencesUtil;
 import com.zmm.diary.utils.UIUtils;
 import com.zmm.diary.utils.config.CommonConfig;
@@ -32,6 +37,9 @@ import java.util.List;
 import javax.inject.Inject;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+import butterknife.Unbinder;
 
 /**
  * Description:
@@ -39,7 +47,7 @@ import butterknife.BindView;
  * Date:2018/11/8
  * Email:65489469@qq.com
  */
-public class CalendarFragment extends BaseFragment<NotePresenter> implements OnCalendarChangedListener,NoteContract.NoteView, HomeAdapter.OnRightMenuClickListener {
+public class CalendarFragment extends BaseFragment<NotePresenter> implements OnCalendarChangedListener, NoteContract.NoteView, HomeAdapter.OnRightMenuClickListener {
 
     @BindView(R.id.tv_month)
     TextView mTvMonth;
@@ -53,6 +61,9 @@ public class CalendarFragment extends BaseFragment<NotePresenter> implements OnC
 
     @Inject
     HomeAdapter mHomeAdapter;
+
+
+    private DateTime mDateTime;
 
     @Override
     protected int setLayout() {
@@ -93,7 +104,7 @@ public class CalendarFragment extends BaseFragment<NotePresenter> implements OnC
         mRvList.setAdapter(mHomeAdapter);
 
         //适配器，设置空布局
-        mHomeAdapter.setEmptyView(R.layout.empty_content,mRvList);
+        mHomeAdapter.setEmptyView(R.layout.empty_content, mRvList);
 
         mHomeAdapter.setOnRightMenuClickListener(this);
 
@@ -113,9 +124,10 @@ public class CalendarFragment extends BaseFragment<NotePresenter> implements OnC
         super.onRefresh();
         System.out.println("CalendarFragment  onRefresh");
 
-        mMyNCalendar.toToday();
+//        mMyNCalendar.toToday();
         Sofia.with(getActivity()).statusBarBackground(UIUtils.getResources().getColor(R.color.calendar_bg));
 
+        requestCheckedData();
     }
 
     @Override
@@ -125,26 +137,40 @@ public class CalendarFragment extends BaseFragment<NotePresenter> implements OnC
 
 //        Sofia.with(getActivity()).statusBarBackground(UIUtils.getResources().getColor(R.color.calendar_bg));
 
+        if(mDateTime != null){
+            requestCheckedData();
+        }
+
     }
 
     @Override
     public void onCalendarChanged(DateTime dateTime) {
-        System.out.println("CalendarFragment dateTime = "+dateTime);
+        System.out.println("CalendarFragment dateTime = " + dateTime);
+
+        mDateTime = dateTime;
+
         mTvMonth.setText(dateTime.getMonthOfYear() + "月");
         mTvDate.setText(dateTime.getYear() + "年" + dateTime.getMonthOfYear() + "月" + dateTime.getDayOfMonth() + "日");
 
 
+        requestCheckedData();
+
+
+    }
+
+    /**
+     * 更新数据
+     */
+    private void requestCheckedData(){
         String userJson = SharedPreferencesUtil.getString(CommonConfig.LOGIN_USER, null);
 
 
-        if(!TextUtils.isEmpty(userJson)){
+        if (!TextUtils.isEmpty(userJson)) {
 
             UserBean userBean = SharedPreferencesUtil.fromJson(userJson, UserBean.class);
-            mPresenter.findNotesByCreateTime(userBean.getId(),dateTime.getYear()+"-"+dateTime.getMonthOfYear()+"-"+dateTime.getDayOfMonth());
+            mPresenter.findNotesByCreateTime(userBean.getId(), mDateTime.getYear() + "-" + mDateTime.getMonthOfYear() + "-" + mDateTime.getDayOfMonth());
 
         }
-
-
     }
 
 
@@ -160,6 +186,8 @@ public class CalendarFragment extends BaseFragment<NotePresenter> implements OnC
 
     @Override
     public void deleteSuccess() {
+
+        requestCheckedData();
 
     }
 
@@ -177,7 +205,7 @@ public class CalendarFragment extends BaseFragment<NotePresenter> implements OnC
     @Override
     public void onRightMenuDelete(final String id) {
 
-        final SimpleConfirmDialog simpleConfirmDialog = new SimpleConfirmDialog(mContext,null);
+        final SimpleConfirmDialog simpleConfirmDialog = new SimpleConfirmDialog(mContext, null);
         simpleConfirmDialog.setOnClickListener(new SimpleConfirmDialog.OnClickListener() {
             @Override
             public void onCancel() {
@@ -198,8 +226,20 @@ public class CalendarFragment extends BaseFragment<NotePresenter> implements OnC
 
     @Override
     public void onRightMenuUpdate(String id) {
+        Intent intent = new Intent(mContext, DiaryInfoActivity.class);
+        intent.putExtra("id", id);
+        startActivity(intent);
+    }
+
+
+
+    @OnClick(R.id.tv_add)
+    public void onViewClicked() {
+
+        String createTime = DateUtils.dateToString(mDateTime.toDate(), "yyyy-MM-dd HH:mm:ss");
+
         Intent intent = new Intent(mContext,DiaryInfoActivity.class);
-        intent.putExtra("id",id);
+        intent.putExtra("createTime",createTime);
         startActivity(intent);
     }
 }

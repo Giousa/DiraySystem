@@ -79,6 +79,7 @@ public class DiaryInfoActivity extends BaseActivity<NotePresenter> implements No
     private List<String> mPopupShowList = new ArrayList<>();
     private String mId;
     private NoteBean mNoteBean;
+    private String mCreateTime;
 
     @Override
     protected int setLayout() {
@@ -100,9 +101,8 @@ public class DiaryInfoActivity extends BaseActivity<NotePresenter> implements No
     @Override
     protected void init() {
 
-        System.out.println("------------------hhhhhhqqqqqqqqqq");
-        System.out.println("----------胜楠");
         mId = getIntent().getStringExtra("id");
+        mCreateTime = getIntent().getStringExtra("createTime");
 
         if(!TextUtils.isEmpty(mId)){
             mPresenter.findNoteById(mId);
@@ -282,6 +282,9 @@ public class DiaryInfoActivity extends BaseActivity<NotePresenter> implements No
 
 
         if(TextUtils.isEmpty(mId)){
+            if(!TextUtils.isEmpty(mCreateTime)){
+                mNoteBean.setCreateTime(mCreateTime);
+            }
             mPresenter.addNote(mNoteBean);
         }else {
             mPresenter.updateNote(mNoteBean);
