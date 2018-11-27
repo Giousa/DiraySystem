@@ -142,6 +142,8 @@ public class MyFragment extends BaseFragment<UserPresenter> implements CustomIte
 
         if (userBean != null) {
 
+            SharedPreferencesUtil.saveString(CommonConfig.LOGIN_USER,SharedPreferencesUtil.toJson(userBean));
+
             String icon = userBean.getIcon();
 
             if(!TextUtils.isEmpty(icon)){
