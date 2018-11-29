@@ -18,6 +18,14 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+
+
+    repositories {
+        flatDir {
+            dirs 'libs'
+        }
+    }
+
 }
 
 dependencies {
@@ -98,6 +106,8 @@ dependencies {
     implementation 'com.yanzhenjie:sofia:1.0.5'
 
     //图片选择器
-    implementation 'com.lzy.widget:imagepicker:0.6.1'
+//    implementation 'com.lzy.widget:imagepicker:0.6.1'
+    implementation(name:'imagepicker', ext:'aar')
+
 
 }
