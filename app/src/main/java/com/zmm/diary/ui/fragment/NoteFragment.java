@@ -7,7 +7,7 @@ import android.view.View;
 
 import com.zmm.diary.R;
 import com.zmm.diary.dagger.component.HttpComponent;
-import com.zmm.diary.ui.activity.DiaryInfoActivity;
+import com.zmm.diary.ui.activity.NoteInfoActivity;
 import com.zmm.diary.ui.widget.TitleBar;
 
 import butterknife.BindView;
@@ -57,7 +57,7 @@ public class NoteFragment extends BaseFragment {
             @Override
             public void performAction(View view) {
 
-                mContext.startActivity(new Intent(mContext,DiaryInfoActivity.class));
+                mContext.startActivity(new Intent(mContext,NoteInfoActivity.class));
             }
         });
 
@@ -68,6 +68,7 @@ public class NoteFragment extends BaseFragment {
         mRvList.setHasFixedSize(true);
 
     }
+
 
 
 }

@@ -109,6 +109,7 @@ public class MyFragment extends BaseFragment<UserPresenter> implements CustomIte
     @OnClick(R.id.iv_head_icon)
     public void onViewClicked() {
 
+        ImagePicker.getInstance().setMultiMode(false);
         Intent intent = new Intent(mContext, ImageGridActivity.class);
         startActivityForResult(intent, 100);
     }
