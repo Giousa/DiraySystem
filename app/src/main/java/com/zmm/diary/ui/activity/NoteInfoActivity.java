@@ -16,6 +16,7 @@ import com.zmm.diary.R;
 import com.zmm.diary.dagger.component.HttpComponent;
 import com.zmm.diary.ui.adapter.ImagePickerAdapter;
 import com.zmm.diary.ui.widget.TitleBar;
+import com.zmm.diary.utils.PictureCompressUtil;
 import com.zmm.diary.utils.ToastUtils;
 import com.zmm.diary.utils.UIUtils;
 
@@ -142,18 +143,18 @@ public class NoteInfoActivity extends BaseActivity implements ImagePickerAdapter
                     selImageList.addAll(images);
                     adapter.setImages(selImageList);
 
-//                    for (int i = 0; i < images.size(); i++) {
-//
-//                        System.out.println("选取的图片名称1："+images.get(i).name);
-//                        Bitmap bitmap = null;
-//                        try {
-//                            bitmap = PictureCompressUtil.revitionImageSize(images.get(i).path);
-//                            String newPath = PictureCompressUtil.saveBitmapFile(bitmap, "tmsystem/"+images.get(i).name);
-//                            mNewListPath.add("/storage/emulated/0/"+newPath);
-//                        } catch (IOException e) {
-//                            e.printStackTrace();
-//                        }
-//                    }
+                    for (int i = 0; i < images.size(); i++) {
+
+                        System.out.println("选取的图片名称1："+images.get(i).name);
+                        Bitmap bitmap = null;
+                        try {
+                            bitmap = PictureCompressUtil.revitionImageSize(images.get(i).path);
+                            String newPath = PictureCompressUtil.saveBitmapFile(bitmap, "tmsystem/"+images.get(i).name);
+                            mNewListPath.add("/storage/emulated/0/"+newPath);
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }
                 }
             }
         } else if (resultCode == ImagePicker.RESULT_CODE_BACK) {
@@ -167,18 +168,18 @@ public class NoteInfoActivity extends BaseActivity implements ImagePickerAdapter
 
                     mNewListPath.clear();
 
-//                    for (int i = 0; i < images.size(); i++) {
-//
-//                        System.out.println("选取的图片名称2："+images.get(i).name);
-//                        Bitmap bitmap = null;
-//                        try {
-//                            bitmap = PictureCompressUtil.revitionImageSize(images.get(i).path);
-//                            String newPath = PictureCompressUtil.saveBitmapFile(bitmap, "tmsystem/"+images.get(i).name);
-//                            mNewListPath.add("/storage/emulated/0/"+newPath);
-//                        } catch (IOException e) {
-//                            e.printStackTrace();
-//                        }
-//                    }
+                    for (int i = 0; i < images.size(); i++) {
+
+                        System.out.println("选取的图片名称2："+images.get(i).name);
+                        Bitmap bitmap = null;
+                        try {
+                            bitmap = PictureCompressUtil.revitionImageSize(images.get(i).path);
+                            String newPath = PictureCompressUtil.saveBitmapFile(bitmap, "tmsystem/"+images.get(i).name);
+                            mNewListPath.add("/storage/emulated/0/"+newPath);
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }
                 }
             }
         }
