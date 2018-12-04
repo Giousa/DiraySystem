@@ -51,7 +51,7 @@
             android:launchMode="singleTask"/>
 
         <activity
-            android:name=".ui.activity.NoteInfoActivity"
+            android:name=".ui.activity.RecordInfoActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:launchMode="singleTask"/>
     </application>

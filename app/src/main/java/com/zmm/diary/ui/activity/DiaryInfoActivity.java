@@ -227,11 +227,15 @@ public class DiaryInfoActivity extends BaseActivity<NotePresenter> implements No
 
     }
 
+    /**
+     * 提交
+     */
     private void submit() {
 
         String userJson = SharedPreferencesUtil.getString(CommonConfig.LOGIN_USER, null);
 
 
+        //TODO  提示是否登录
         if(TextUtils.isEmpty(userJson)){
             startActivity(LoginActivity.class,true);
             return;

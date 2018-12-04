@@ -6,9 +6,16 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
 import com.zmm.diary.R;
+import com.zmm.diary.bean.RecordBean;
+import com.zmm.diary.dagger.component.DaggerRecordComponent;
 import com.zmm.diary.dagger.component.HttpComponent;
-import com.zmm.diary.ui.activity.NoteInfoActivity;
+import com.zmm.diary.dagger.module.RecordModule;
+import com.zmm.diary.mvp.presenter.RecordPresenter;
+import com.zmm.diary.mvp.presenter.contract.RecordContract;
+import com.zmm.diary.ui.activity.RecordInfoActivity;
 import com.zmm.diary.ui.widget.TitleBar;
+
+import java.util.List;
 
 import butterknife.BindView;
 
@@ -18,7 +25,7 @@ import butterknife.BindView;
  * Date:2018/11/8
  * Email:65489469@qq.com
  */
-public class NoteFragment extends BaseFragment {
+public class RecordFragment extends BaseFragment<RecordPresenter> implements RecordContract.RecordView {
 
     @BindView(R.id.title_bar)
     TitleBar mTitleBar;
@@ -35,7 +42,11 @@ public class NoteFragment extends BaseFragment {
 
     @Override
     protected void setupActivityComponent(HttpComponent httpComponent) {
-
+        DaggerRecordComponent.builder()
+                .httpComponent(httpComponent)
+                .recordModule(new RecordModule(this))
+                .build()
+                .inject(this);
     }
 
 
@@ -57,7 +68,7 @@ public class NoteFragment extends BaseFragment {
             @Override
             public void performAction(View view) {
 
-                mContext.startActivity(new Intent(mContext,NoteInfoActivity.class));
+                mContext.startActivity(new Intent(mContext,RecordInfoActivity.class));
             }
         });
 
@@ -70,5 +81,18 @@ public class NoteFragment extends BaseFragment {
     }
 
 
+    @Override
+    public void addSuccess() {
 
+    }
+
+    @Override
+    public void deleteSuccess() {
+
+    }
+
+    @Override
+    public void findAllRecordsSuccess(List<RecordBean> recordBeanList) {
+
+    }
 }

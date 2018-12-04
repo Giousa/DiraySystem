@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
 
@@ -11,18 +12,25 @@ import com.lzy.imagepicker.ImagePicker;
 import com.lzy.imagepicker.bean.ImageItem;
 import com.lzy.imagepicker.ui.ImageGridActivity;
 import com.lzy.imagepicker.ui.ImagePreviewDelActivity;
-import com.lzy.imagepicker.view.CropImageView;
-import com.yanzhenjie.sofia.Sofia;
 import com.zmm.diary.R;
+import com.zmm.diary.bean.RecordBean;
+import com.zmm.diary.bean.UserBean;
+import com.zmm.diary.dagger.component.DaggerRecordComponent;
 import com.zmm.diary.dagger.component.HttpComponent;
+import com.zmm.diary.dagger.module.RecordModule;
+import com.zmm.diary.mvp.presenter.RecordPresenter;
+import com.zmm.diary.mvp.presenter.contract.RecordContract;
 import com.zmm.diary.ui.adapter.ImagePickerAdapter;
 import com.zmm.diary.ui.widget.TitleBar;
 import com.zmm.diary.utils.PictureCompressUtil;
+import com.zmm.diary.utils.SharedPreferencesUtil;
 import com.zmm.diary.utils.ToastUtils;
 import com.zmm.diary.utils.UIUtils;
+import com.zmm.diary.utils.config.CommonConfig;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 
@@ -32,7 +40,7 @@ import butterknife.BindView;
  * Date:2018/12/3
  * Email:65489469@qq.com
  */
-public class NoteInfoActivity extends BaseActivity implements ImagePickerAdapter.OnRecyclerViewItemClickListener{
+public class RecordInfoActivity extends BaseActivity<RecordPresenter> implements ImagePickerAdapter.OnRecyclerViewItemClickListener,RecordContract.RecordView{
 
 
     @BindView(R.id.title_bar)
@@ -61,7 +69,11 @@ public class NoteInfoActivity extends BaseActivity implements ImagePickerAdapter
 
     @Override
     protected void setupActivityComponent(HttpComponent httpComponent) {
-
+        DaggerRecordComponent.builder()
+                .httpComponent(httpComponent)
+                .recordModule(new RecordModule(this))
+                .build()
+                .inject(this);
     }
 
     @Override
@@ -96,9 +108,42 @@ public class NoteInfoActivity extends BaseActivity implements ImagePickerAdapter
         mTitleBar.addAction(new TitleBar.TextAction("发表") {
             @Override
             public void performAction(View view) {
-                ToastUtils.SimpleToast("发表了");
+                submit();
+
             }
         });
+    }
+
+    /**
+     * 提交数据
+     */
+    private void submit() {
+
+        String userJson = SharedPreferencesUtil.getString(CommonConfig.LOGIN_USER, null);
+
+
+        //TODO  提示是否登录
+        if(TextUtils.isEmpty(userJson)){
+            startActivity(LoginActivity.class,true);
+            return;
+        }
+
+        UserBean userBean = SharedPreferencesUtil.fromJson(userJson, UserBean.class);
+
+        if(userBean == null){
+
+            startActivity(LoginActivity.class,true);
+            return;
+        }
+
+        String content = mEtContent.getText().toString();
+
+
+        if(!TextUtils.isEmpty(content)){
+            mPresenter.addRecord(userBean.getId(),content,mNewListPath);
+        }else {
+            ToastUtils.SimpleToast("内容不能为空");
+        }
     }
 
     private void initRecyclerView() {
@@ -120,7 +165,7 @@ public class NoteInfoActivity extends BaseActivity implements ImagePickerAdapter
 
                 //打开选择,本次允许选择的数量
                 ImagePicker.getInstance().setSelectLimit(maxImgCount - selImageList.size());
-                Intent intent1 = new Intent(NoteInfoActivity.this, ImageGridActivity.class);
+                Intent intent1 = new Intent(RecordInfoActivity.this, ImageGridActivity.class);
                 startActivityForResult(intent1, REQUEST_CODE_SELECT);
 
                 break;
@@ -187,5 +232,21 @@ public class NoteInfoActivity extends BaseActivity implements ImagePickerAdapter
                 }
             }
         }
+    }
+
+    @Override
+    public void addSuccess() {
+        ToastUtils.SimpleToast("发表成功");
+        finish();
+    }
+
+    @Override
+    public void deleteSuccess() {
+
+    }
+
+    @Override
+    public void findAllRecordsSuccess(List<RecordBean> recordBeanList) {
+
     }
 }

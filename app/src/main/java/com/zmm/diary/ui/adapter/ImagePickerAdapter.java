@@ -10,7 +10,7 @@ import com.chad.library.adapter.base.BaseViewHolder;
 import com.lzy.imagepicker.ImagePicker;
 import com.lzy.imagepicker.bean.ImageItem;
 import com.zmm.diary.R;
-import com.zmm.diary.ui.activity.NoteInfoActivity;
+import com.zmm.diary.ui.activity.RecordInfoActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -72,7 +72,7 @@ public class ImagePickerAdapter extends BaseQuickAdapter<ImageItem,BaseViewHolde
 
         if (isAdded && currentPosition == getItemCount() - 1) {
             helper.setImageResource(R.id.iv_img,R.drawable.selector_image_add);
-            clickPosition = NoteInfoActivity.IMAGE_ITEM_ADD;
+            clickPosition = RecordInfoActivity.IMAGE_ITEM_ADD;
         } else {
             ImagePicker.getInstance().getImageLoader().displayImage((Activity) mContext, item.path, icon, 0, 0);
             clickPosition = currentPosition;

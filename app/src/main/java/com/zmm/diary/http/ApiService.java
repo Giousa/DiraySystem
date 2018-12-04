@@ -2,6 +2,7 @@ package com.zmm.diary.http;
 
 import com.zmm.diary.bean.BaseBean;
 import com.zmm.diary.bean.NoteBean;
+import com.zmm.diary.bean.RecordBean;
 import com.zmm.diary.bean.UserBean;
 
 import java.util.Date;
@@ -17,6 +18,7 @@ import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.Part;
 import retrofit2.http.Path;
+import retrofit2.http.Query;
 
 /**
  * Description:
@@ -118,5 +120,26 @@ public interface ApiService {
     @Multipart
     @POST("user/uploadIcon/{id}")
     Observable<BaseBean<UserBean>> uploadIcon( @Path("id") String id,  @Part() MultipartBody.Part file);
+
+    /**
+     * -----------------------------记录接口-----------------------------
+     */
+
+    @Multipart
+    @POST("record/addRecordAndPics")
+    Observable<BaseBean<RecordBean>> addRecordAndPics(@Query("userId") String userId, @Query("content") String content, @Part() MultipartBody.Part[] file);
+
+    @POST("record/addRecord")
+    Observable<BaseBean<RecordBean>> addRecord(@Query("userId") String userId, @Query("content") String content);
+
+
+
+    @GET("record/deleteRecord/{id}")
+    Observable<BaseBean<String>> deleteRecord(@Path("id")String id);
+
+    @FormUrlEncoded
+    @POST("record/findAllRecords")
+    Observable<BaseBean<List<RecordBean>>> findAllRecords(@Field("userId") String userId,@Field("page") Integer page,@Field("size") Integer size);
+
 }
 
