@@ -11,6 +11,7 @@ import com.lzy.imagepicker.ImagePicker;
 import com.lzy.imagepicker.bean.ImageItem;
 import com.lzy.imagepicker.ui.ImageGridActivity;
 import com.lzy.imagepicker.ui.ImagePreviewDelActivity;
+import com.lzy.imagepicker.view.CropImageView;
 import com.yanzhenjie.sofia.Sofia;
 import com.zmm.diary.R;
 import com.zmm.diary.dagger.component.HttpComponent;
@@ -75,6 +76,9 @@ public class NoteInfoActivity extends BaseActivity implements ImagePickerAdapter
 
         //多选
         ImagePicker.getInstance().setMultiMode(true);
+//        ImagePicker.getInstance().setStyle(CropImageView.Style.RECTANGLE);
+        ImagePicker.getInstance().setCrop(false);
+
     }
 
     private void initToolBar() {

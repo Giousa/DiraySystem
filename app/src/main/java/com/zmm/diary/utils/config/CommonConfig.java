@@ -10,8 +10,8 @@ public class CommonConfig {
 
 
     //基本网络请求地址
-//    public static final String BASE_URL = "http://192.168.253.7:8080/diary/";
-    public static final String BASE_URL = "http://giousa.nat300.top/diary/";
+    public static final String BASE_URL = "http://192.168.253.7:8080/diary/";
+//    public static final String BASE_URL = "http://giousa.nat300.top/diary/";
 
     public static final String BASE_PIC_URL = "http://uog.oss-cn-shanghai.aliyuncs.com/pic/";
 

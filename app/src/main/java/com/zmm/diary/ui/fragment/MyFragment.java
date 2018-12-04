@@ -8,6 +8,7 @@ import com.bumptech.glide.Glide;
 import com.lzy.imagepicker.ImagePicker;
 import com.lzy.imagepicker.bean.ImageItem;
 import com.lzy.imagepicker.ui.ImageGridActivity;
+import com.lzy.imagepicker.view.CropImageView;
 import com.zmm.diary.R;
 import com.zmm.diary.bean.UserBean;
 import com.zmm.diary.dagger.component.DaggerUserComponent;
@@ -110,6 +111,7 @@ public class MyFragment extends BaseFragment<UserPresenter> implements CustomIte
     public void onViewClicked() {
 
         ImagePicker.getInstance().setMultiMode(false);
+        ImagePicker.getInstance().setCrop(true);
         Intent intent = new Intent(mContext, ImageGridActivity.class);
         startActivityForResult(intent, 100);
     }
