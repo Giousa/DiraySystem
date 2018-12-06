@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="20dp">
+
+    <TextView
+        android:id="@+id/tv_item_content"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_size_2"
+        android:text="内容内容内容内容内容内容内容内容"
+        android:textSize="@dimen/sp_size_15" />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rv_item_list"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_size_10">
+
+        <TextView
+            android:id="@+id/tv_item_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:text="2018-12-04 15:00:19" />
+
+    </RelativeLayout>
+
+
+</LinearLayout>

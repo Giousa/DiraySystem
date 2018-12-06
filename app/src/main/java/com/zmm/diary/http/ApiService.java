@@ -133,13 +133,11 @@ public interface ApiService {
     Observable<BaseBean<RecordBean>> addRecord(@Query("userId") String userId, @Query("content") String content);
 
 
-
     @GET("record/deleteRecord/{id}")
     Observable<BaseBean<String>> deleteRecord(@Path("id")String id);
 
-    @FormUrlEncoded
-    @POST("record/findAllRecords")
-    Observable<BaseBean<List<RecordBean>>> findAllRecords(@Field("userId") String userId,@Field("page") Integer page,@Field("size") Integer size);
+    @GET("record/findAllRecords")
+    Observable<BaseBean<List<RecordBean>>> findAllRecords(@Query("userId") String userId,@Query("page") Integer page,@Query("size") Integer size);
 
 }
 

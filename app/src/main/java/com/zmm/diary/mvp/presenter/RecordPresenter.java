@@ -7,6 +7,7 @@ import com.zmm.diary.rx.subscriber.ErrorHandlerSubscriber;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.inject.Inject;
 
@@ -50,7 +51,6 @@ public class RecordPresenter extends BasePresenter<RecordContract.IRecordModel,R
                     .subscribe(new ErrorHandlerSubscriber<RecordBean>() {
                         @Override
                         public void onNext(RecordBean recordBean) {
-                            System.out.println("添加记录成功:"+recordBean);
                             mView.addSuccess();
                         }
                     });
@@ -68,5 +68,23 @@ public class RecordPresenter extends BasePresenter<RecordContract.IRecordModel,R
 
 
 
+    }
+
+    /**
+     * 分页查询记录
+     * @param userId
+     * @param page
+     * @param size
+     */
+    public void findAllRecords(String userId, int page, int size) {
+
+        mModel.findAllRecords(userId,page,size)
+                .compose(RxHttpResponseCompat.<List<RecordBean>>compatResult())
+                .subscribe(new ErrorHandlerSubscriber<List<RecordBean>>() {
+                    @Override
+                    public void onNext(List<RecordBean> recordBeans) {
+                        mView.findAllRecordsSuccess(recordBeans);
+                    }
+                });
     }
 }

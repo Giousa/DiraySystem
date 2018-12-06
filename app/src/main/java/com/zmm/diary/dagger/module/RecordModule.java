@@ -3,6 +3,7 @@ package com.zmm.diary.dagger.module;
 import com.zmm.diary.http.ApiService;
 import com.zmm.diary.mvp.model.RecordModel;
 import com.zmm.diary.mvp.presenter.contract.RecordContract;
+import com.zmm.diary.ui.adapter.RecordAdapter;
 
 import dagger.Module;
 import dagger.Provides;
@@ -33,5 +34,10 @@ public class RecordModule {
     @Provides
     public RecordContract.IRecordModel provideRecordModel(ApiService apiService){
         return new RecordModel(apiService);
+    }
+
+    @Provides
+    public RecordAdapter provideRecordAdapter(){
+        return new RecordAdapter();
     }
 }
