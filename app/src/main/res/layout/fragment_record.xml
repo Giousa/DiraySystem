@@ -6,8 +6,16 @@
 
     <include layout="@layout/toolbar_content" />
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/rv_list"
+
+    <com.ajguan.library.EasyRefreshLayout
+        android:id="@+id/easy_refresh_layout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rv_list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+    </com.ajguan.library.EasyRefreshLayout>
+
 </LinearLayout>

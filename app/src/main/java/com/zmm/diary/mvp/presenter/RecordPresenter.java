@@ -75,15 +75,21 @@ public class RecordPresenter extends BasePresenter<RecordContract.IRecordModel,R
      * @param userId
      * @param page
      * @param size
+     * @param flag 0:加载更多  1：刷新
      */
-    public void findAllRecords(String userId, int page, int size) {
+    public void findAllRecords(String userId, int page, int size, final int flag) {
 
         mModel.findAllRecords(userId,page,size)
                 .compose(RxHttpResponseCompat.<List<RecordBean>>compatResult())
                 .subscribe(new ErrorHandlerSubscriber<List<RecordBean>>() {
                     @Override
                     public void onNext(List<RecordBean> recordBeans) {
-                        mView.findAllRecordsSuccess(recordBeans);
+
+                        if(flag == 0){
+                            mView.loadMoreRecordsSuccess(recordBeans);
+                        }else {
+                            mView.refreshRecordsSuccess(recordBeans);
+                        }
                     }
                 });
     }

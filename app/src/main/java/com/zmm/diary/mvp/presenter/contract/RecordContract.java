@@ -38,6 +38,8 @@ public interface RecordContract {
 
         void deleteSuccess();
 
-        void findAllRecordsSuccess(List<RecordBean> recordBeanList);
+        void loadMoreRecordsSuccess(List<RecordBean> recordBeanList);
+
+        void refreshRecordsSuccess(List<RecordBean> recordBeanList);
     }
 }

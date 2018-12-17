@@ -1,12 +1,15 @@
 package com.zmm.diary.ui.fragment;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.text.TextUtils;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 
+import com.ajguan.library.EasyRefreshLayout;
 import com.zmm.diary.R;
 import com.zmm.diary.bean.RecordBean;
 import com.zmm.diary.bean.UserBean;
@@ -15,7 +18,6 @@ import com.zmm.diary.dagger.component.HttpComponent;
 import com.zmm.diary.dagger.module.RecordModule;
 import com.zmm.diary.mvp.presenter.RecordPresenter;
 import com.zmm.diary.mvp.presenter.contract.RecordContract;
-import com.zmm.diary.ui.activity.LoginActivity;
 import com.zmm.diary.ui.activity.RecordInfoActivity;
 import com.zmm.diary.ui.adapter.RecordAdapter;
 import com.zmm.diary.ui.widget.TitleBar;
@@ -27,6 +29,8 @@ import java.util.List;
 import javax.inject.Inject;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.Unbinder;
 
 /**
  * Description:
@@ -40,9 +44,16 @@ public class RecordFragment extends BaseFragment<RecordPresenter> implements Rec
     TitleBar mTitleBar;
     @BindView(R.id.rv_list)
     RecyclerView mRvList;
+    @BindView(R.id.easy_refresh_layout)
+    EasyRefreshLayout mEasyRefreshLayout;
+
 
     @Inject
     RecordAdapter mRecordAdapter;
+
+    private int mPage = 0;
+    private int mSize = 3;
+    private String mUserId;
 
     @Override
     protected int setLayout() {
@@ -66,7 +77,10 @@ public class RecordFragment extends BaseFragment<RecordPresenter> implements Rec
 
         initRecyclerView();
 
+        initRefresh();
+
     }
+
 
     @Override
     public void onResume() {
@@ -74,9 +88,9 @@ public class RecordFragment extends BaseFragment<RecordPresenter> implements Rec
 
         String userJson = SharedPreferencesUtil.getString(CommonConfig.LOGIN_USER, null);
         UserBean userBean = SharedPreferencesUtil.fromJson(userJson, UserBean.class);
+        mUserId = userBean.getId();
 
-
-        mPresenter.findAllRecords(userBean.getId(),0,10);
+        mPresenter.findAllRecords(mUserId, mPage, mSize,1);
     }
 
     private void initToolBar() {
@@ -86,7 +100,7 @@ public class RecordFragment extends BaseFragment<RecordPresenter> implements Rec
             @Override
             public void performAction(View view) {
 
-                mContext.startActivity(new Intent(mContext,RecordInfoActivity.class));
+                mContext.startActivity(new Intent(mContext, RecordInfoActivity.class));
             }
         });
 
@@ -103,9 +117,51 @@ public class RecordFragment extends BaseFragment<RecordPresenter> implements Rec
         mRvList.setAdapter(mRecordAdapter);
 
         //适配器，设置空布局
-        mRecordAdapter.setEmptyView(R.layout.empty_content,mRvList);
+        mRecordAdapter.setEmptyView(R.layout.empty_content, mRvList);
 
     }
+
+    /**
+     * 下拉加载
+     */
+    private void initRefresh() {
+        mEasyRefreshLayout.addEasyEvent(new EasyRefreshLayout.EasyEvent() {
+            @Override
+            public void onLoadMore() {
+                System.out.println("----onLoadMore----");
+
+//                try {
+//                    Thread.sleep(3000);
+//
+//                    mEasyRefreshLayout.loadMoreComplete();
+//                } catch (InterruptedException e) {
+//                    e.printStackTrace();
+//                }
+
+                mPage++;
+
+                mPresenter.findAllRecords(mUserId, mPage, mSize,0);
+
+            }
+
+            @Override
+            public void onRefreshing() {
+                System.out.println("----onRefreshing----");
+
+//                try {
+//                    Thread.sleep(3000);
+//
+//                    mEasyRefreshLayout.refreshComplete();
+//                } catch (InterruptedException e) {
+//                    e.printStackTrace();
+//                }
+                mPage = 0;
+
+                mPresenter.findAllRecords(mUserId, mPage, mSize,1);
+            }
+        });
+    }
+
 
 
     @Override
@@ -119,7 +175,23 @@ public class RecordFragment extends BaseFragment<RecordPresenter> implements Rec
     }
 
     @Override
-    public void findAllRecordsSuccess(List<RecordBean> recordBeanList) {
-        mRecordAdapter.setNewData(recordBeanList);
+    public void loadMoreRecordsSuccess(List<RecordBean> recordBeanList) {
+
+        if(recordBeanList.size() > 0){
+            for (int i = 0; i < recordBeanList.size(); i++) {
+                mRecordAdapter.addData(mPage*mSize+i ,recordBeanList.get(i));
+            }
+        }
+
+        mEasyRefreshLayout.loadMoreComplete();
+
     }
+
+    @Override
+    public void refreshRecordsSuccess(List<RecordBean> recordBeanList) {
+        mRecordAdapter.setNewData(recordBeanList);
+        mEasyRefreshLayout.refreshComplete();
+    }
+
+
 }

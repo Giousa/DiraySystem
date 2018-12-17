@@ -246,7 +246,12 @@ public class RecordInfoActivity extends BaseActivity<RecordPresenter> implements
     }
 
     @Override
-    public void findAllRecordsSuccess(List<RecordBean> recordBeanList) {
+    public void loadMoreRecordsSuccess(List<RecordBean> recordBeanList) {
+
+    }
+
+    @Override
+    public void refreshRecordsSuccess(List<RecordBean> recordBeanList) {
 
     }
 }
