@@ -90,6 +90,8 @@ public class RecordFragment extends BaseFragment<RecordPresenter> implements Rec
         UserBean userBean = SharedPreferencesUtil.fromJson(userJson, UserBean.class);
         mUserId = userBean.getId();
 
+
+        mPage = 0;
         mPresenter.findAllRecords(mUserId, mPage, mSize,1);
     }
 
