@@ -11,6 +11,7 @@ import com.chad.library.adapter.base.BaseViewHolder;
 import com.zmm.diary.R;
 import com.zmm.diary.bean.RecordBean;
 import com.zmm.diary.ui.adapter.record.SixAdapter;
+import com.zmm.diary.utils.ToastUtils;
 import com.zmm.diary.utils.UIUtils;
 
 import java.util.ArrayList;
@@ -30,7 +31,7 @@ public class RecordAdapter extends BaseQuickAdapter<RecordBean,BaseViewHolder>{
     }
 
     @Override
-    protected void convert(BaseViewHolder helper, RecordBean item) {
+    protected void convert(BaseViewHolder helper, final RecordBean item) {
 
         helper.setText(R.id.tv_item_content,item.getContent());
         helper.setText(R.id.tv_item_time,item.getCreateTime());
@@ -43,6 +44,16 @@ public class RecordAdapter extends BaseQuickAdapter<RecordBean,BaseViewHolder>{
         recyclerView.setHasFixedSize(true);
         recyclerView.setAdapter(sixAdapter);
 
+        sixAdapter.setOnItemClickListener(new OnItemClickListener() {
+            @Override
+            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                String pic = (String) adapter.getData().get(position);
+
+                ToastUtils.SimpleToast(pic);
+                System.out.println("选择：item = "+item.getContent());
+            }
+        });
+
 
         String pics = item.getPics();
         if(!TextUtils.isEmpty(pics)){
@@ -53,7 +64,7 @@ public class RecordAdapter extends BaseQuickAdapter<RecordBean,BaseViewHolder>{
             for (String pic:splitPics) {
                 piclist.add(pic);
             }
-            System.out.println("图片："+ Arrays.toString(splitPics));
+//            System.out.println("图片："+ Arrays.toString(splitPics));
 
             sixAdapter.setNewData(piclist);
         }else {

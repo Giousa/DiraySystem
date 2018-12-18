@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.ajguan.library.EasyRefreshLayout;
+import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.zmm.diary.R;
 import com.zmm.diary.bean.RecordBean;
 import com.zmm.diary.bean.UserBean;
@@ -120,6 +121,7 @@ public class RecordFragment extends BaseFragment<RecordPresenter> implements Rec
 
         //适配器，设置空布局
         mRecordAdapter.setEmptyView(R.layout.empty_content, mRvList);
+
 
     }
 
