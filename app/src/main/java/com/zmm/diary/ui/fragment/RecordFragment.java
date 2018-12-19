@@ -122,7 +122,7 @@ public class RecordFragment extends BaseFragment<RecordPresenter> implements Rec
         //适配器，设置空布局
         mRecordAdapter.setEmptyView(R.layout.empty_content, mRvList);
 
-        //ssss
+        //
 
 
     }
