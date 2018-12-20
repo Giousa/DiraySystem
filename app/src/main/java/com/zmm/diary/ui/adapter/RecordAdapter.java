@@ -42,6 +42,8 @@ public class RecordAdapter extends BaseQuickAdapter<RecordBean,BaseViewHolder>{
 
         if(!TextUtils.isEmpty(pics)){
 
+            recyclerView.setVisibility(View.VISIBLE);
+
             String[] splitPics = pics.split(",");
 
             for (String pic:splitPics) {
@@ -97,6 +99,8 @@ public class RecordAdapter extends BaseQuickAdapter<RecordBean,BaseViewHolder>{
                 }
             });
 
+        }else {
+            recyclerView.setVisibility(View.GONE);
         }
 
     }

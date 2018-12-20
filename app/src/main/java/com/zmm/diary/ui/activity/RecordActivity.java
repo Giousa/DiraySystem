@@ -75,6 +75,13 @@ public class RecordActivity extends BaseActivity<RecordPresenter> implements Rec
 
         initRefresh();
 
+
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
         String userJson = SharedPreferencesUtil.getString(CommonConfig.LOGIN_USER, null);
         UserBean userBean = SharedPreferencesUtil.fromJson(userJson, UserBean.class);
         mUserId = userBean.getId();
@@ -118,9 +125,6 @@ public class RecordActivity extends BaseActivity<RecordPresenter> implements Rec
 
         //适配器，设置空布局
         mRecordAdapter.setEmptyView(R.layout.empty_content, mRvList);
-
-        //
-
 
     }
 

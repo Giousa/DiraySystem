@@ -26,7 +26,7 @@ public class FragmentFactory {
                     fragment = new CalendarFragment();
                     break;
                 case 2:
-                    fragment = new RecordFragment();
+                    fragment = new HotspotFragment();
                     break;
                 case 3:
                     fragment = new MyFragment();

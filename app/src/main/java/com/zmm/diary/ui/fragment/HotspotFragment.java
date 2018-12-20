@@ -8,22 +8,15 @@ import android.view.View;
 
 import com.ajguan.library.EasyRefreshLayout;
 import com.zmm.diary.R;
-import com.zmm.diary.bean.RecordBean;
 import com.zmm.diary.bean.UserBean;
-import com.zmm.diary.dagger.component.DaggerRecordComponent;
 import com.zmm.diary.dagger.component.HttpComponent;
-import com.zmm.diary.dagger.module.RecordModule;
-import com.zmm.diary.mvp.presenter.RecordPresenter;
-import com.zmm.diary.mvp.presenter.contract.RecordContract;
 import com.zmm.diary.ui.activity.RecordInfoActivity;
+import com.zmm.diary.ui.adapter.HomeAdapter;
+import com.zmm.diary.ui.adapter.HotspotAdapter;
 import com.zmm.diary.ui.adapter.RecordAdapter;
 import com.zmm.diary.ui.widget.TitleBar;
 import com.zmm.diary.utils.SharedPreferencesUtil;
 import com.zmm.diary.utils.config.CommonConfig;
-
-import java.util.List;
-
-import javax.inject.Inject;
 
 import butterknife.BindView;
 
@@ -33,7 +26,7 @@ import butterknife.BindView;
  * Date:2018/11/8
  * Email:65489469@qq.com
  */
-public class RecordFragment extends BaseFragment{
+public class HotspotFragment extends BaseFragment{
 
     @BindView(R.id.title_bar)
     TitleBar mTitleBar;
@@ -43,8 +36,8 @@ public class RecordFragment extends BaseFragment{
     EasyRefreshLayout mEasyRefreshLayout;
 
 
-    @Inject
-    RecordAdapter mRecordAdapter;
+//    @Inject
+    HotspotAdapter mHotspotAdapter;
 
     private int mPage = 0;
     private int mSize = 3;
@@ -52,7 +45,7 @@ public class RecordFragment extends BaseFragment{
 
     @Override
     protected int setLayout() {
-        return R.layout.fragment_record;
+        return R.layout.fragment_hotspot;
     }
 
     @Override
@@ -63,8 +56,8 @@ public class RecordFragment extends BaseFragment{
     @Override
     protected void init() {
 
-//        initToolBar();
-//
+        initToolBar();
+
 //        initRecyclerView();
 //
 //        initRefresh();
@@ -87,7 +80,7 @@ public class RecordFragment extends BaseFragment{
 
     private void initToolBar() {
 
-        mTitleBar.setTitle("笔记");
+        mTitleBar.setTitle("热点");
         mTitleBar.addAction(new TitleBar.ImageAction(R.drawable.add) {
             @Override
             public void performAction(View view) {
@@ -106,12 +99,11 @@ public class RecordFragment extends BaseFragment{
         //添加分割线
         mRvList.addItemDecoration(new DividerItemDecoration(mContext, DividerItemDecoration.VERTICAL));
 
-        mRvList.setAdapter(mRecordAdapter);
+        mRvList.setAdapter(mHotspotAdapter);
 
         //适配器，设置空布局
-        mRecordAdapter.setEmptyView(R.layout.empty_content, mRvList);
+        mHotspotAdapter.setEmptyView(R.layout.empty_content, mRvList);
 
-        //
 
 
     }

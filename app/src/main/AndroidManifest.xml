@@ -24,41 +24,55 @@
         </activity>
 
 
+        <!--登录-->
         <activity
             android:name=".ui.activity.LoginActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:theme="@style/AppTheme.Notitle.FullScreen"
             android:launchMode="singleTask"/>
 
+        <!--注册-->
         <activity
             android:name=".ui.activity.RegisterActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:launchMode="singleTask"/>
 
+        <!--主界面-->
         <activity
             android:name=".ui.activity.MainActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:launchMode="singleTask"/>
 
+        <!--日记详情-->
         <activity
             android:name=".ui.activity.DiaryInfoActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:launchMode="singleTask"/>
 
+        <!--设置-->
         <activity
             android:name=".ui.activity.SettingActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:launchMode="singleTask"/>
 
+        <!--随笔-->
         <activity
             android:name=".ui.activity.RecordActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:launchMode="singleTask"/>
 
+        <!--随笔信息-->
         <activity
             android:name=".ui.activity.RecordInfoActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:launchMode="singleTask"/>
+
+        <!--热点-->
+        <activity
+            android:name=".ui.activity.HotspotActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:launchMode="singleTask"/>
+
     </application>
 
 </manifest>

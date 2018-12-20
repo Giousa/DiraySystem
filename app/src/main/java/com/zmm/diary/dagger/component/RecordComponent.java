@@ -4,7 +4,6 @@ import com.zmm.diary.dagger.ActivityScope;
 import com.zmm.diary.dagger.module.RecordModule;
 import com.zmm.diary.ui.activity.RecordActivity;
 import com.zmm.diary.ui.activity.RecordInfoActivity;
-import com.zmm.diary.ui.fragment.RecordFragment;
 
 import dagger.Component;
 
