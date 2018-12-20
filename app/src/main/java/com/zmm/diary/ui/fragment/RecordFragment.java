@@ -163,7 +163,12 @@ public class RecordFragment extends BaseFragment<RecordPresenter> implements Rec
 
         if(recordBeanList.size() > 0){
             for (int i = 0; i < recordBeanList.size(); i++) {
-                mRecordAdapter.addData(mPage*mSize+i ,recordBeanList.get(i));
+
+                try {
+                    mRecordAdapter.addData(mPage*mSize+i ,recordBeanList.get(i));
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
             }
         }
 
