@@ -1,16 +1,12 @@
 package com.zmm.diary.ui.fragment;
 
 import android.content.Intent;
-import android.os.Bundle;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 
 import com.ajguan.library.EasyRefreshLayout;
-import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.zmm.diary.R;
 import com.zmm.diary.bean.RecordBean;
 import com.zmm.diary.bean.UserBean;
@@ -30,8 +26,6 @@ import java.util.List;
 import javax.inject.Inject;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.Unbinder;
 
 /**
  * Description:
@@ -136,14 +130,6 @@ public class RecordFragment extends BaseFragment<RecordPresenter> implements Rec
             public void onLoadMore() {
                 System.out.println("----onLoadMore----");
 
-//                try {
-//                    Thread.sleep(3000);
-//
-//                    mEasyRefreshLayout.loadMoreComplete();
-//                } catch (InterruptedException e) {
-//                    e.printStackTrace();
-//                }
-
                 mPage++;
 
                 mPresenter.findAllRecords(mUserId, mPage, mSize,0);
@@ -153,14 +139,6 @@ public class RecordFragment extends BaseFragment<RecordPresenter> implements Rec
             @Override
             public void onRefreshing() {
                 System.out.println("----onRefreshing----");
-
-//                try {
-//                    Thread.sleep(3000);
-//
-//                    mEasyRefreshLayout.refreshComplete();
-//                } catch (InterruptedException e) {
-//                    e.printStackTrace();
-//                }
                 mPage = 0;
 
                 mPresenter.findAllRecords(mUserId, mPage, mSize,1);

@@ -1,14 +1,14 @@
-package com.zmm.diary.ui.adapter.record;
+package com.zmm.diary.ui.adapter;
 
-import android.app.Activity;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
-import com.lzy.imagepicker.ImagePicker;
 import com.zmm.diary.R;
 import com.zmm.diary.utils.config.CommonConfig;
+
+import java.util.ArrayList;
 
 /**
  * Description:
@@ -16,11 +16,12 @@ import com.zmm.diary.utils.config.CommonConfig;
  * Date:2018/12/18
  * Email:65489469@qq.com
  */
-public class SixAdapter extends BaseQuickAdapter<String,BaseViewHolder>{
+public class RecordPicsAdapter extends BaseQuickAdapter<String,BaseViewHolder>{
 
 
-    public SixAdapter() {
-        super(R.layout.item_record_six);
+    public RecordPicsAdapter(int layoutId, ArrayList<String> piclist) {
+        super(layoutId,piclist);
+
     }
 
     @Override
