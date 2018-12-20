@@ -1,6 +1,7 @@
-package com.zmm.diary.ui.fragment;
+package com.zmm.diary.ui.activity;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -15,10 +16,10 @@ import com.zmm.diary.dagger.component.HttpComponent;
 import com.zmm.diary.dagger.module.RecordModule;
 import com.zmm.diary.mvp.presenter.RecordPresenter;
 import com.zmm.diary.mvp.presenter.contract.RecordContract;
-import com.zmm.diary.ui.activity.RecordInfoActivity;
 import com.zmm.diary.ui.adapter.RecordAdapter;
 import com.zmm.diary.ui.widget.TitleBar;
 import com.zmm.diary.utils.SharedPreferencesUtil;
+import com.zmm.diary.utils.UIUtils;
 import com.zmm.diary.utils.config.CommonConfig;
 
 import java.util.List;
@@ -26,14 +27,16 @@ import java.util.List;
 import javax.inject.Inject;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 
 /**
  * Description:
  * Author:zhangmengmeng
- * Date:2018/11/8
+ * Date:2018/12/20
  * Email:65489469@qq.com
  */
-public class RecordFragment extends BaseFragment{
+public class RecordActivity extends BaseActivity<RecordPresenter> implements RecordContract.RecordView {
+
 
     @BindView(R.id.title_bar)
     TitleBar mTitleBar;
@@ -52,29 +55,25 @@ public class RecordFragment extends BaseFragment{
 
     @Override
     protected int setLayout() {
-        return R.layout.fragment_record;
+        return R.layout.activity_record;
     }
 
     @Override
     protected void setupActivityComponent(HttpComponent httpComponent) {
+        DaggerRecordComponent.builder()
+                .httpComponent(httpComponent)
+                .recordModule(new RecordModule(this))
+                .build()
+                .inject(this);
     }
-
 
     @Override
     protected void init() {
+        initToolBar();
 
-//        initToolBar();
-//
-//        initRecyclerView();
-//
-//        initRefresh();
+        initRecyclerView();
 
-    }
-
-
-    @Override
-    public void onResume() {
-        super.onResume();
+        initRefresh();
 
         String userJson = SharedPreferencesUtil.getString(CommonConfig.LOGIN_USER, null);
         UserBean userBean = SharedPreferencesUtil.fromJson(userJson, UserBean.class);
@@ -82,12 +81,21 @@ public class RecordFragment extends BaseFragment{
 
 
         mPage = 0;
-//        mPresenter.findAllRecords(mUserId, mPage, mSize,1);
+        mPresenter.findAllRecords(mUserId, mPage, mSize,1);
     }
 
     private void initToolBar() {
 
         mTitleBar.setTitle("笔记");
+        mTitleBar.setLeftImageResource(R.drawable.back);
+        mTitleBar.setLeftText("返回");
+        mTitleBar.setLeftTextColor(UIUtils.getResources().getColor(R.color.white));
+        mTitleBar.setLeftClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
         mTitleBar.addAction(new TitleBar.ImageAction(R.drawable.add) {
             @Override
             public void performAction(View view) {
@@ -127,7 +135,7 @@ public class RecordFragment extends BaseFragment{
 
                 mPage++;
 
-//                mPresenter.findAllRecords(mUserId, mPage, mSize,0);
+                mPresenter.findAllRecords(mUserId, mPage, mSize,0);
 
             }
 
@@ -136,11 +144,42 @@ public class RecordFragment extends BaseFragment{
                 System.out.println("----onRefreshing----");
                 mPage = 0;
 
-//                mPresenter.findAllRecords(mUserId, mPage, mSize,1);
+                mPresenter.findAllRecords(mUserId, mPage, mSize,1);
             }
         });
     }
 
 
 
+    @Override
+    public void addSuccess() {
+
+    }
+
+    @Override
+    public void deleteSuccess() {
+
+    }
+
+    @Override
+    public void loadMoreRecordsSuccess(List<RecordBean> recordBeanList) {
+        if(recordBeanList.size() > 0){
+            for (int i = 0; i < recordBeanList.size(); i++) {
+
+                try {
+                    mRecordAdapter.addData(mPage*mSize+i ,recordBeanList.get(i));
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
+            }
+        }
+
+        mEasyRefreshLayout.loadMoreComplete();
+    }
+
+    @Override
+    public void refreshRecordsSuccess(List<RecordBean> recordBeanList) {
+        mRecordAdapter.setNewData(recordBeanList);
+        mEasyRefreshLayout.refreshComplete();
+    }
 }

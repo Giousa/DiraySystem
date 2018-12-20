@@ -1,6 +1,7 @@
 package com.zmm.diary.ui.fragment;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -86,6 +87,13 @@ public abstract class BaseFragment<T extends BasePresenter> extends Fragment imp
             System.out.println("Fragment show");
             onRefresh();
         }
+    }
+
+
+    protected void startActivity(Class activity) {
+
+        Intent intent = new Intent(mContext, activity);
+        startActivity(intent);
     }
 
     protected abstract int setLayout();

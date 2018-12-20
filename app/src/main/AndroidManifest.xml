@@ -51,6 +51,11 @@
             android:launchMode="singleTask"/>
 
         <activity
+            android:name=".ui.activity.RecordActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:launchMode="singleTask"/>
+
+        <activity
             android:name=".ui.activity.RecordInfoActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:launchMode="singleTask"/>

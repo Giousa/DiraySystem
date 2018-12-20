@@ -35,6 +35,14 @@
 
     <com.zmm.diary.ui.widget.CustomItemView
         android:layout_marginTop="@dimen/dp_size_20"
+        android:id="@+id/custom_item_record"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:title="随笔"
+        app:icon="@drawable/add"/>
+
+    <com.zmm.diary.ui.widget.CustomItemView
+        android:layout_marginTop="@dimen/dp_size_20"
         android:id="@+id/custom_item_setting"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

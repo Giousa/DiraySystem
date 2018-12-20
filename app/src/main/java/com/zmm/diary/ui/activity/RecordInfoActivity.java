@@ -95,7 +95,7 @@ public class RecordInfoActivity extends BaseActivity<RecordPresenter> implements
 
     private void initToolBar() {
 
-        mTitleBar.setTitle("");
+        mTitleBar.setTitle("随笔");
         mTitleBar.setLeftText("取消");
         mTitleBar.setLeftTextColor(UIUtils.getResources().getColor(R.color.white));
         mTitleBar.setLeftClickListener(new View.OnClickListener() {
