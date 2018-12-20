@@ -43,34 +43,35 @@ public class ImagePickerAdapter extends BaseQuickAdapter<ImageItem,BaseViewHolde
 
     public void setImages(List<ImageItem> data) {
         mData = new ArrayList<>(data);
-        if (getItemCount() < maxImgCount) {
+        if (mData.size() < maxImgCount) {
             mData.add(new ImageItem());
             isAdded = true;
         } else {
             isAdded = false;
         }
-//        notifyDataSetChanged();
-
         setNewData(mData);
     }
 
     public List<ImageItem> getImages() {
         //由于图片未选满时，最后一张显示添加图片，因此这个方法返回真正的已选图片
-        if (isAdded) return new ArrayList<>(mData.subList(0, mData.size() - 1));
-        else return mData;
+        if (isAdded){
+            return new ArrayList<>(mData.subList(0, mData.size() - 1));
+        } else {
+            return mData;
+        }
     }
 
     @Override
     protected void convert(BaseViewHolder helper, ImageItem item) {
 
         final int clickPosition;
-        final int currentPosition = helper.getLayoutPosition();
+        int currentPosition = helper.getLayoutPosition();
         ImageView icon = helper.getView(R.id.iv_img);
 
-        System.out.println("getItemCount() = "+getItemCount());
+        System.out.println("getItemCount() = "+mData.size());
         System.out.println("currentPosition = "+currentPosition);
 
-        if (isAdded && currentPosition == getItemCount() - 1) {
+        if (isAdded && currentPosition == mData.size() - 1) {
             helper.setImageResource(R.id.iv_img,R.drawable.selector_image_add);
             clickPosition = RecordInfoActivity.IMAGE_ITEM_ADD;
         } else {

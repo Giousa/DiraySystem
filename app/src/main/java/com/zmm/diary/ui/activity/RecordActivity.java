@@ -93,7 +93,7 @@ public class RecordActivity extends BaseActivity<RecordPresenter> implements Rec
 
     private void initToolBar() {
 
-        mTitleBar.setTitle("笔记");
+        mTitleBar.setTitle("随笔");
         mTitleBar.setLeftImageResource(R.drawable.back);
         mTitleBar.setLeftText("返回");
         mTitleBar.setLeftTextColor(UIUtils.getResources().getColor(R.color.white));
