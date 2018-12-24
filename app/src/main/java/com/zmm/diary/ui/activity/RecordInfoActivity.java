@@ -195,6 +195,7 @@ public class RecordInfoActivity extends BaseActivity<RecordPresenter> implements
                     for (int i = 0; i < images.size(); i++) {
 
                         System.out.println("选取的图片名称1："+images.get(i).name);
+                        System.out.println("选取的图片类型1："+images.get(i).mimeType);
                         Bitmap bitmap = null;
                         try {
                             bitmap = PictureCompressUtil.revitionImageSize(images.get(i).path);

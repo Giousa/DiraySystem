@@ -50,6 +50,7 @@ public class HotspotFragment extends BaseFragment{
 
     @Override
     protected void setupActivityComponent(HttpComponent httpComponent) {
+
     }
 
 

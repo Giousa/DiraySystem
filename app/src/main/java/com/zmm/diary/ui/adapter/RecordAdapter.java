@@ -96,6 +96,9 @@ public class RecordAdapter extends BaseQuickAdapter<RecordBean,BaseViewHolder>{
 
                     ToastUtils.SimpleToast(pic);
                     System.out.println("选择：item = "+item.getContent());
+
+
+
                 }
             });
 

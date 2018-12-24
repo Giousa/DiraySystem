@@ -32,6 +32,12 @@ public class UserBean implements Serializable{
 
     private String birthday;
 
+    private String sign;
+
+    private Integer releases;
+
+    private Integer funs;
+
     private String createTime;
 
     public String getId() {
@@ -112,6 +118,30 @@ public class UserBean implements Serializable{
 
     public void setBirthday(String birthday) {
         this.birthday = birthday;
+    }
+
+    public String getSign() {
+        return sign;
+    }
+
+    public void setSign(String sign) {
+        this.sign = sign;
+    }
+
+    public Integer getReleases() {
+        return releases;
+    }
+
+    public void setReleases(Integer releases) {
+        this.releases = releases;
+    }
+
+    public Integer getFuns() {
+        return funs;
+    }
+
+    public void setFuns(Integer funs) {
+        this.funs = funs;
     }
 
     public String getCreateTime() {
