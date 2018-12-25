@@ -1,6 +1,7 @@
 package com.zmm.diary.http;
 
 import com.zmm.diary.bean.BaseBean;
+import com.zmm.diary.bean.HotspotBean;
 import com.zmm.diary.bean.NoteBean;
 import com.zmm.diary.bean.RecordBean;
 import com.zmm.diary.bean.UserBean;
@@ -147,5 +148,22 @@ public interface ApiService {
     @GET("record/findAllRecords")
     Observable<BaseBean<List<RecordBean>>> findAllRecords(@Query("userId") String userId,@Query("page") Integer page,@Query("size") Integer size);
 
+
+    /**
+     * -----------------------------热点接口-----------------------------
+     */
+
+    @Multipart
+    @POST("hotspot/addHotspot")
+    Observable<BaseBean<UserBean>> addHotspot(@Query("userId")String userId, @Query("content")String content, @Part() MultipartBody.Part file);
+
+    @GET("hotspot/deleteHotspot/{id}")
+    Observable<BaseBean<String>> deleteHotspot(@Path("id")String id);
+
+    @GET("hotspot/findHotspotsById")
+    Observable<BaseBean<List<HotspotBean>>> findHotspotsById(@Query("userId")String userId, @Query("page")Integer page, @Query("size")Integer size);
+
+    @GET("hotspot/findAllHotspots")
+    Observable<BaseBean<List<HotspotBean>>> findAllHotspots(@Query("page")Integer page, @Query("size")Integer size);
 }
 

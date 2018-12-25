@@ -13,8 +13,11 @@ import com.lzy.imagepicker.ImagePicker;
 import com.lzy.imagepicker.bean.ImageItem;
 import com.lzy.imagepicker.ui.ImageGridActivity;
 import com.zmm.diary.R;
+import com.zmm.diary.bean.HotspotBean;
 import com.zmm.diary.bean.UserBean;
 import com.zmm.diary.dagger.component.HttpComponent;
+import com.zmm.diary.mvp.presenter.HotspotPresenter;
+import com.zmm.diary.mvp.presenter.contract.HotspotContract;
 import com.zmm.diary.ui.widget.TitleBar;
 import com.zmm.diary.utils.PictureCompressUtil;
 import com.zmm.diary.utils.SharedPreferencesUtil;
@@ -24,6 +27,7 @@ import com.zmm.diary.utils.config.CommonConfig;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -35,7 +39,7 @@ import butterknife.OnClick;
  * Date:2018/12/3
  * Email:65489469@qq.com
  */
-public class HotspotInfoActivity extends BaseActivity {
+public class HotspotInfoActivity extends BaseActivity<HotspotPresenter> implements HotspotContract.HotspotView {
 
 
     @BindView(R.id.title_bar)
@@ -115,7 +119,7 @@ public class HotspotInfoActivity extends BaseActivity {
 
 
         if (!TextUtils.isEmpty(content)) {
-//            mPresenter.addRecord(userBean.getId(),content,mNewListPath);
+//            mPresenter.addHotspot(userBean.getId(),content,mNewListPath.get(0));
         } else {
             ToastUtils.SimpleToast("内容不能为空");
         }
@@ -144,17 +148,15 @@ public class HotspotInfoActivity extends BaseActivity {
 
                 if (mImages != null) {
 
+                    //展示图片
                     Glide.with(mContext).load(mImages.get(0).path).placeholder(R.drawable.default_bg).error(R.drawable.default_bg).into(mIvHotspotSelect);
 
                     for (int i = 0; i < mImages.size(); i++) {
 
-                        System.out.println("选取的图片名称1："+mImages.get(i).name);
-                        System.out.println("选取的图片类型1："+mImages.get(i).mimeType);
 
                         String mimeType = mImages.get(i).mimeType;
                         if(mimeType.contains("gif")){
                             mNewListPath.add(0,mImages.get(i).path);
-
                         }else {
 
                             try {
@@ -176,5 +178,23 @@ public class HotspotInfoActivity extends BaseActivity {
     }
 
 
+    @Override
+    public void addSuccess() {
 
+    }
+
+    @Override
+    public void deleteSuccess() {
+
+    }
+
+    @Override
+    public void loadMoreHotspotSuccess(List<HotspotBean> recordBeanList) {
+
+    }
+
+    @Override
+    public void refreshHotspotSuccess(List<HotspotBean> recordBeanList) {
+
+    }
 }
