@@ -1,13 +1,13 @@
 package com.zmm.diary.ui.fragment;
 
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.lzy.imagepicker.ImagePicker;
@@ -25,12 +25,10 @@ import com.zmm.diary.ui.activity.SettingActivity;
 import com.zmm.diary.ui.widget.CustomItemView;
 import com.zmm.diary.ui.widget.GlideCircleTransform;
 import com.zmm.diary.ui.widget.TitleBar;
-import com.zmm.diary.utils.PictureCompressUtil;
 import com.zmm.diary.utils.SharedPreferencesUtil;
 import com.zmm.diary.utils.ToastUtils;
 import com.zmm.diary.utils.config.CommonConfig;
 
-import java.io.IOException;
 import java.util.ArrayList;
 
 import butterknife.BindView;
@@ -58,6 +56,10 @@ public class MyFragment extends BaseFragment<UserPresenter> implements CustomIte
     CustomItemView mCustomItemSpend;
     @BindView(R.id.custom_item_record)
     CustomItemView mCustomItemRecord;
+    @BindView(R.id.tv_my_releses)
+    TextView mTvMyReleses;
+    @BindView(R.id.tv_my_funs)
+    TextView mTvMyFuns;
 
     private ArrayList<ImageItem> mImages;
     private String mUserId;
@@ -91,7 +93,6 @@ public class MyFragment extends BaseFragment<UserPresenter> implements CustomIte
 
         String userJson = SharedPreferencesUtil.getString(CommonConfig.LOGIN_USER, null);
 
-
         if (!TextUtils.isEmpty(userJson)) {
 
             UserBean userBean = SharedPreferencesUtil.fromJson(userJson, UserBean.class);
@@ -105,16 +106,33 @@ public class MyFragment extends BaseFragment<UserPresenter> implements CustomIte
                         .into(mIvHeadIcon);
             }
 
+            mPresenter.findUserById(mUserId);
         }
 
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+
+
+    }
+
+    @Override
+    protected void onRefresh() {
+        super.onRefresh();
+
+        if(!TextUtils.isEmpty(mUserId)){
+            mPresenter.findUserById(mUserId);
+        }
+
+    }
 
     @Override
     public void OnItemClick(String title) {
         if (title.equals("设置")) {
             startActivity(SettingActivity.class);
-        }else if(title.equals("随笔")){
+        } else if (title.equals("随笔")) {
             startActivity(RecordActivity.class);
         }
     }
@@ -180,7 +198,11 @@ public class MyFragment extends BaseFragment<UserPresenter> implements CustomIte
                         .into(mIvHeadIcon);
             }
 
+            mTvMyReleses.setText(userBean.getReleases()+"");
+            mTvMyFuns.setText(userBean.getFuns()+"");
+
 
         }
     }
+
 }

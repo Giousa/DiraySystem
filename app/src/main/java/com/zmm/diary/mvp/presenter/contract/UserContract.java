@@ -21,12 +21,17 @@ public interface UserContract {
 
         Observable<BaseBean<UserBean>> uploadIcon(String id, MultipartBody.Part file);
 
+        Observable<BaseBean<UserBean>> findUserById(String id);
+
+
+
     }
 
 
     interface UserView extends BaseView {
 
         void updateSuccess(UserBean userBean);
+        
     }
 
 }

@@ -34,9 +34,9 @@ public class UserBean implements Serializable{
 
     private String sign;
 
-    private Integer releases;
+    private int releases;
 
-    private Integer funs;
+    private int funs;
 
     private String createTime;
 
@@ -128,19 +128,19 @@ public class UserBean implements Serializable{
         this.sign = sign;
     }
 
-    public Integer getReleases() {
+    public int getReleases() {
         return releases;
     }
 
-    public void setReleases(Integer releases) {
+    public void setReleases(int releases) {
         this.releases = releases;
     }
 
-    public Integer getFuns() {
+    public int getFuns() {
         return funs;
     }
 
-    public void setFuns(Integer funs) {
+    public void setFuns(int funs) {
         this.funs = funs;
     }
 

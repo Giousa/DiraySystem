@@ -26,4 +26,9 @@ public class UserModel implements UserContract.IUserModel {
     public Observable<BaseBean<UserBean>> uploadIcon(String id, MultipartBody.Part file) {
         return mApiService.uploadIcon(id,file);
     }
+
+    @Override
+    public Observable<BaseBean<UserBean>> findUserById(String id) {
+        return mApiService.findUserById(id);
+    }
 }

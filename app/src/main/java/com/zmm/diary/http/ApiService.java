@@ -87,6 +87,14 @@ public interface ApiService {
     Observable<BaseBean<String>> modifyPassword(@Field("phone") String phone, @Field("newPassword") String newPassword, @Field("verifyCode") String verifyCode);
 
 
+    /**
+     * 根据id查询用户信息
+     * @param id
+     * @return
+     */
+    @GET("user/findUserById/{id}")
+    Observable<BaseBean<UserBean>> findUserById(@Path("id") String id);
+
 
     /**
      * -----------------------------日记界面接口-----------------------------

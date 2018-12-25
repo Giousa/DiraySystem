@@ -48,4 +48,22 @@ public class UserPresenter extends BasePresenter<UserContract.IUserModel,UserCon
                     }
                 });
     }
+
+
+    /**
+     * 根据id查询用户信息
+     * @param id
+     */
+    public void findUserById(String id) {
+
+        mModel.findUserById(id)
+                .compose(RxHttpResponseCompat.<UserBean>compatResult())
+                .subscribe(new ErrorHandlerSubscriber<UserBean>() {
+                    @Override
+                    public void onNext(UserBean userBean) {
+                        mView.updateSuccess(userBean);
+                    }
+                });
+
+    }
 }

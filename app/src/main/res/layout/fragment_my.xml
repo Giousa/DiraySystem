@@ -1,52 +1,98 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
-    android:background="@color/white_score">
+    android:background="@color/white_score"
+    android:orientation="vertical">
 
     <include layout="@layout/toolbar_content" />
 
 
     <ImageView
-        android:layout_marginTop="@dimen/dp_size_20"
-        android:layout_gravity="center"
         android:id="@+id/iv_head_icon"
         android:layout_width="@dimen/dp_size_150"
         android:layout_height="@dimen/dp_size_150"
+        android:layout_gravity="center"
+        android:layout_marginTop="@dimen/dp_size_20"
         android:src="@drawable/login_header" />
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_size_50"
+        android:layout_margin="@dimen/dp_size_20"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="发布：" />
+
+            <TextView
+                android:id="@+id/tv_my_releses"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="0" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="粉丝：" />
+
+            <TextView
+                android:id="@+id/tv_my_funs"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="0" />
+        </LinearLayout>
+
+    </LinearLayout>
+
     <com.zmm.diary.ui.widget.CustomItemView
-        android:layout_marginTop="@dimen/dp_size_20"
         android:id="@+id/custom_item_info"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:title="个人详情"
-        app:icon="@drawable/add"/>
+        android:layout_marginTop="@dimen/dp_size_10"
+        app:icon="@drawable/add"
+        app:title="个人详情" />
 
     <com.zmm.diary.ui.widget.CustomItemView
-        android:layout_marginTop="@dimen/dp_size_20"
         android:id="@+id/custom_item_spend"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:title="消费"
-        app:icon="@drawable/add"/>
+        android:layout_marginTop="@dimen/dp_size_10"
+        app:icon="@drawable/add"
+        app:title="消费" />
 
     <com.zmm.diary.ui.widget.CustomItemView
-        android:layout_marginTop="@dimen/dp_size_20"
         android:id="@+id/custom_item_record"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:title="随笔"
-        app:icon="@drawable/add"/>
+        android:layout_marginTop="@dimen/dp_size_10"
+        app:icon="@drawable/add"
+        app:title="随笔" />
 
     <com.zmm.diary.ui.widget.CustomItemView
-        android:layout_marginTop="@dimen/dp_size_20"
         android:id="@+id/custom_item_setting"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:title="设置"
-        app:icon="@drawable/add"/>
+        android:layout_marginTop="@dimen/dp_size_10"
+        app:icon="@drawable/add"
+        app:title="设置" />
 
 </LinearLayout>
