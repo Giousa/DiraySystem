@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
+    android:orientation="vertical">
+
+    <include layout="@layout/toolbar_content" />
+
+
+    <ImageView
+        android:id="@+id/iv_hotspot_select"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_size_200"
+        android:layout_margin="@dimen/dp_size_20"
+        android:scaleType="fitXY"
+        android:src="@drawable/hotspot_info_image_bg" />
+
+    <EditText
+        android:id="@+id/et_content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/dp_size_20"
+        android:background="@android:drawable/edit_text"
+        android:enabled="true"
+        android:gravity="top"
+        android:hint="发表说说..."
+        android:inputType="textMultiLine"
+        android:maxLines="8"
+        android:minLines="8"
+        android:scrollbars="vertical" />
+
+</LinearLayout>

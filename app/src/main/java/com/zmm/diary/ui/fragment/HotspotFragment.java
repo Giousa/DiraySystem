@@ -10,10 +10,8 @@ import com.ajguan.library.EasyRefreshLayout;
 import com.zmm.diary.R;
 import com.zmm.diary.bean.UserBean;
 import com.zmm.diary.dagger.component.HttpComponent;
-import com.zmm.diary.ui.activity.RecordInfoActivity;
-import com.zmm.diary.ui.adapter.HomeAdapter;
+import com.zmm.diary.ui.activity.HotspotInfoActivity;
 import com.zmm.diary.ui.adapter.HotspotAdapter;
-import com.zmm.diary.ui.adapter.RecordAdapter;
 import com.zmm.diary.ui.widget.TitleBar;
 import com.zmm.diary.utils.SharedPreferencesUtil;
 import com.zmm.diary.utils.config.CommonConfig;
@@ -86,7 +84,7 @@ public class HotspotFragment extends BaseFragment{
             @Override
             public void performAction(View view) {
 
-                mContext.startActivity(new Intent(mContext, RecordInfoActivity.class));
+                mContext.startActivity(new Intent(mContext, HotspotInfoActivity.class));
             }
         });
 

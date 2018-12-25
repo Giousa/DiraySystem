@@ -102,6 +102,8 @@ public class MyFragment extends BaseFragment<UserPresenter> implements CustomIte
             if (!TextUtils.isEmpty(icon)) {
                 Glide.with(mContext)
                         .load(CommonConfig.BASE_PIC_URL + userBean.getIcon())
+                        .placeholder(R.drawable.default_bg)
+                        .error(R.drawable.default_bg)
                         .transform(new GlideCircleTransform(mContext))
                         .into(mIvHeadIcon);
             }
@@ -194,6 +196,8 @@ public class MyFragment extends BaseFragment<UserPresenter> implements CustomIte
             if (!TextUtils.isEmpty(icon)) {
                 Glide.with(mContext)
                         .load(CommonConfig.BASE_PIC_URL + userBean.getIcon())
+                        .placeholder(R.drawable.default_bg)
+                        .error(R.drawable.default_bg)
                         .transform(new GlideCircleTransform(mContext))
                         .into(mIvHeadIcon);
             }
