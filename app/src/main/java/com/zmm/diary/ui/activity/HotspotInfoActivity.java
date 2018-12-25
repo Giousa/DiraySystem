@@ -15,7 +15,9 @@ import com.lzy.imagepicker.ui.ImageGridActivity;
 import com.zmm.diary.R;
 import com.zmm.diary.bean.HotspotBean;
 import com.zmm.diary.bean.UserBean;
+import com.zmm.diary.dagger.component.DaggerHotspotComponent;
 import com.zmm.diary.dagger.component.HttpComponent;
+import com.zmm.diary.dagger.module.HotspotModule;
 import com.zmm.diary.mvp.presenter.HotspotPresenter;
 import com.zmm.diary.mvp.presenter.contract.HotspotContract;
 import com.zmm.diary.ui.widget.TitleBar;
@@ -61,6 +63,12 @@ public class HotspotInfoActivity extends BaseActivity<HotspotPresenter> implemen
 
     @Override
     protected void setupActivityComponent(HttpComponent httpComponent) {
+
+        DaggerHotspotComponent.builder()
+                .httpComponent(httpComponent)
+                .hotspotModule(new HotspotModule(this))
+                .build()
+                .inject(this);
     }
 
     @Override
@@ -119,7 +127,7 @@ public class HotspotInfoActivity extends BaseActivity<HotspotPresenter> implemen
 
 
         if (!TextUtils.isEmpty(content)) {
-//            mPresenter.addHotspot(userBean.getId(),content,mNewListPath.get(0));
+            mPresenter.addHotspot(userBean.getId(),content,mNewListPath.get(0));
         } else {
             ToastUtils.SimpleToast("内容不能为空");
         }
@@ -180,7 +188,8 @@ public class HotspotInfoActivity extends BaseActivity<HotspotPresenter> implemen
 
     @Override
     public void addSuccess() {
-
+        ToastUtils.SimpleToast("发表成功");
+        finish();
     }
 
     @Override
@@ -189,12 +198,12 @@ public class HotspotInfoActivity extends BaseActivity<HotspotPresenter> implemen
     }
 
     @Override
-    public void loadMoreHotspotSuccess(List<HotspotBean> recordBeanList) {
+    public void loadMoreHotspotSuccess(List<HotspotBean> hotspotBeanList) {
 
     }
 
     @Override
-    public void refreshHotspotSuccess(List<HotspotBean> recordBeanList) {
+    public void refreshHotspotSuccess(List<HotspotBean> hotspotBeanList) {
 
     }
 }

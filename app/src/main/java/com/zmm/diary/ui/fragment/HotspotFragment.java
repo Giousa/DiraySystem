@@ -8,13 +8,22 @@ import android.view.View;
 
 import com.ajguan.library.EasyRefreshLayout;
 import com.zmm.diary.R;
+import com.zmm.diary.bean.HotspotBean;
 import com.zmm.diary.bean.UserBean;
+import com.zmm.diary.dagger.component.DaggerHotspotComponent;
 import com.zmm.diary.dagger.component.HttpComponent;
+import com.zmm.diary.dagger.module.HotspotModule;
+import com.zmm.diary.mvp.presenter.HotspotPresenter;
+import com.zmm.diary.mvp.presenter.contract.HotspotContract;
 import com.zmm.diary.ui.activity.HotspotInfoActivity;
 import com.zmm.diary.ui.adapter.HotspotAdapter;
 import com.zmm.diary.ui.widget.TitleBar;
 import com.zmm.diary.utils.SharedPreferencesUtil;
 import com.zmm.diary.utils.config.CommonConfig;
+
+import java.util.List;
+
+import javax.inject.Inject;
 
 import butterknife.BindView;
 
@@ -24,7 +33,7 @@ import butterknife.BindView;
  * Date:2018/11/8
  * Email:65489469@qq.com
  */
-public class HotspotFragment extends BaseFragment{
+public class HotspotFragment extends BaseFragment<HotspotPresenter> implements HotspotContract.HotspotView{
 
     @BindView(R.id.title_bar)
     TitleBar mTitleBar;
@@ -34,12 +43,11 @@ public class HotspotFragment extends BaseFragment{
     EasyRefreshLayout mEasyRefreshLayout;
 
 
-//    @Inject
+    @Inject
     HotspotAdapter mHotspotAdapter;
 
     private int mPage = 0;
     private int mSize = 3;
-    private String mUserId;
 
     @Override
     protected int setLayout() {
@@ -48,7 +56,11 @@ public class HotspotFragment extends BaseFragment{
 
     @Override
     protected void setupActivityComponent(HttpComponent httpComponent) {
-
+        DaggerHotspotComponent.builder()
+                .httpComponent(httpComponent)
+                .hotspotModule(new HotspotModule(this))
+                .build()
+                .inject(this);
     }
 
 
@@ -57,9 +69,9 @@ public class HotspotFragment extends BaseFragment{
 
         initToolBar();
 
-//        initRecyclerView();
-//
-//        initRefresh();
+        initRecyclerView();
+
+        initRefresh();
 
     }
 
@@ -68,13 +80,8 @@ public class HotspotFragment extends BaseFragment{
     public void onResume() {
         super.onResume();
 
-        String userJson = SharedPreferencesUtil.getString(CommonConfig.LOGIN_USER, null);
-        UserBean userBean = SharedPreferencesUtil.fromJson(userJson, UserBean.class);
-        mUserId = userBean.getId();
-
-
         mPage = 0;
-//        mPresenter.findAllRecords(mUserId, mPage, mSize,1);
+        mPresenter.findAllHotspots(mPage, mSize,1);
     }
 
     private void initToolBar() {
@@ -118,7 +125,7 @@ public class HotspotFragment extends BaseFragment{
 
                 mPage++;
 
-//                mPresenter.findAllRecords(mUserId, mPage, mSize,0);
+                mPresenter.findAllHotspots(mPage, mSize,0);
 
             }
 
@@ -127,11 +134,43 @@ public class HotspotFragment extends BaseFragment{
                 System.out.println("----onRefreshing----");
                 mPage = 0;
 
-//                mPresenter.findAllRecords(mUserId, mPage, mSize,1);
+                mPresenter.findAllHotspots(mPage, mSize,1);
             }
         });
     }
 
 
+    @Override
+    public void addSuccess() {
 
+    }
+
+    @Override
+    public void deleteSuccess() {
+
+    }
+
+    @Override
+    public void loadMoreHotspotSuccess(List<HotspotBean> hotspotBeanList) {
+
+        if(hotspotBeanList.size() > 0){
+            for (int i = 0; i < hotspotBeanList.size(); i++) {
+
+                try {
+                    mHotspotAdapter.addData(mPage*mSize+i ,hotspotBeanList.get(i));
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
+            }
+        }
+
+        mEasyRefreshLayout.loadMoreComplete();
+    }
+
+    @Override
+    public void refreshHotspotSuccess(List<HotspotBean> hotspotBeanList) {
+        mHotspotAdapter.setNewData(hotspotBeanList);
+        mEasyRefreshLayout.refreshComplete();
+
+    }
 }

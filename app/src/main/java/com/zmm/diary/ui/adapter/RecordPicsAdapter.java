@@ -29,7 +29,11 @@ public class RecordPicsAdapter extends BaseQuickAdapter<String,BaseViewHolder>{
 
         ImageView icon = helper.getView(R.id.iv_img);
 
-        Glide.with(mContext).load(CommonConfig.BASE_PIC_URL+item).into(icon);
+        Glide.with(mContext)
+                .load(CommonConfig.BASE_PIC_URL+item)
+                .placeholder(R.drawable.default_bg)
+                .error(R.drawable.default_bg)
+                .into(icon);
 
     }
 }

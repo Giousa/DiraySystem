@@ -3,6 +3,7 @@ package com.zmm.diary.dagger.module;
 import com.zmm.diary.http.ApiService;
 import com.zmm.diary.mvp.model.HotspotModel;
 import com.zmm.diary.mvp.presenter.contract.HotspotContract;
+import com.zmm.diary.ui.adapter.HotspotAdapter;
 
 import dagger.Module;
 import dagger.Provides;
@@ -33,6 +34,11 @@ public class HotspotModule {
     @Provides
     public HotspotContract.IHotspotModel provideHotspotModel(ApiService apiService){
         return new HotspotModel(apiService);
+    }
+
+    @Provides
+    public HotspotAdapter provideHotspotAdapter(){
+        return new HotspotAdapter();
     }
 
 }

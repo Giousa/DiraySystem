@@ -2,7 +2,6 @@ package com.zmm.diary.mvp.presenter.contract;
 
 import com.zmm.diary.bean.BaseBean;
 import com.zmm.diary.bean.HotspotBean;
-import com.zmm.diary.bean.UserBean;
 import com.zmm.diary.mvp.view.BaseView;
 
 import java.util.List;
@@ -20,11 +19,11 @@ public interface HotspotContract {
 
     interface IHotspotModel{
 
-        Observable<BaseBean<UserBean>> addHotspot(String id,String content, MultipartBody.Part file);
+        Observable<BaseBean<HotspotBean>> addHotspot(String userId,String content,String type, MultipartBody.Part file);
 
-        Observable<BaseBean<String>> deleteHotspot(String id);
+        Observable<BaseBean<String>> deleteHotspot(String hotspotId);
 
-        Observable<BaseBean<List<HotspotBean>>> findHotspotsById(String userId,Integer page,Integer size);
+        Observable<BaseBean<List<HotspotBean>>> findHotspotsByUId(String userId,Integer page,Integer size);
 
         Observable<BaseBean<List<HotspotBean>>> findAllHotspots(Integer page,Integer size);
 
@@ -36,8 +35,8 @@ public interface HotspotContract {
 
         void deleteSuccess();
 
-        void loadMoreHotspotSuccess(List<HotspotBean> recordBeanList);
+        void loadMoreHotspotSuccess(List<HotspotBean> hotspotBeanList);
 
-        void refreshHotspotSuccess(List<HotspotBean> recordBeanList);
+        void refreshHotspotSuccess(List<HotspotBean> hotspotBeanList);
     }
 }

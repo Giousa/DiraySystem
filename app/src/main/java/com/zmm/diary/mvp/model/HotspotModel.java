@@ -27,8 +27,8 @@ public class HotspotModel implements HotspotContract.IHotspotModel {
     }
 
     @Override
-    public Observable<BaseBean<UserBean>> addHotspot(String id, String content, MultipartBody.Part file) {
-        return mApiService.addHotspot(id,content,file);
+    public Observable<BaseBean<HotspotBean>> addHotspot(String userId, String content,String type, MultipartBody.Part file) {
+        return mApiService.addHotspot(userId,content,type,file);
     }
 
     @Override
@@ -37,8 +37,8 @@ public class HotspotModel implements HotspotContract.IHotspotModel {
     }
 
     @Override
-    public Observable<BaseBean<List<HotspotBean>>> findHotspotsById(String userId, Integer page, Integer size) {
-        return mApiService.findHotspotsById(userId,page,size);
+    public Observable<BaseBean<List<HotspotBean>>> findHotspotsByUId(String userId, Integer page, Integer size) {
+        return mApiService.findHotspotsByUId(userId,page,size);
     }
 
     @Override

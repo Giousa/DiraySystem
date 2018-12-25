@@ -155,13 +155,13 @@ public interface ApiService {
 
     @Multipart
     @POST("hotspot/addHotspot")
-    Observable<BaseBean<UserBean>> addHotspot(@Query("userId")String userId, @Query("content")String content, @Part() MultipartBody.Part file);
+    Observable<BaseBean<HotspotBean>> addHotspot(@Query("userId")String userId, @Query("content")String content, @Query("type")String type, @Part() MultipartBody.Part file);
 
     @GET("hotspot/deleteHotspot/{id}")
     Observable<BaseBean<String>> deleteHotspot(@Path("id")String id);
 
-    @GET("hotspot/findHotspotsById")
-    Observable<BaseBean<List<HotspotBean>>> findHotspotsById(@Query("userId")String userId, @Query("page")Integer page, @Query("size")Integer size);
+    @GET("hotspot/findHotspotsByUId")
+    Observable<BaseBean<List<HotspotBean>>> findHotspotsByUId(@Query("userId")String userId, @Query("page")Integer page, @Query("size")Integer size);
 
     @GET("hotspot/findAllHotspots")
     Observable<BaseBean<List<HotspotBean>>> findAllHotspots(@Query("page")Integer page, @Query("size")Integer size);
