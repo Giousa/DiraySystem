@@ -56,6 +56,9 @@ public class MyFragment extends BaseFragment<UserPresenter> implements CustomIte
     CustomItemView mCustomItemSpend;
     @BindView(R.id.custom_item_record)
     CustomItemView mCustomItemRecord;
+    @BindView(R.id.custom_item_hotspot)
+    CustomItemView mCustomItemHotspot;
+
     @BindView(R.id.tv_my_releses)
     TextView mTvMyReleses;
     @BindView(R.id.tv_my_funs)
@@ -90,6 +93,7 @@ public class MyFragment extends BaseFragment<UserPresenter> implements CustomIte
         mCustomItemSpend.setOnItemClickListener(this);
         mCustomItemSetting.setOnItemClickListener(this);
         mCustomItemRecord.setOnItemClickListener(this);
+        mCustomItemHotspot.setOnItemClickListener(this);
 
         String userJson = SharedPreferencesUtil.getString(CommonConfig.LOGIN_USER, null);
 
@@ -124,7 +128,7 @@ public class MyFragment extends BaseFragment<UserPresenter> implements CustomIte
     protected void onRefresh() {
         super.onRefresh();
 
-        if(!TextUtils.isEmpty(mUserId)){
+        if (!TextUtils.isEmpty(mUserId)) {
             mPresenter.findUserById(mUserId);
         }
 
@@ -132,10 +136,16 @@ public class MyFragment extends BaseFragment<UserPresenter> implements CustomIte
 
     @Override
     public void OnItemClick(String title) {
-        if (title.equals("设置")) {
-            startActivity(SettingActivity.class);
-        } else if (title.equals("随笔")) {
+        if (title.equals("个人详情")) {
+            ToastUtils.SimpleToast("个人详情");
+        } else if (title.equals("个人消费")) {
+            ToastUtils.SimpleToast("个人消费");
+        } else if (title.equals("点滴记录")) {
             startActivity(RecordActivity.class);
+        } else if (title.equals("热点中心")) {
+            ToastUtils.SimpleToast("热点中心");
+        } else if (title.equals("设置")) {
+            startActivity(SettingActivity.class);
         }
     }
 
@@ -160,15 +170,6 @@ public class MyFragment extends BaseFragment<UserPresenter> implements CustomIte
                 if (mImages != null && mImages.size() > 0) {
 
                     System.out.println("选择图片：" + mImages.get(0).path);
-
-
-//                    String mimeType = mImages.get(0).mimeType;
-//                    if(mimeType.contains("gif")){
-//
-//                    }else {
-//
-//                    }
-
 
                     if (!TextUtils.isEmpty(mUserId)) {
                         mPresenter.uploadPic(mUserId, mImages.get(0).path);
@@ -202,8 +203,8 @@ public class MyFragment extends BaseFragment<UserPresenter> implements CustomIte
                         .into(mIvHeadIcon);
             }
 
-            mTvMyReleses.setText(userBean.getReleases()+"");
-            mTvMyFuns.setText(userBean.getFuns()+"");
+            mTvMyReleses.setText(userBean.getReleases() + "");
+            mTvMyFuns.setText(userBean.getFuns() + "");
 
 
         }

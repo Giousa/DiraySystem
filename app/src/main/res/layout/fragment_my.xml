@@ -77,7 +77,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/dp_size_10"
         app:icon="@drawable/add"
-        app:title="消费" />
+        app:title="个人消费" />
 
     <com.zmm.diary.ui.widget.CustomItemView
         android:id="@+id/custom_item_record"
@@ -85,7 +85,15 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/dp_size_10"
         app:icon="@drawable/add"
-        app:title="随笔" />
+        app:title="点滴记录" />
+
+    <com.zmm.diary.ui.widget.CustomItemView
+        android:id="@+id/custom_item_hotspot"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_size_10"
+        app:icon="@drawable/add"
+        app:title="热点中心" />
 
     <com.zmm.diary.ui.widget.CustomItemView
         android:id="@+id/custom_item_setting"

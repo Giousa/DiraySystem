@@ -8,6 +8,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
 import com.ajguan.library.EasyRefreshLayout;
+import com.ajguan.library.LoadModel;
 import com.zmm.diary.R;
 import com.zmm.diary.bean.RecordBean;
 import com.zmm.diary.bean.UserBean;
@@ -93,7 +94,7 @@ public class RecordActivity extends BaseActivity<RecordPresenter> implements Rec
 
     private void initToolBar() {
 
-        mTitleBar.setTitle("随笔");
+        mTitleBar.setTitle("点滴记录");
         mTitleBar.setLeftImageResource(R.drawable.back);
         mTitleBar.setLeftText("返回");
         mTitleBar.setLeftTextColor(UIUtils.getResources().getColor(R.color.white));
@@ -151,6 +152,7 @@ public class RecordActivity extends BaseActivity<RecordPresenter> implements Rec
                 mPresenter.findAllRecords(mUserId, mPage, mSize,1);
             }
         });
+
     }
 
 
