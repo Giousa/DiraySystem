@@ -119,6 +119,7 @@ public class HotspotInfoActivity extends BaseActivity<HotspotPresenter> implemen
 
 
         if (!TextUtils.isEmpty(content)) {
+            System.out.println("工具测试");
 //            mPresenter.addHotspot(userBean.getId(),content,mNewListPath.get(0));
         } else {
             ToastUtils.SimpleToast("内容不能为空");
