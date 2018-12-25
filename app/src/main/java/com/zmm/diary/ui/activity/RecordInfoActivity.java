@@ -196,14 +196,22 @@ public class RecordInfoActivity extends BaseActivity<RecordPresenter> implements
 
                         System.out.println("选取的图片名称1："+images.get(i).name);
                         System.out.println("选取的图片类型1："+images.get(i).mimeType);
-                        Bitmap bitmap = null;
-                        try {
-                            bitmap = PictureCompressUtil.revitionImageSize(images.get(i).path);
-                            String newPath = PictureCompressUtil.saveBitmapFile(bitmap, "tmsystem/"+images.get(i).name);
-                            mNewListPath.add("/storage/emulated/0/"+newPath);
-                        } catch (IOException e) {
-                            e.printStackTrace();
+
+                        String mimeType = images.get(i).mimeType;
+                        if(mimeType.contains("gif")){
+                            mNewListPath.add(images.get(i).path);
+                        }else {
+
+                            try {
+                                Bitmap bitmap = PictureCompressUtil.revitionImageSize(images.get(i).path);
+                                String newPath = PictureCompressUtil.saveBitmapFile(bitmap, "tmsystem/"+images.get(i).name);
+                                mNewListPath.add("/storage/emulated/0/"+newPath);
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
                         }
+
+
                     }
                 }
             }

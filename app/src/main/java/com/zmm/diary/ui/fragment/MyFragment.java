@@ -1,6 +1,7 @@
 package com.zmm.diary.ui.fragment;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -24,10 +25,12 @@ import com.zmm.diary.ui.activity.SettingActivity;
 import com.zmm.diary.ui.widget.CustomItemView;
 import com.zmm.diary.ui.widget.GlideCircleTransform;
 import com.zmm.diary.ui.widget.TitleBar;
+import com.zmm.diary.utils.PictureCompressUtil;
 import com.zmm.diary.utils.SharedPreferencesUtil;
 import com.zmm.diary.utils.ToastUtils;
 import com.zmm.diary.utils.config.CommonConfig;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 import butterknife.BindView;
@@ -135,7 +138,18 @@ public class MyFragment extends BaseFragment<UserPresenter> implements CustomIte
 
                 mImages = (ArrayList<ImageItem>) data.getSerializableExtra(ImagePicker.EXTRA_RESULT_ITEMS);
                 if (mImages != null && mImages.size() > 0) {
+
                     System.out.println("选择图片：" + mImages.get(0).path);
+
+
+//                    String mimeType = mImages.get(0).mimeType;
+//                    if(mimeType.contains("gif")){
+//
+//                    }else {
+//
+//                    }
+
+
                     if (!TextUtils.isEmpty(mUserId)) {
                         mPresenter.uploadPic(mUserId, mImages.get(0).path);
                     } else {
