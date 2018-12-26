@@ -44,25 +44,29 @@ import butterknife.Unbinder;
  */
 public class MyFragment extends BaseFragment<UserPresenter> implements CustomItemView.OnItemClickListener, UserContract.UserView {
 
-    @BindView(R.id.title_bar)
-    TitleBar mTitleBar;
-    @BindView(R.id.iv_head_icon)
-    ImageView mIvHeadIcon;
+    @BindView(R.id.iv_my_icon)
+    ImageView mIvMyIcon;
+    @BindView(R.id.tv_my_name)
+    TextView mTvMyName;
+    @BindView(R.id.tv_my_sign)
+    TextView mTvMySign;
+    @BindView(R.id.iv_my_info)
+    ImageView mIvMyInfo;
+    @BindView(R.id.tv_my_hotspot_count)
+    TextView mTvMyHotspotCount;
+    @BindView(R.id.tv_my_followers_count)
+    TextView mTvMyFollowersCount;
+    @BindView(R.id.tv_my_funs_count)
+    TextView mTvMyFunsCount;
+
+
+    @BindView(R.id.custom_item_collection)
+    CustomItemView mCustomItemCollection;
     @BindView(R.id.custom_item_setting)
     CustomItemView mCustomItemSetting;
-    @BindView(R.id.custom_item_info)
-    CustomItemView mCustomItemInfo;
-    @BindView(R.id.custom_item_spend)
-    CustomItemView mCustomItemSpend;
     @BindView(R.id.custom_item_record)
     CustomItemView mCustomItemRecord;
-    @BindView(R.id.custom_item_hotspot)
-    CustomItemView mCustomItemHotspot;
 
-    @BindView(R.id.tv_my_releses)
-    TextView mTvMyReleses;
-    @BindView(R.id.tv_my_funs)
-    TextView mTvMyFuns;
 
     private ArrayList<ImageItem> mImages;
     private String mUserId;
@@ -86,14 +90,10 @@ public class MyFragment extends BaseFragment<UserPresenter> implements CustomIte
     @Override
     protected void init() {
 
-        mTitleBar.setTitle("我");
 
-
-        mCustomItemInfo.setOnItemClickListener(this);
-        mCustomItemSpend.setOnItemClickListener(this);
         mCustomItemSetting.setOnItemClickListener(this);
         mCustomItemRecord.setOnItemClickListener(this);
-        mCustomItemHotspot.setOnItemClickListener(this);
+        mCustomItemCollection.setOnItemClickListener(this);
 
         String userJson = SharedPreferencesUtil.getString(CommonConfig.LOGIN_USER, null);
 
@@ -109,7 +109,7 @@ public class MyFragment extends BaseFragment<UserPresenter> implements CustomIte
                         .placeholder(R.drawable.default_bg)
                         .error(R.drawable.default_bg)
                         .transform(new GlideCircleTransform(mContext))
-                        .into(mIvHeadIcon);
+                        .into(mIvMyIcon);
             }
 
             mPresenter.findUserById(mUserId);
@@ -134,29 +134,47 @@ public class MyFragment extends BaseFragment<UserPresenter> implements CustomIte
 
     }
 
-    @Override
-    public void OnItemClick(String title) {
-        if (title.equals("个人详情")) {
-            ToastUtils.SimpleToast("个人详情");
-        } else if (title.equals("个人消费")) {
-            ToastUtils.SimpleToast("个人消费");
-        } else if (title.equals("点滴记录")) {
-            startActivity(RecordActivity.class);
-        } else if (title.equals("热点中心")) {
-            ToastUtils.SimpleToast("热点中心");
-        } else if (title.equals("设置")) {
-            startActivity(SettingActivity.class);
+
+    @OnClick({R.id.iv_my_icon, R.id.iv_my_info, R.id.rel_my_hotspot, R.id.rel_my_followers, R.id.rel_my_funs})
+    public void onViewClicked(View view) {
+        switch (view.getId()) {
+            case R.id.iv_my_icon:
+
+                ImagePicker.getInstance().setMultiMode(false);
+                ImagePicker.getInstance().setCrop(true);
+                Intent intent = new Intent(mContext, ImageGridActivity.class);
+                startActivityForResult(intent, 100);
+
+                break;
+            case R.id.iv_my_info:
+
+                ToastUtils.SimpleToast("个人信息");
+                break;
+            case R.id.rel_my_hotspot:
+
+                ToastUtils.SimpleToast("热点界面");
+
+                break;
+            case R.id.rel_my_followers:
+                ToastUtils.SimpleToast("关注界面");
+
+                break;
+            case R.id.rel_my_funs:
+                ToastUtils.SimpleToast("粉丝界面");
+
+                break;
         }
     }
 
-
-    @OnClick(R.id.iv_head_icon)
-    public void onViewClicked() {
-
-        ImagePicker.getInstance().setMultiMode(false);
-        ImagePicker.getInstance().setCrop(true);
-        Intent intent = new Intent(mContext, ImageGridActivity.class);
-        startActivityForResult(intent, 100);
+    @Override
+    public void OnItemClick(String title) {
+        if (title.equals("热点收藏")) {
+            ToastUtils.SimpleToast("热点收藏");
+        } else if (title.equals("每日说说")) {
+            startActivity(RecordActivity.class);
+        } else if (title.equals("设置")) {
+            startActivity(SettingActivity.class);
+        }
     }
 
     @Override
@@ -200,14 +218,18 @@ public class MyFragment extends BaseFragment<UserPresenter> implements CustomIte
                         .placeholder(R.drawable.default_bg)
                         .error(R.drawable.default_bg)
                         .transform(new GlideCircleTransform(mContext))
-                        .into(mIvHeadIcon);
+                        .into(mIvMyIcon);
             }
 
-            mTvMyReleses.setText(userBean.getReleases() + "");
-            mTvMyFuns.setText(userBean.getFuns() + "");
+            //发布热点数
+            mTvMyHotspotCount.setText(userBean.getReleases() + "");
+
+            //粉丝数
+            mTvMyFunsCount.setText(userBean.getFuns() + "");
 
 
         }
     }
+
 
 }
