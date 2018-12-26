@@ -11,6 +11,7 @@ import com.zmm.diary.bean.UserBean;
 import com.zmm.diary.dagger.component.HttpComponent;
 import com.zmm.diary.ui.dialog.SimpleInputDialog;
 import com.zmm.diary.ui.widget.CustomItemView;
+import com.zmm.diary.ui.widget.DateSelectView;
 import com.zmm.diary.ui.widget.SingleSelectView;
 import com.zmm.diary.ui.widget.TitleBar;
 import com.zmm.diary.utils.ToastUtils;
@@ -189,11 +190,11 @@ public class UserInfoActivity extends BaseActivity implements CustomItemView.OnI
 
             case "生日":
 
+                selectBirthday(mCustomItemBirthday.getContent());
+
                 break;
         }
     }
-
-
 
     private void inputString(final String title, String hint, String name) {
 
@@ -277,4 +278,20 @@ public class UserInfoActivity extends BaseActivity implements CustomItemView.OnI
         });
 
     }
+
+
+    private void selectBirthday(String birthday) {
+
+        DateSelectView dateSelectView = new DateSelectView(mContext,mRootView,mScreenWidth,birthday);
+
+        dateSelectView.setOnDateClickListener(new DateSelectView.OnDateClickListener() {
+            @Override
+            public void onDateClick(String date) {
+                mUserBean.setBirthday(date);
+                mCustomItemBirthday.setContent(date);
+            }
+        });
+    }
+
+
 }
