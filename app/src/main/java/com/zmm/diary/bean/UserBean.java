@@ -16,14 +16,11 @@ public class UserBean implements Serializable{
 
     private String username;
 
-    private String type;
-
     private String icon;
 
     private String nickname;
 
-    //0-女  1-男
-    private Integer gender;
+    private String gender;
 
     private Integer height;
 
@@ -57,14 +54,6 @@ public class UserBean implements Serializable{
         this.username = username;
     }
 
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
-    }
-
     public String getIcon() {
         return icon;
     }
@@ -81,11 +70,11 @@ public class UserBean implements Serializable{
         this.nickname = nickname;
     }
 
-    public Integer getGender() {
+    public String getGender() {
         return gender;
     }
 
-    public void setGender(Integer gender) {
+    public void setGender(String gender) {
         this.gender = gender;
     }
 

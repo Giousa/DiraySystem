@@ -112,7 +112,7 @@ public class UserInfoActivity extends BaseActivity implements CustomItemView.OnI
         mUserBean = UIUtils.getUserBean();
 
         mCustomItemNickname.setContent(mUserBean.getNickname());
-        mCustomItemGender.setContent((mUserBean.getGender() == null) ? "":mUserBean.getGender()+"");
+        mCustomItemGender.setContent(mUserBean.getGender());
         mCustomItemSign.setContent(mUserBean.getSign());
         mCustomItemHeight.setContent((mUserBean.getHeight() == null) ? "":mUserBean.getGender()+"");
         mCustomItemWeight.setContent((mUserBean.getWeight() == null) ? "":mUserBean.getGender()+"");
@@ -247,7 +247,7 @@ public class UserInfoActivity extends BaseActivity implements CustomItemView.OnI
                     case "性别":
 
                         if(!TextUtils.isEmpty(content)){
-                            mUserBean.setGender(content.equals("女") ? 0 : 1);
+                            mUserBean.setGender(content);
                             mCustomItemGender.setContent(content);
                         }
                         break;
