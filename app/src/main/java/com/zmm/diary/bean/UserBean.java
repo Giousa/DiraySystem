@@ -38,6 +38,8 @@ public class UserBean implements Serializable{
 
     private int funs;
 
+    private int followers;
+
     private String createTime;
 
     public String getId() {
@@ -142,6 +144,14 @@ public class UserBean implements Serializable{
 
     public void setFuns(int funs) {
         this.funs = funs;
+    }
+
+    public int getFollowers() {
+        return followers;
+    }
+
+    public void setFollowers(int followers) {
+        this.followers = followers;
     }
 
     public String getCreateTime() {

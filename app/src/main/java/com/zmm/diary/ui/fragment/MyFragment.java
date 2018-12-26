@@ -106,13 +106,17 @@ public class MyFragment extends BaseFragment<UserPresenter> implements CustomIte
             if (!TextUtils.isEmpty(icon)) {
                 Glide.with(mContext)
                         .load(CommonConfig.BASE_PIC_URL + userBean.getIcon())
-                        .placeholder(R.drawable.default_bg)
-                        .error(R.drawable.default_bg)
+                        .placeholder(R.drawable.login_header)
+                        .error(R.drawable.login_header)
                         .transform(new GlideCircleTransform(mContext))
                         .into(mIvMyIcon);
             }
 
             mPresenter.findUserById(mUserId);
+        }else {
+
+            mTvMyName.setText("登录/注册");
+            mTvMySign.setVisibility(View.INVISIBLE);
         }
 
     }
@@ -210,19 +214,36 @@ public class MyFragment extends BaseFragment<UserPresenter> implements CustomIte
 
             SharedPreferencesUtil.saveString(CommonConfig.LOGIN_USER, SharedPreferencesUtil.toJson(userBean));
 
+            //头像
             String icon = userBean.getIcon();
 
             if (!TextUtils.isEmpty(icon)) {
                 Glide.with(mContext)
                         .load(CommonConfig.BASE_PIC_URL + userBean.getIcon())
-                        .placeholder(R.drawable.default_bg)
-                        .error(R.drawable.default_bg)
+                        .placeholder(R.drawable.login_header)
+                        .error(R.drawable.login_header)
                         .transform(new GlideCircleTransform(mContext))
                         .into(mIvMyIcon);
             }
 
+
+            //名称
+            if(TextUtils.isEmpty(userBean.getNickname())){
+                mTvMyName.setText(userBean.getUsername());
+            }else {
+                mTvMyName.setText(userBean.getNickname());
+            }
+
+            //签名
+            mTvMySign.setVisibility(View.VISIBLE);
+            mTvMySign.setText(userBean.getSign());
+
+
             //发布热点数
             mTvMyHotspotCount.setText(userBean.getReleases() + "");
+
+            //关注数
+            mTvMyFollowersCount.setText(userBean.getFollowers()+"");
 
             //粉丝数
             mTvMyFunsCount.setText(userBean.getFuns() + "");
