@@ -2,14 +2,13 @@ package com.zmm.diary.ui.fragment;
 
 import android.content.Intent;
 import android.support.v7.widget.DividerItemDecoration;
-import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
 import com.ajguan.library.EasyRefreshLayout;
 import com.zmm.diary.R;
 import com.zmm.diary.bean.HotspotBean;
-import com.zmm.diary.bean.UserBean;
 import com.zmm.diary.dagger.component.DaggerHotspotComponent;
 import com.zmm.diary.dagger.component.HttpComponent;
 import com.zmm.diary.dagger.module.HotspotModule;
@@ -18,8 +17,6 @@ import com.zmm.diary.mvp.presenter.contract.HotspotContract;
 import com.zmm.diary.ui.activity.HotspotInfoActivity;
 import com.zmm.diary.ui.adapter.HotspotAdapter;
 import com.zmm.diary.ui.widget.TitleBar;
-import com.zmm.diary.utils.SharedPreferencesUtil;
-import com.zmm.diary.utils.config.CommonConfig;
 
 import java.util.List;
 
@@ -47,7 +44,7 @@ public class HotspotFragment extends BaseFragment<HotspotPresenter> implements H
     HotspotAdapter mHotspotAdapter;
 
     private int mPage = 0;
-    private int mSize = 3;
+    private int mSize = 4;
 
     @Override
     protected int setLayout() {
@@ -100,10 +97,11 @@ public class HotspotFragment extends BaseFragment<HotspotPresenter> implements H
     private void initRecyclerView() {
 
         mRvList.setHasFixedSize(true);
-        mRvList.setLayoutManager(new LinearLayoutManager(mContext));
+//        mRvList.setLayoutManager(new LinearLayoutManager(mContext));
+        mRvList.setLayoutManager(new GridLayoutManager(mContext, 2));
 
         //添加分割线
-        mRvList.addItemDecoration(new DividerItemDecoration(mContext, DividerItemDecoration.VERTICAL));
+//        mRvList.addItemDecoration(new DividerItemDecoration(mContext, DividerItemDecoration.VERTICAL));
 
         mRvList.setAdapter(mHotspotAdapter);
 
