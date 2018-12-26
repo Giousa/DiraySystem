@@ -9,7 +9,6 @@ import com.chad.library.adapter.base.BaseViewHolder;
 import com.guanaj.easyswipemenulibrary.EasySwipeMenuLayout;
 import com.zmm.diary.R;
 import com.zmm.diary.bean.NoteBean;
-import com.zmm.diary.utils.ToastUtils;
 import com.zmm.diary.utils.UIUtils;
 
 /**
@@ -41,10 +40,10 @@ public class HomeAdapter extends BaseQuickAdapter<NoteBean,BaseViewHolder>{
 
         String type = item.getType();
         if(type.equals("公")){
-            icon.setImageDrawable(UIUtils.getResources().getDrawable(R.drawable.work_icon));
+            icon.setImageDrawable(UIUtils.getResources().getDrawable(R.drawable.home_work_icon));
             tvMoney.setText("");
         }else {
-            icon.setImageDrawable(UIUtils.getResources().getDrawable(R.drawable.personal_icon));
+            icon.setImageDrawable(UIUtils.getResources().getDrawable(R.drawable.home_personal_icon));
 
             if(type.equals("支出")){
                 tvMoney.setVisibility(View.VISIBLE);

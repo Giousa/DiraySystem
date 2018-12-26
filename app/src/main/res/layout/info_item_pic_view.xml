@@ -37,7 +37,7 @@
             android:layout_height="@dimen/dp_size_20"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:background="@drawable/to_right" />
+            android:background="@drawable/icon_right" />
 
     </RelativeLayout>
 

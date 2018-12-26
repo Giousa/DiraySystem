@@ -102,7 +102,7 @@ public class HomeFragment extends BaseFragment<NotePresenter> implements NoteCon
     private void initToolBar() {
 
         mTitleBar.setTitle("今日备忘录");
-        mTitleBar.addAction(new TitleBar.ImageAction(R.drawable.add) {
+        mTitleBar.addAction(new TitleBar.ImageAction(R.drawable.icon_add) {
             @Override
             public void performAction(View view) {
 

@@ -50,7 +50,7 @@ public class CustomItemView extends LinearLayout{
         //获取设置的自定义属性
         TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.CustomItemView);
         mTitle = typedArray.getString(R.styleable.CustomItemView_title);
-        int icon = typedArray.getResourceId(R.styleable.CustomItemView_icon, R.drawable.add);
+        int icon = typedArray.getResourceId(R.styleable.CustomItemView_icon, R.drawable.icon_add);
 
         //开始初始化控件
         initView(context);

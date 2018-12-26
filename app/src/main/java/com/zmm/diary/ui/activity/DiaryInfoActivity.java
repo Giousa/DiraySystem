@@ -161,7 +161,7 @@ public class DiaryInfoActivity extends BaseActivity<NotePresenter> implements No
         }else {
             mTitleBar.setTitle("修改日记");
         }
-        mTitleBar.setLeftImageResource(R.drawable.back);
+        mTitleBar.setLeftImageResource(R.drawable.icon_back);
         mTitleBar.setLeftText("返回");
         mTitleBar.setLeftClickListener(new View.OnClickListener() {
             @Override

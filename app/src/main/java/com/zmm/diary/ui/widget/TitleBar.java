@@ -254,7 +254,7 @@ public class TitleBar extends ViewGroup implements View.OnClickListener {
 
     /**
      * Adds a list of {@link Action}s.
-     * @param actionList the actions to add
+     * @param actionList the actions to icon_add
      */
     public void addActions(ActionList actionList) {
         int actions = actionList.size();
@@ -265,7 +265,7 @@ public class TitleBar extends ViewGroup implements View.OnClickListener {
 
     /**
      * Adds a new {@link Action}.
-     * @param action the action to add
+     * @param action the action to icon_add
      */
     public View addAction(Action action) {
         final int index = mRightLayout.getChildCount();
@@ -274,8 +274,8 @@ public class TitleBar extends ViewGroup implements View.OnClickListener {
 
     /**
      * Adds a new {@link Action} at the specified index.
-     * @param action the action to add
-     * @param index the position at which to add the action
+     * @param action the action to icon_add
+     * @param index the position at which to icon_add the action
      */
     public View addAction(Action action, int index) {
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LayoutParams.WRAP_CONTENT,

@@ -1,14 +1,12 @@
 package com.zmm.diary.ui.activity;
 
 import android.content.Intent;
-import android.os.Bundle;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
 import com.ajguan.library.EasyRefreshLayout;
-import com.ajguan.library.LoadModel;
 import com.zmm.diary.R;
 import com.zmm.diary.bean.RecordBean;
 import com.zmm.diary.bean.UserBean;
@@ -28,7 +26,6 @@ import java.util.List;
 import javax.inject.Inject;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 
 /**
  * Description:
@@ -95,7 +92,7 @@ public class RecordActivity extends BaseActivity<RecordPresenter> implements Rec
     private void initToolBar() {
 
         mTitleBar.setTitle("每日说说");
-        mTitleBar.setLeftImageResource(R.drawable.back);
+        mTitleBar.setLeftImageResource(R.drawable.icon_back);
         mTitleBar.setLeftText("返回");
         mTitleBar.setLeftTextColor(UIUtils.getResources().getColor(R.color.white));
         mTitleBar.setLeftClickListener(new View.OnClickListener() {
@@ -104,7 +101,7 @@ public class RecordActivity extends BaseActivity<RecordPresenter> implements Rec
                 finish();
             }
         });
-        mTitleBar.addAction(new TitleBar.ImageAction(R.drawable.add) {
+        mTitleBar.addAction(new TitleBar.ImageAction(R.drawable.icon_add) {
             @Override
             public void performAction(View view) {
 

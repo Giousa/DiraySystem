@@ -1,7 +1,6 @@
 package com.zmm.diary.ui.fragment;
 
 import android.content.Intent;
-import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -84,7 +83,7 @@ public class HotspotFragment extends BaseFragment<HotspotPresenter> implements H
     private void initToolBar() {
 
         mTitleBar.setTitle("热点");
-        mTitleBar.addAction(new TitleBar.ImageAction(R.drawable.add) {
+        mTitleBar.addAction(new TitleBar.ImageAction(R.drawable.icon_add) {
             @Override
             public void performAction(View view) {
 

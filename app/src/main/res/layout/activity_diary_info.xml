@@ -130,7 +130,7 @@
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
                 android:layout_marginRight="@dimen/dp_size_20"
-                android:src="@drawable/down_icon" />
+                android:src="@drawable/icon_down" />
         </RelativeLayout>
 
 

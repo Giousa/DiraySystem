@@ -48,7 +48,7 @@ public class SettingActivity extends BaseActivity implements CustomTitleItemView
     private void initToolBar() {
 
         mTitleBar.setTitle("设置");
-        mTitleBar.setLeftImageResource(R.drawable.back);
+        mTitleBar.setLeftImageResource(R.drawable.icon_back);
         mTitleBar.setLeftText("返回");
         mTitleBar.setLeftClickListener(new View.OnClickListener() {
             @Override

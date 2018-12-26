@@ -101,7 +101,7 @@ public class RegisterActivity extends BaseActivity<RegisterPresenter> implements
         mBtnConfirm.setText(mTitle);
 
         mTitleBar.setTitle(mTitle);
-        mTitleBar.setLeftImageResource(R.drawable.back);
+        mTitleBar.setLeftImageResource(R.drawable.icon_back);
         mTitleBar.setLeftText("返回");
         mTitleBar.setLeftClickListener(new View.OnClickListener() {
             @Override
