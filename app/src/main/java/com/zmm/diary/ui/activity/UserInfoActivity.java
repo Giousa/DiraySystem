@@ -2,12 +2,14 @@ package com.zmm.diary.ui.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.LinearLayout;
 
 import com.zmm.diary.R;
 import com.zmm.diary.bean.UserBean;
 import com.zmm.diary.dagger.component.HttpComponent;
+import com.zmm.diary.ui.dialog.SimpleInputDialog;
 import com.zmm.diary.ui.widget.CustomItemView;
 import com.zmm.diary.ui.widget.TitleBar;
 import com.zmm.diary.utils.ToastUtils;
@@ -104,6 +106,13 @@ public class UserInfoActivity extends BaseActivity implements CustomItemView.OnI
 
         mUserBean = UIUtils.getUserBean();
 
+        mCustomItemNickname.setContent(mUserBean.getNickname());
+        mCustomItemGender.setContent((mUserBean.getGender() == null) ? "":mUserBean.getGender()+"");
+        mCustomItemSign.setContent(mUserBean.getSign());
+        mCustomItemHeight.setContent((mUserBean.getHeight() == null) ? "":mUserBean.getGender()+"");
+        mCustomItemWeight.setContent((mUserBean.getWeight() == null) ? "":mUserBean.getGender()+"");
+        mCustomItemBirthday.setContent(mUserBean.getBirthday());
+
     }
 
 
@@ -139,9 +148,37 @@ public class UserInfoActivity extends BaseActivity implements CustomItemView.OnI
         }
     }
 
-    private void inputString(String title, String hint, String name) {
+    private void inputString(final String title, String hint, String name) {
 
-        
+        final SimpleInputDialog simpleInputDialog = new SimpleInputDialog(mContext,title,hint,name);
+
+        simpleInputDialog.setOnClickListener(new SimpleInputDialog.OnClickListener() {
+            @Override
+            public void onCancel() {
+                simpleInputDialog.dismiss();
+            }
+
+            @Override
+            public void onConfirm(String content) {
+
+                switch (title){
+                    case "昵称":
+                        mUserBean.setNickname(content);
+                        mCustomItemNickname.setContent(content);
+
+                        break;
+
+                    case "签名":
+                        mUserBean.setSign(content);
+                        mCustomItemSign.setContent(content);
+
+                        break;
+                }
+                simpleInputDialog.dismiss();
+            }
+        });
+
+        simpleInputDialog.show();
 
     }
 }

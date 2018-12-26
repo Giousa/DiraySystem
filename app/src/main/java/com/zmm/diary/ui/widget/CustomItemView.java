@@ -26,6 +26,7 @@ public class CustomItemView extends LinearLayout{
 
     private ImageView mIvIcon;
     private TextView mTvItemTitle;
+    private TextView mTvItemContent;
     private RelativeLayout mRl_item;
 
 
@@ -65,7 +66,7 @@ public class CustomItemView extends LinearLayout{
         }
 
         //开始初始化控件
-        initView(context);
+        initView();
 
         typedArray.recycle();
 
@@ -75,7 +76,7 @@ public class CustomItemView extends LinearLayout{
 
     }
 
-    private void initView(Context context) {
+    private void initView() {
 
 
         View view;
@@ -83,6 +84,7 @@ public class CustomItemView extends LinearLayout{
         mIvIcon = view.findViewById(R.id.iv_item_pic);
         mTvItemTitle = view.findViewById(R.id.tv_item_title);
         mRl_item = view.findViewById(R.id.rl_item);
+        mTvItemContent = view.findViewById(R.id.tv_item_content);
 
         mRl_item.setOnClickListener(new OnClickListener() {
             @Override
@@ -99,6 +101,16 @@ public class CustomItemView extends LinearLayout{
             mIvIcon.setVisibility(GONE);
         }
     }
+
+    public void setContent(String content){
+        mTvItemContent.setText(content);
+    }
+
+    public String getContent(){
+        return mTvItemContent.getText().toString();
+    }
+
+
 
     public interface OnItemClickListener{
         void OnItemClick(String title);
