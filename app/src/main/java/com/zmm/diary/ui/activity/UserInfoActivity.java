@@ -11,9 +11,13 @@ import com.zmm.diary.bean.UserBean;
 import com.zmm.diary.dagger.component.HttpComponent;
 import com.zmm.diary.ui.dialog.SimpleInputDialog;
 import com.zmm.diary.ui.widget.CustomItemView;
+import com.zmm.diary.ui.widget.SingleSelectView;
 import com.zmm.diary.ui.widget.TitleBar;
 import com.zmm.diary.utils.ToastUtils;
 import com.zmm.diary.utils.UIUtils;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -46,6 +50,7 @@ public class UserInfoActivity extends BaseActivity implements CustomItemView.OnI
 
 
     private UserBean mUserBean;
+    private List<String> mList = new ArrayList<>();
 
     @Override
     protected int setLayout() {
@@ -127,6 +132,19 @@ public class UserInfoActivity extends BaseActivity implements CustomItemView.OnI
 
             case "性别":
 
+                mList.clear();
+                mList.add("女");
+                mList.add("男");
+
+                String contentGender = mCustomItemGender.getContent();
+
+                int indexGender = 0;
+                if(!TextUtils.isEmpty(contentGender)){
+                    indexGender = mList.indexOf(contentGender);
+                }
+
+                selectString(title, mList,indexGender);
+
                 break;
 
             case "签名":
@@ -134,11 +152,38 @@ public class UserInfoActivity extends BaseActivity implements CustomItemView.OnI
 
                 break;
 
-            case "身高":
+            case "身高/cm":
+
+                mList.clear();
+                for (int i = 100; i <= 250; i+= 5) {
+                    mList.add(i+"");
+                }
+
+                String contentHeight = mCustomItemHeight.getContent();
+
+                int indexHeight = 0;
+                if(!TextUtils.isEmpty(contentHeight)){
+                    indexHeight = mList.indexOf(contentHeight);
+                }
+
+                selectString(title, mList,indexHeight);
 
                 break;
 
-            case "体重":
+            case "体重/kg":
+
+                mList.clear();
+                for (int i = 40; i <= 200; i+=5) {
+                    mList.add(i+"");
+                }
+
+                String contentWeight = mCustomItemWeight.getContent();
+
+                int indexWeight = 0;
+                if(!TextUtils.isEmpty(contentWeight)){
+                    indexWeight = mList.indexOf(contentWeight);
+                }
+                selectString(title, mList,indexWeight);
 
                 break;
 
@@ -147,6 +192,8 @@ public class UserInfoActivity extends BaseActivity implements CustomItemView.OnI
                 break;
         }
     }
+
+
 
     private void inputString(final String title, String hint, String name) {
 
@@ -179,6 +226,55 @@ public class UserInfoActivity extends BaseActivity implements CustomItemView.OnI
         });
 
         simpleInputDialog.show();
+
+    }
+
+
+    private void selectString(final String title, List<String> list,int index) {
+
+        SingleSelectView singleSelectView = new SingleSelectView(mContext,mRootView,mScreenWidth,title,list,index);
+
+        singleSelectView.setOnSelectClickListener(new SingleSelectView.OnSelectClickListener() {
+            @Override
+            public void onCancel() {
+
+            }
+
+            @Override
+            public void onConfirm(String content) {
+
+                switch (title){
+                    case "性别":
+
+                        if(!TextUtils.isEmpty(content)){
+                            mUserBean.setGender(content.equals("女") ? 0 : 1);
+                            mCustomItemGender.setContent(content);
+                        }
+                        break;
+
+                    case "身高/cm":
+
+                        if(!TextUtils.isEmpty(content)){
+                            mUserBean.setHeight(Integer.parseInt(content));
+                            mCustomItemHeight.setContent(content+"");
+                        }
+
+                        break;
+
+                    case "体重/kg":
+
+                        if(!TextUtils.isEmpty(content)){
+                            mUserBean.setWeight(Integer.parseInt(content));
+                            mCustomItemWeight.setContent(content+"");
+                        }
+
+
+                        break;
+
+                }
+
+            }
+        });
 
     }
 }

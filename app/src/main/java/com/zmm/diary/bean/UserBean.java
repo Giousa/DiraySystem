@@ -22,6 +22,7 @@ public class UserBean implements Serializable{
 
     private String nickname;
 
+    //0-女  1-男
     private Integer gender;
 
     private Integer height;
