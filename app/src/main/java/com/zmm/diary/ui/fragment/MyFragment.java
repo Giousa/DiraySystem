@@ -22,11 +22,13 @@ import com.zmm.diary.mvp.presenter.UserPresenter;
 import com.zmm.diary.mvp.presenter.contract.UserContract;
 import com.zmm.diary.ui.activity.RecordActivity;
 import com.zmm.diary.ui.activity.SettingActivity;
+import com.zmm.diary.ui.activity.UserInfoActivity;
 import com.zmm.diary.ui.widget.CustomItemView;
 import com.zmm.diary.ui.widget.GlideCircleTransform;
 import com.zmm.diary.ui.widget.TitleBar;
 import com.zmm.diary.utils.SharedPreferencesUtil;
 import com.zmm.diary.utils.ToastUtils;
+import com.zmm.diary.utils.UIUtils;
 import com.zmm.diary.utils.config.CommonConfig;
 
 import java.util.ArrayList;
@@ -95,11 +97,10 @@ public class MyFragment extends BaseFragment<UserPresenter> implements CustomIte
         mCustomItemRecord.setOnItemClickListener(this);
         mCustomItemCollection.setOnItemClickListener(this);
 
-        String userJson = SharedPreferencesUtil.getString(CommonConfig.LOGIN_USER, null);
 
-        if (!TextUtils.isEmpty(userJson)) {
+        UserBean userBean = UIUtils.getUserBean();
 
-            UserBean userBean = SharedPreferencesUtil.fromJson(userJson, UserBean.class);
+        if(userBean != null){
             mUserId = userBean.getId();
             String icon = userBean.getIcon();
 
@@ -113,8 +114,8 @@ public class MyFragment extends BaseFragment<UserPresenter> implements CustomIte
             }
 
             mPresenter.findUserById(mUserId);
-        }else {
 
+        }else {
             mTvMyName.setText("登录/注册");
             mTvMySign.setVisibility(View.INVISIBLE);
         }
@@ -152,19 +153,38 @@ public class MyFragment extends BaseFragment<UserPresenter> implements CustomIte
                 break;
             case R.id.iv_my_info:
 
-                ToastUtils.SimpleToast("个人信息");
+                if(UIUtils.getUserBean() != null){
+                    startActivity(UserInfoActivity.class);
+                }else {
+                    ToastUtils.SimpleToast("请登录");
+                }
+
                 break;
             case R.id.rel_my_hotspot:
 
-                ToastUtils.SimpleToast("热点界面");
+                if(UIUtils.getUserBean() != null){
+                    ToastUtils.SimpleToast("热点界面");
+                }else {
+                    ToastUtils.SimpleToast("请登录");
+                }
 
                 break;
             case R.id.rel_my_followers:
-                ToastUtils.SimpleToast("关注界面");
+
+                if(UIUtils.getUserBean() != null){
+                    ToastUtils.SimpleToast("关注界面");
+                }else {
+                    ToastUtils.SimpleToast("请登录");
+                }
 
                 break;
             case R.id.rel_my_funs:
-                ToastUtils.SimpleToast("粉丝界面");
+
+                if(UIUtils.getUserBean() != null){
+                    ToastUtils.SimpleToast("粉丝界面");
+                }else {
+                    ToastUtils.SimpleToast("请登录");
+                }
 
                 break;
         }
@@ -173,9 +193,18 @@ public class MyFragment extends BaseFragment<UserPresenter> implements CustomIte
     @Override
     public void OnItemClick(String title) {
         if (title.equals("热点收藏")) {
-            ToastUtils.SimpleToast("热点收藏");
+            if(UIUtils.getUserBean() != null){
+                ToastUtils.SimpleToast("热点收藏");
+            }else {
+                ToastUtils.SimpleToast("请登录");
+            }
         } else if (title.equals("每日说说")) {
-            startActivity(RecordActivity.class);
+
+            if(UIUtils.getUserBean() != null){
+                startActivity(RecordActivity.class);
+            }else {
+                ToastUtils.SimpleToast("请登录");
+            }
         } else if (title.equals("设置")) {
             startActivity(SettingActivity.class);
         }

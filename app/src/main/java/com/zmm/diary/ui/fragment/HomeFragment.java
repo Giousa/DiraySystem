@@ -20,6 +20,7 @@ import com.zmm.diary.ui.adapter.HomeAdapter;
 import com.zmm.diary.ui.dialog.SimpleConfirmDialog;
 import com.zmm.diary.ui.widget.TitleBar;
 import com.zmm.diary.utils.SharedPreferencesUtil;
+import com.zmm.diary.utils.UIUtils;
 import com.zmm.diary.utils.config.CommonConfig;
 
 import java.util.List;
@@ -88,13 +89,9 @@ public class HomeFragment extends BaseFragment<NotePresenter> implements NoteCon
 
     private void requestTodayNotes() {
 
+        UserBean userBean = UIUtils.getUserBean();
 
-        String userJson = SharedPreferencesUtil.getString(CommonConfig.LOGIN_USER, null);
-
-
-        if(!TextUtils.isEmpty(userJson)){
-
-            UserBean userBean = SharedPreferencesUtil.fromJson(userJson, UserBean.class);
+        if(userBean != null){
             mPresenter.requestTodayNotes(userBean.getId());
         }
     }

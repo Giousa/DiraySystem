@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/root_view"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/view_bg"
+    android:orientation="vertical">
+
+    <include layout="@layout/toolbar_content" />
+
+
+    <com.zmm.diary.ui.widget.CustomItemView
+        android:id="@+id/custom_item_nickname"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_size_10"
+        app:isShowPic="none"
+        app:title="昵称" />
+
+    <com.zmm.diary.ui.widget.CustomItemView
+        android:id="@+id/custom_item_gender"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_size_10"
+        app:isShowPic="none"
+        app:title="性别" />
+
+    <com.zmm.diary.ui.widget.CustomItemView
+        android:id="@+id/custom_item_sign"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_size_10"
+        app:isShowPic="none"
+        app:title="签名" />
+
+
+    <com.zmm.diary.ui.widget.CustomItemView
+        android:id="@+id/custom_item_height"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_size_10"
+        app:isShowPic="none"
+        app:title="身高" />
+
+    <com.zmm.diary.ui.widget.CustomItemView
+        android:id="@+id/custom_item_weight"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_size_10"
+        app:isShowPic="none"
+        app:title="体重" />
+
+    <com.zmm.diary.ui.widget.CustomItemView
+        android:id="@+id/custom_item_birthday"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_size_10"
+        app:isShowPic="none"
+        app:title="生日" />
+
+</LinearLayout>

@@ -106,19 +106,11 @@ public class HotspotInfoActivity extends BaseActivity<HotspotPresenter> implemen
      */
     private void submit() {
 
-        String userJson = SharedPreferencesUtil.getString(CommonConfig.LOGIN_USER, null);
 
+        //TODO  判断时候登录
+        UserBean userBean = UIUtils.getUserBean();
 
-        //TODO  提示是否登录
-        if (TextUtils.isEmpty(userJson)) {
-            startActivity(LoginActivity.class, true);
-            return;
-        }
-
-        UserBean userBean = SharedPreferencesUtil.fromJson(userJson, UserBean.class);
-
-        if (userBean == null) {
-
+        if(userBean == null){
             startActivity(LoginActivity.class, true);
             return;
         }

@@ -24,8 +24,6 @@ public class UserBean implements Serializable{
 
     private Integer gender;
 
-    private Integer age;
-
     private Integer height;
 
     private Integer weight;
@@ -88,14 +86,6 @@ public class UserBean implements Serializable{
 
     public void setGender(Integer gender) {
         this.gender = gender;
-    }
-
-    public Integer getAge() {
-        return age;
-    }
-
-    public void setAge(Integer age) {
-        this.age = age;
     }
 
     public Integer getHeight() {

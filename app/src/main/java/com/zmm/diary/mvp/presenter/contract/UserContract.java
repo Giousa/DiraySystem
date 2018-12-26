@@ -23,8 +23,6 @@ public interface UserContract {
 
         Observable<BaseBean<UserBean>> findUserById(String id);
 
-
-
     }
 
 

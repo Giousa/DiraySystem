@@ -80,13 +80,18 @@ public class RecordActivity extends BaseActivity<RecordPresenter> implements Rec
     protected void onResume() {
         super.onResume();
 
-        String userJson = SharedPreferencesUtil.getString(CommonConfig.LOGIN_USER, null);
-        UserBean userBean = SharedPreferencesUtil.fromJson(userJson, UserBean.class);
-        mUserId = userBean.getId();
 
+        //TODO  判断时候登录
+        UserBean userBean = UIUtils.getUserBean();
 
-        mPage = 0;
-        mPresenter.findAllRecords(mUserId, mPage, mSize,1);
+        if(userBean != null){
+
+            mUserId = userBean.getId();
+
+            mPage = 0;
+            mPresenter.findAllRecords(mUserId, mPage, mSize,1);
+        }
+
     }
 
     private void initToolBar() {

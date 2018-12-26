@@ -3,6 +3,7 @@ package com.zmm.diary.ui.widget;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.support.annotation.Nullable;
+import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.ImageView;
@@ -31,6 +32,9 @@ public class CustomItemView extends LinearLayout{
     private OnItemClickListener mOnItemClickListener;
     private String mTitle;
 
+    private boolean isShowPic = true;
+
+
     public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
         mOnItemClickListener = onItemClickListener;
     }
@@ -51,6 +55,14 @@ public class CustomItemView extends LinearLayout{
         TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.CustomItemView);
         mTitle = typedArray.getString(R.styleable.CustomItemView_title);
         int icon = typedArray.getResourceId(R.styleable.CustomItemView_icon, R.drawable.icon_add);
+        String isShow = typedArray.getString(R.styleable.CustomItemView_isShowPic);
+
+
+        if(!TextUtils.isEmpty(isShow) && isShow.equals("none")){
+            isShowPic = false;
+        }else {
+            isShowPic = true;
+        }
 
         //开始初始化控件
         initView(context);
@@ -80,6 +92,12 @@ public class CustomItemView extends LinearLayout{
                 }
             }
         });
+
+        if(isShowPic){
+            mIvIcon.setVisibility(VISIBLE);
+        }else {
+            mIvIcon.setVisibility(GONE);
+        }
     }
 
     public interface OnItemClickListener{

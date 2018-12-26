@@ -43,15 +43,15 @@
                 android:layout_width="@dimen/dp_size_20"
                 android:layout_height="@dimen/dp_size_20"
                 android:layout_gravity="center"
-                android:src="@drawable/login_header" />
+                android:src="@drawable/default_my_icon" />
 
             <TextView
                 android:id="@+id/tv_item_author_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/dp_size_10"
+                android:layout_marginLeft="@dimen/dp_size_5"
                 android:text="作者"
-                android:textSize="@dimen/sp_size_16" />
+                android:textSize="@dimen/sp_size_14" />
         </LinearLayout>
 
         <RelativeLayout
@@ -77,9 +77,9 @@
                     android:id="@+id/tv_item_collect_count"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/dp_size_10"
-                    android:text="0"
-                    android:textSize="@dimen/sp_size_16" />
+                    android:layout_marginLeft="@dimen/dp_size_5"
+                    android:text="9999"
+                    android:textSize="@dimen/sp_size_14" />
             </LinearLayout>
 
         </RelativeLayout>

@@ -162,12 +162,12 @@ public class CalendarFragment extends BaseFragment<NotePresenter> implements OnC
      * 更新数据
      */
     private void requestCheckedData(){
-        String userJson = SharedPreferencesUtil.getString(CommonConfig.LOGIN_USER, null);
 
+        //TODO 判断是否登录
+        UserBean userBean = UIUtils.getUserBean();
 
-        if (!TextUtils.isEmpty(userJson)) {
+        if (userBean != null) {
 
-            UserBean userBean = SharedPreferencesUtil.fromJson(userJson, UserBean.class);
             mPresenter.findNotesByCreateTime(userBean.getId(), mDateTime.getYear() + "-" + mDateTime.getMonthOfYear() + "-" + mDateTime.getDayOfMonth());
 
         }

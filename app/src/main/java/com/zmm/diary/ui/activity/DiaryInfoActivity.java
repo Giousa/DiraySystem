@@ -22,6 +22,7 @@ import com.zmm.diary.ui.popup.DiaryTitlePopup;
 import com.zmm.diary.ui.widget.TitleBar;
 import com.zmm.diary.utils.SharedPreferencesUtil;
 import com.zmm.diary.utils.ToastUtils;
+import com.zmm.diary.utils.UIUtils;
 import com.zmm.diary.utils.config.CommonConfig;
 
 import java.util.ArrayList;
@@ -232,18 +233,14 @@ public class DiaryInfoActivity extends BaseActivity<NotePresenter> implements No
      */
     private void submit() {
 
-        String userJson = SharedPreferencesUtil.getString(CommonConfig.LOGIN_USER, null);
-
-
         //TODO  提示是否登录
-        if(TextUtils.isEmpty(userJson)){
+        UserBean userBean = UIUtils.getUserBean();
+        if(userBean == null){
             startActivity(LoginActivity.class,true);
             return;
         }
 
-        UserBean userBean = SharedPreferencesUtil.fromJson(userJson, UserBean.class);
         mPresenter.requestTodayNotes(userBean.getId());
-
 
         String title = mEtTitle.getText().toString();
         String content = mEtContent.getText().toString();

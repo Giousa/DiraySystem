@@ -3,9 +3,13 @@ package com.zmm.diary.utils;
 import android.content.Context;
 import android.content.res.Resources;
 import android.os.Handler;
+import android.system.StructUtsname;
+import android.text.TextUtils;
 import android.view.View;
 
 import com.zmm.diary.MyApplication;
+import com.zmm.diary.bean.UserBean;
+import com.zmm.diary.utils.config.CommonConfig;
 
 /**
  * Description:
@@ -108,4 +112,20 @@ public class UIUtils {
         return flag;
     }
 
+
+
+    public static UserBean getUserBean(){
+
+        String userJson = SharedPreferencesUtil.getString(CommonConfig.LOGIN_USER, null);
+
+        if (TextUtils.isEmpty(userJson)) {
+
+            return null;
+        }else {
+
+            UserBean userBean = SharedPreferencesUtil.fromJson(userJson, UserBean.class);
+
+            return userBean;
+        }
+    }
 }
