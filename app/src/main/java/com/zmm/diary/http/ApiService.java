@@ -164,6 +164,9 @@ public interface ApiService {
     @GET("hotspot/deleteHotspot/{id}")
     Observable<BaseBean<String>> deleteHotspot(@Path("id")String id);
 
+    @GET("hotspot/findHotspotById/{id}")
+    Observable<BaseBean<HotspotBean>> findHotspotById(@Path("id")String id);
+
     @GET("hotspot/findHotspotsByUId")
     Observable<BaseBean<List<HotspotBean>>> findHotspotsByUId(@Query("userId")String userId, @Query("page")Integer page, @Query("size")Integer size);
 

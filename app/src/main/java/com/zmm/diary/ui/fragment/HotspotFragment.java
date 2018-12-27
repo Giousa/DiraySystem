@@ -116,7 +116,7 @@ public class HotspotFragment extends BaseFragment<HotspotPresenter> implements H
                 HotspotBean hotspotBean = (HotspotBean) adapter.getData().get(position);
 
                 Intent intent = new Intent(mContext, HotspotDetailActivity.class);
-                intent.putExtra("id",hotspotBean.getId());
+                intent.putExtra("hotspotId",hotspotBean.getId());
                 startActivity(intent);
             }
         });
@@ -157,6 +157,11 @@ public class HotspotFragment extends BaseFragment<HotspotPresenter> implements H
 
     @Override
     public void deleteSuccess() {
+
+    }
+
+    @Override
+    public void findHotspotSuccess(HotspotBean hotspotBean) {
 
     }
 

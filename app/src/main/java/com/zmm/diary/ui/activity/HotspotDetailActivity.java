@@ -4,16 +4,27 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.ajguan.library.EasyRefreshLayout;
+import com.bumptech.glide.Glide;
 import com.zmm.diary.R;
+import com.zmm.diary.bean.HotspotBean;
+import com.zmm.diary.dagger.component.DaggerHotspotComponent;
 import com.zmm.diary.dagger.component.HttpComponent;
+import com.zmm.diary.dagger.module.HotspotModule;
+import com.zmm.diary.mvp.presenter.HotspotPresenter;
+import com.zmm.diary.mvp.presenter.contract.HotspotContract;
+import com.zmm.diary.ui.widget.GlideCircleTransform;
 import com.zmm.diary.ui.widget.TitleBar;
 import com.zmm.diary.utils.UIUtils;
+import com.zmm.diary.utils.config.CommonConfig;
+
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -25,7 +36,7 @@ import butterknife.OnClick;
  * Date:2018/12/27
  * Email:65489469@qq.com
  */
-public class HotspotDetailActivity extends BaseActivity {
+public class HotspotDetailActivity extends BaseActivity<HotspotPresenter> implements HotspotContract.HotspotView {
 
 
     @BindView(R.id.title_bar)
@@ -64,6 +75,7 @@ public class HotspotDetailActivity extends BaseActivity {
 
     private int mPage = 0;
     private int mSize = 4;
+    private String mHotspotId;
 
     @Override
     protected int setLayout() {
@@ -72,17 +84,31 @@ public class HotspotDetailActivity extends BaseActivity {
 
     @Override
     protected void setupActivityComponent(HttpComponent httpComponent) {
-
+        DaggerHotspotComponent.builder()
+                .httpComponent(httpComponent)
+                .hotspotModule(new HotspotModule(this))
+                .build()
+                .inject(this);
     }
 
     @Override
     protected void init() {
+
+        mHotspotId = getIntent().getStringExtra("hotspotId");
 
         initToolBar();
 
         initRecyclerView();
 
         initRefresh();
+
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        mPresenter.findHotspotById(mHotspotId);
 
     }
 
@@ -141,5 +167,42 @@ public class HotspotDetailActivity extends BaseActivity {
             case R.id.ll_hotspot_followers:
                 break;
         }
+    }
+
+    @Override
+    public void addSuccess() {
+
+    }
+
+    @Override
+    public void deleteSuccess() {
+
+    }
+
+    @Override
+    public void findHotspotSuccess(HotspotBean hotspotBean) {
+
+        String icon = hotspotBean.getPic();
+
+        if (!TextUtils.isEmpty(icon)) {
+            Glide.with(mContext)
+                    .load(CommonConfig.BASE_PIC_URL + icon)
+                    .placeholder(R.drawable.default_bg)
+                    .error(R.drawable.default_bg)
+                    .into(mIvHotspotPic);
+        }
+
+        mTvHotspotContent.setText(hotspotBean.getContent());
+
+    }
+
+    @Override
+    public void loadMoreHotspotSuccess(List<HotspotBean> hotspotBeanList) {
+
+    }
+
+    @Override
+    public void refreshHotspotSuccess(List<HotspotBean> hotspotBeanList) {
+
     }
 }

@@ -78,7 +78,7 @@ public class HotspotPresenter extends BasePresenter<HotspotContract.IHotspotMode
     }
 
     /**
-     * 根据id，查询所有热点数据
+     * 根据用户id，查询所有热点数据
      * @param userId
      * @param page
      * @param size
@@ -99,5 +99,20 @@ public class HotspotPresenter extends BasePresenter<HotspotContract.IHotspotMode
                     }
                 });
 
+    }
+
+    /**
+     * 根据id查询当前热点详情
+     * @param hotspotId
+     */
+    public void findHotspotById(String hotspotId) {
+        mModel.findHotspotById(hotspotId)
+                .compose(RxHttpResponseCompat.<HotspotBean>compatResult())
+                .subscribe(new ErrorHandlerSubscriber<HotspotBean>() {
+                    @Override
+                    public void onNext(HotspotBean hotspotBean) {
+                        mView.findHotspotSuccess(hotspotBean);
+                    }
+                });
     }
 }

@@ -142,6 +142,11 @@ public class HotspotActivity extends BaseActivity<HotspotPresenter> implements H
     }
 
     @Override
+    public void findHotspotSuccess(HotspotBean hotspotBean) {
+
+    }
+
+    @Override
     public void loadMoreHotspotSuccess(List<HotspotBean> hotspotBeanList) {
         if(hotspotBeanList.size() > 0){
             for (int i = 0; i < hotspotBeanList.size(); i++) {

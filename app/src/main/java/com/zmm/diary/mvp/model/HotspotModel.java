@@ -32,6 +32,11 @@ public class HotspotModel implements HotspotContract.IHotspotModel {
     }
 
     @Override
+    public Observable<BaseBean<HotspotBean>> findHotspotById(String hotspotId) {
+        return mApiService.findHotspotById(hotspotId);
+    }
+
+    @Override
     public Observable<BaseBean<String>> deleteHotspot(String id) {
         return mApiService.deleteHotspot(id);
     }

@@ -21,6 +21,8 @@ public class HotspotBean implements Serializable{
 
     private int collect;
 
+    private int appreciate;
+
     private String createTime;
 
     private String updateTime;
@@ -63,6 +65,14 @@ public class HotspotBean implements Serializable{
 
     public void setCollect(int collect) {
         this.collect = collect;
+    }
+
+    public int getAppreciate() {
+        return appreciate;
+    }
+
+    public void setAppreciate(int appreciate) {
+        this.appreciate = appreciate;
     }
 
     public String getCreateTime() {

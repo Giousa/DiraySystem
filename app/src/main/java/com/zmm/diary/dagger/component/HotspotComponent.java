@@ -3,6 +3,7 @@ package com.zmm.diary.dagger.component;
 import com.zmm.diary.dagger.ActivityScope;
 import com.zmm.diary.dagger.module.HotspotModule;
 import com.zmm.diary.ui.activity.HotspotActivity;
+import com.zmm.diary.ui.activity.HotspotDetailActivity;
 import com.zmm.diary.ui.activity.HotspotInfoActivity;
 import com.zmm.diary.ui.fragment.HotspotFragment;
 
@@ -19,6 +20,8 @@ import dagger.Component;
 public interface HotspotComponent {
 
     void inject(HotspotActivity activity);
+
+    void inject(HotspotDetailActivity activity);
 
     void inject(HotspotInfoActivity activity);
 

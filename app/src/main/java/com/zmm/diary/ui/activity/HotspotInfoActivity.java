@@ -190,6 +190,11 @@ public class HotspotInfoActivity extends BaseActivity<HotspotPresenter> implemen
     }
 
     @Override
+    public void findHotspotSuccess(HotspotBean hotspotBean) {
+
+    }
+
+    @Override
     public void loadMoreHotspotSuccess(List<HotspotBean> hotspotBeanList) {
 
     }

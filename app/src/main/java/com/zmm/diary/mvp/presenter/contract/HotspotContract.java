@@ -21,6 +21,8 @@ public interface HotspotContract {
 
         Observable<BaseBean<HotspotBean>> addHotspot(String userId,String content,String type, MultipartBody.Part file);
 
+        Observable<BaseBean<HotspotBean>> findHotspotById(String hotspotId);
+
         Observable<BaseBean<String>> deleteHotspot(String hotspotId);
 
         Observable<BaseBean<List<HotspotBean>>> findHotspotsByUId(String userId,Integer page,Integer size);
@@ -34,6 +36,8 @@ public interface HotspotContract {
         void addSuccess();
 
         void deleteSuccess();
+
+        void findHotspotSuccess(HotspotBean hotspotBean);
 
         void loadMoreHotspotSuccess(List<HotspotBean> hotspotBeanList);
 
