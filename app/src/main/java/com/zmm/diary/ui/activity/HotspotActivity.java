@@ -1,4 +1,4 @@
-package com.zmm.diary.ui.fragment;
+package com.zmm.diary.ui.activity;
 
 import android.content.Intent;
 import android.support.v7.widget.GridLayoutManager;
@@ -13,9 +13,9 @@ import com.zmm.diary.dagger.component.HttpComponent;
 import com.zmm.diary.dagger.module.HotspotModule;
 import com.zmm.diary.mvp.presenter.HotspotPresenter;
 import com.zmm.diary.mvp.presenter.contract.HotspotContract;
-import com.zmm.diary.ui.activity.HotspotInfoActivity;
 import com.zmm.diary.ui.adapter.HotspotAdapter;
 import com.zmm.diary.ui.widget.TitleBar;
+import com.zmm.diary.utils.UIUtils;
 
 import java.util.List;
 
@@ -26,10 +26,11 @@ import butterknife.BindView;
 /**
  * Description:
  * Author:zhangmengmeng
- * Date:2018/11/8
+ * Date:2018/12/27
  * Email:65489469@qq.com
  */
-public class HotspotFragment extends BaseFragment<HotspotPresenter> implements HotspotContract.HotspotView{
+public class HotspotActivity extends BaseActivity<HotspotPresenter> implements HotspotContract.HotspotView {
+
 
     @BindView(R.id.title_bar)
     TitleBar mTitleBar;
@@ -37,7 +38,6 @@ public class HotspotFragment extends BaseFragment<HotspotPresenter> implements H
     RecyclerView mRvList;
     @BindView(R.id.easy_refresh_layout)
     EasyRefreshLayout mEasyRefreshLayout;
-
 
     @Inject
     HotspotAdapter mHotspotAdapter;
@@ -47,7 +47,7 @@ public class HotspotFragment extends BaseFragment<HotspotPresenter> implements H
 
     @Override
     protected int setLayout() {
-        return R.layout.fragment_hotspot;
+        return R.layout.activity_hotspot;
     }
 
     @Override
@@ -59,10 +59,8 @@ public class HotspotFragment extends BaseFragment<HotspotPresenter> implements H
                 .inject(this);
     }
 
-
     @Override
     protected void init() {
-
         initToolBar();
 
         initRecyclerView();
@@ -71,18 +69,24 @@ public class HotspotFragment extends BaseFragment<HotspotPresenter> implements H
 
     }
 
-
     @Override
-    public void onResume() {
+    protected void onResume() {
         super.onResume();
-
         mPage = 0;
-        mPresenter.findAllHotspots(mPage, mSize,1);
+        mPresenter.findHotspotsByUId(UIUtils.getUserBean().getId(),mPage, mSize,1);
     }
 
     private void initToolBar() {
 
-        mTitleBar.setTitle("世界热点");
+        mTitleBar.setTitle("我的热点");
+        mTitleBar.setLeftImageResource(R.drawable.icon_back);
+        mTitleBar.setLeftText("返回");
+        mTitleBar.setLeftClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
         mTitleBar.addAction(new TitleBar.ImageAction(R.drawable.icon_add) {
             @Override
             public void performAction(View view) {
@@ -96,18 +100,9 @@ public class HotspotFragment extends BaseFragment<HotspotPresenter> implements H
     private void initRecyclerView() {
 
         mRvList.setHasFixedSize(true);
-//        mRvList.setLayoutManager(new LinearLayoutManager(mContext));
         mRvList.setLayoutManager(new GridLayoutManager(mContext, 2));
-
-        //添加分割线
-//        mRvList.addItemDecoration(new DividerItemDecoration(mContext, DividerItemDecoration.VERTICAL));
-
         mRvList.setAdapter(mHotspotAdapter);
-
-        //适配器，设置空布局
         mHotspotAdapter.setEmptyView(R.layout.empty_content, mRvList);
-
-
 
     }
 
@@ -122,7 +117,7 @@ public class HotspotFragment extends BaseFragment<HotspotPresenter> implements H
 
                 mPage++;
 
-                mPresenter.findAllHotspots(mPage, mSize,0);
+                mPresenter.findHotspotsByUId(UIUtils.getUserBean().getId(),mPage, mSize,0);
 
             }
 
@@ -131,11 +126,10 @@ public class HotspotFragment extends BaseFragment<HotspotPresenter> implements H
                 System.out.println("----onRefreshing----");
                 mPage = 0;
 
-                mPresenter.findAllHotspots(mPage, mSize,1);
+                mPresenter.findHotspotsByUId(UIUtils.getUserBean().getId(),mPage, mSize,1);
             }
         });
     }
-
 
     @Override
     public void addSuccess() {
@@ -149,7 +143,6 @@ public class HotspotFragment extends BaseFragment<HotspotPresenter> implements H
 
     @Override
     public void loadMoreHotspotSuccess(List<HotspotBean> hotspotBeanList) {
-
         if(hotspotBeanList.size() > 0){
             for (int i = 0; i < hotspotBeanList.size(); i++) {
 
@@ -168,6 +161,5 @@ public class HotspotFragment extends BaseFragment<HotspotPresenter> implements H
     public void refreshHotspotSuccess(List<HotspotBean> hotspotBeanList) {
         mHotspotAdapter.setNewData(hotspotBeanList);
         mEasyRefreshLayout.refreshComplete();
-
     }
 }

@@ -20,6 +20,7 @@ import com.zmm.diary.dagger.component.HttpComponent;
 import com.zmm.diary.dagger.module.UserModule;
 import com.zmm.diary.mvp.presenter.UserPresenter;
 import com.zmm.diary.mvp.presenter.contract.UserContract;
+import com.zmm.diary.ui.activity.HotspotActivity;
 import com.zmm.diary.ui.activity.RecordActivity;
 import com.zmm.diary.ui.activity.SettingActivity;
 import com.zmm.diary.ui.activity.UserInfoActivity;
@@ -165,7 +166,7 @@ public class MyFragment extends BaseFragment<UserPresenter> implements CustomIte
             case R.id.rel_my_hotspot:
 
                 if(UIUtils.getUserBean() != null){
-                    ToastUtils.SimpleToast("热点界面");
+                    startActivity(HotspotActivity.class);
                 }else {
                     ToastUtils.SimpleToast("请登录");
                 }

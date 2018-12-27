@@ -67,13 +67,37 @@ public class HotspotPresenter extends BasePresenter<HotspotContract.IHotspotMode
                 .compose(RxHttpResponseCompat.<List<HotspotBean>>compatResult())
                 .subscribe(new ErrorHandlerSubscriber<List<HotspotBean>>() {
                     @Override
-                    public void onNext(List<HotspotBean> hotspotBeans) {
+                    public void onNext(List<HotspotBean> hotspotBeanList) {
                         if(flag == 0){
-                            mView.loadMoreHotspotSuccess(hotspotBeans);
+                            mView.loadMoreHotspotSuccess(hotspotBeanList);
                         }else {
-                            mView.refreshHotspotSuccess(hotspotBeans);
+                            mView.refreshHotspotSuccess(hotspotBeanList);
                         }
                     }
                 });
+    }
+
+    /**
+     * 根据id，查询所有热点数据
+     * @param userId
+     * @param page
+     * @param size
+     * @param flag 0:加载更多  1：刷新
+     */
+    public void findHotspotsByUId(String userId, int page, int size, final int flag) {
+
+        mModel.findHotspotsByUId(userId,page,size)
+                .compose(RxHttpResponseCompat.<List<HotspotBean>>compatResult())
+                .subscribe(new ErrorHandlerSubscriber<List<HotspotBean>>() {
+                    @Override
+                    public void onNext(List<HotspotBean> hotspotBeanList) {
+                        if(flag == 0){
+                            mView.loadMoreHotspotSuccess(hotspotBeanList);
+                        }else {
+                            mView.refreshHotspotSuccess(hotspotBeanList);
+                        }
+                    }
+                });
+
     }
 }

@@ -1,7 +1,5 @@
 package com.zmm.diary.ui.activity;
 
-import android.content.Intent;
-import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -27,7 +25,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 
 /**
  * Description:
@@ -102,8 +99,6 @@ public class UserInfoActivity extends BaseActivity<UserPresenter> implements Use
         mTitleBar.addAction(new TitleBar.TextAction("更新") {
             @Override
             public void performAction(View view) {
-                ToastUtils.SimpleToast("更新消息");
-
                 mPresenter.updateUser(mUserBean);
             }
         });
