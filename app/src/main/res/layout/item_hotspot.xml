@@ -67,11 +67,11 @@
                 android:orientation="horizontal">
 
                 <ImageView
-                    android:id="@+id/iv_item_collect_icon"
+                    android:id="@+id/iv_item_appreciate_icon"
                     android:layout_width="@dimen/dp_size_20"
                     android:layout_height="@dimen/dp_size_20"
                     android:layout_gravity="center"
-                    android:src="@drawable/my_collect_icon" />
+                    android:src="@drawable/icon_appreciate" />
 
                 <TextView
                     android:id="@+id/tv_item_collect_count"

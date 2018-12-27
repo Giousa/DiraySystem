@@ -14,6 +14,7 @@ import com.zmm.diary.dagger.component.HttpComponent;
 import com.zmm.diary.dagger.module.HotspotModule;
 import com.zmm.diary.mvp.presenter.HotspotPresenter;
 import com.zmm.diary.mvp.presenter.contract.HotspotContract;
+import com.zmm.diary.ui.activity.HotspotDetailActivity;
 import com.zmm.diary.ui.activity.HotspotInfoActivity;
 import com.zmm.diary.ui.adapter.HotspotAdapter;
 import com.zmm.diary.ui.widget.TitleBar;
@@ -113,7 +114,10 @@ public class HotspotFragment extends BaseFragment<HotspotPresenter> implements H
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                 HotspotBean hotspotBean = (HotspotBean) adapter.getData().get(position);
-                ToastUtils.SimpleToast(hotspotBean.getContent());
+
+                Intent intent = new Intent(mContext, HotspotDetailActivity.class);
+                intent.putExtra("id",hotspotBean.getId());
+                startActivity(intent);
             }
         });
 
