@@ -34,7 +34,7 @@
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="1"
+            android:layout_weight="2"
             android:gravity="center_vertical"
             android:orientation="horizontal">
 
@@ -51,7 +51,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/dp_size_5"
                 android:text="作者"
-                android:textSize="@dimen/sp_size_14" />
+                android:textSize="@dimen/sp_size_12" />
         </LinearLayout>
 
         <RelativeLayout
@@ -74,12 +74,12 @@
                     android:src="@drawable/icon_appreciate" />
 
                 <TextView
-                    android:id="@+id/tv_item_collect_count"
+                    android:id="@+id/tv_item_appreciate_count"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/dp_size_5"
                     android:text="9999"
-                    android:textSize="@dimen/sp_size_14" />
+                    android:textSize="@dimen/sp_size_12" />
             </LinearLayout>
 
         </RelativeLayout>

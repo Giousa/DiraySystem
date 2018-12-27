@@ -1,12 +1,15 @@
 package com.zmm.diary.ui.adapter;
 
+import android.text.TextUtils;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.zmm.diary.R;
+import com.zmm.diary.bean.AuthorBean;
 import com.zmm.diary.bean.HotspotBean;
+import com.zmm.diary.ui.widget.GlideCircleTransform;
 import com.zmm.diary.utils.config.CommonConfig;
 
 /**
@@ -35,6 +38,26 @@ public class HotspotAdapter extends BaseQuickAdapter<HotspotBean,BaseViewHolder>
                 .placeholder(R.drawable.default_bg)
                 .error(R.drawable.default_bg)
                 .into(picBg);
+
+
+        //作者信息
+        AuthorBean author = item.getAuthor();
+        ImageView authorIcon = helper.getView(R.id.iv_item_author_icon);
+        Glide.with(mContext)
+                .load(CommonConfig.BASE_PIC_URL+author.getIcon())
+                .placeholder(R.drawable.default_my_icon)
+                .error(R.drawable.default_my_icon)
+                .transform(new GlideCircleTransform(mContext))
+                .into(authorIcon);
+
+        if(TextUtils.isEmpty(author.getNickname())){
+            helper.setText(R.id.tv_item_author_name,author.getUsername());
+        }else {
+            helper.setText(R.id.tv_item_author_name,author.getNickname());
+        }
+
+        //点赞数
+        helper.setText(R.id.tv_item_appreciate_count,item.getAppreciate()+"");
 
 
     }

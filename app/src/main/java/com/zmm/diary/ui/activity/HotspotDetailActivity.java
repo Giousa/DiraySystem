@@ -200,22 +200,19 @@ public class HotspotDetailActivity extends BaseActivity<HotspotPresenter> implem
         AuthorBean author = hotspotBean.getAuthor();
 
         String authorIcon = author.getIcon();
-        if (!TextUtils.isEmpty(authorIcon)) {
-            Glide.with(mContext)
-                    .load(CommonConfig.BASE_PIC_URL + authorIcon)
-                    .placeholder(R.drawable.default_my_icon)
-                    .error(R.drawable.default_my_icon)
-                    .transform(new GlideCircleTransform(mContext))
-                    .into(mIvHotspotAuthorIcon);
-        }
+
+        Glide.with(mContext)
+                .load(CommonConfig.BASE_PIC_URL + authorIcon)
+                .placeholder(R.drawable.default_my_icon)
+                .error(R.drawable.default_my_icon)
+                .transform(new GlideCircleTransform(mContext))
+                .into(mIvHotspotAuthorIcon);
 
         if(TextUtils.isEmpty(author.getNickname())){
             mTvHotspotAuthorName.setText(author.getUsername());
         }else {
             mTvHotspotAuthorName.setText(author.getNickname());
         }
-
-
 
     }
 
