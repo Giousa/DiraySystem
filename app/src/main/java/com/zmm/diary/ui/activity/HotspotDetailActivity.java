@@ -13,6 +13,7 @@ import android.widget.TextView;
 import com.ajguan.library.EasyRefreshLayout;
 import com.bumptech.glide.Glide;
 import com.zmm.diary.R;
+import com.zmm.diary.bean.AuthorBean;
 import com.zmm.diary.bean.HotspotBean;
 import com.zmm.diary.dagger.component.DaggerHotspotComponent;
 import com.zmm.diary.dagger.component.HttpComponent;
@@ -193,6 +194,28 @@ public class HotspotDetailActivity extends BaseActivity<HotspotPresenter> implem
         }
 
         mTvHotspotContent.setText(hotspotBean.getContent());
+
+
+        //作者信息
+        AuthorBean author = hotspotBean.getAuthor();
+
+        String authorIcon = author.getIcon();
+        if (!TextUtils.isEmpty(authorIcon)) {
+            Glide.with(mContext)
+                    .load(CommonConfig.BASE_PIC_URL + authorIcon)
+                    .placeholder(R.drawable.default_my_icon)
+                    .error(R.drawable.default_my_icon)
+                    .transform(new GlideCircleTransform(mContext))
+                    .into(mIvHotspotAuthorIcon);
+        }
+
+        if(TextUtils.isEmpty(author.getNickname())){
+            mTvHotspotAuthorName.setText(author.getUsername());
+        }else {
+            mTvHotspotAuthorName.setText(author.getNickname());
+        }
+
+
 
     }
 

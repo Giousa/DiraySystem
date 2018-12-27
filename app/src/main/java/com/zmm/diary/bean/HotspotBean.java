@@ -13,7 +13,7 @@ public class HotspotBean implements Serializable{
 
     private String id;
 
-    private String uid;
+    private AuthorBean author;
 
     private String pic;
 
@@ -35,12 +35,12 @@ public class HotspotBean implements Serializable{
         this.id = id;
     }
 
-    public String getUid() {
-        return uid;
+    public AuthorBean getAuthor() {
+        return author;
     }
 
-    public void setUid(String uid) {
-        this.uid = uid;
+    public void setAuthor(AuthorBean author) {
+        this.author = author;
     }
 
     public String getPic() {

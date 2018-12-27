@@ -125,15 +125,15 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/dp_size_100"
+                android:layout_height="@dimen/dp_size_80"
                 android:gravity="center_vertical"
                 android:orientation="horizontal"
                 android:padding="@dimen/dp_size_10">
 
                 <ImageView
                     android:id="@+id/iv_hotspot_author_icon"
-                    android:layout_width="@dimen/dp_size_80"
-                    android:layout_height="@dimen/dp_size_80"
+                    android:layout_width="@dimen/dp_size_60"
+                    android:layout_height="@dimen/dp_size_60"
                     android:src="@drawable/default_bg" />
 
                 <LinearLayout
