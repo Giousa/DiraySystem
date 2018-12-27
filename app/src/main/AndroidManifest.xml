@@ -79,6 +79,12 @@
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:launchMode="singleTask"/>
 
+        <!--热点评论-->
+        <activity
+            android:name=".ui.activity.HotspotDetailActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:launchMode="singleTask"/>
+
         <!--用户信息-->
         <activity
             android:name=".ui.activity.UserInfoActivity"

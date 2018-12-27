@@ -23,10 +23,8 @@ import com.zmm.diary.mvp.presenter.contract.RecordContract;
 import com.zmm.diary.ui.adapter.ImagePickerAdapter;
 import com.zmm.diary.ui.widget.TitleBar;
 import com.zmm.diary.utils.PictureCompressUtil;
-import com.zmm.diary.utils.SharedPreferencesUtil;
 import com.zmm.diary.utils.ToastUtils;
 import com.zmm.diary.utils.UIUtils;
-import com.zmm.diary.utils.config.CommonConfig;
 
 import java.io.IOException;
 import java.util.ArrayList;

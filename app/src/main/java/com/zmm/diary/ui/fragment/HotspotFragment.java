@@ -6,6 +6,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
 import com.ajguan.library.EasyRefreshLayout;
+import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.zmm.diary.R;
 import com.zmm.diary.bean.HotspotBean;
 import com.zmm.diary.dagger.component.DaggerHotspotComponent;
@@ -16,6 +17,7 @@ import com.zmm.diary.mvp.presenter.contract.HotspotContract;
 import com.zmm.diary.ui.activity.HotspotInfoActivity;
 import com.zmm.diary.ui.adapter.HotspotAdapter;
 import com.zmm.diary.ui.widget.TitleBar;
+import com.zmm.diary.utils.ToastUtils;
 
 import java.util.List;
 
@@ -107,6 +109,13 @@ public class HotspotFragment extends BaseFragment<HotspotPresenter> implements H
         //适配器，设置空布局
         mHotspotAdapter.setEmptyView(R.layout.empty_content, mRvList);
 
+        mHotspotAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                HotspotBean hotspotBean = (HotspotBean) adapter.getData().get(position);
+                ToastUtils.SimpleToast(hotspotBean.getContent());
+            }
+        });
 
 
     }
