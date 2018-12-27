@@ -126,7 +126,9 @@ public class MyFragment extends BaseFragment<UserPresenter> implements CustomIte
     public void onResume() {
         super.onResume();
 
-
+        if (!TextUtils.isEmpty(mUserId)) {
+            mPresenter.findUserById(mUserId);
+        }
     }
 
     @Override

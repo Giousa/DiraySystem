@@ -2,6 +2,7 @@ package com.zmm.diary.dagger.component;
 
 import com.zmm.diary.dagger.ActivityScope;
 import com.zmm.diary.dagger.module.UserModule;
+import com.zmm.diary.ui.activity.UserInfoActivity;
 import com.zmm.diary.ui.fragment.MyFragment;
 
 import dagger.Component;
@@ -17,4 +18,6 @@ import dagger.Component;
 public interface UserComponent {
 
     void inject(MyFragment fragment);
+
+    void inject(UserInfoActivity activity);
 }

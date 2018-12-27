@@ -8,14 +8,20 @@ import android.widget.LinearLayout;
 
 import com.zmm.diary.R;
 import com.zmm.diary.bean.UserBean;
+import com.zmm.diary.dagger.component.DaggerUserComponent;
 import com.zmm.diary.dagger.component.HttpComponent;
+import com.zmm.diary.dagger.module.UserModule;
+import com.zmm.diary.mvp.presenter.UserPresenter;
+import com.zmm.diary.mvp.presenter.contract.UserContract;
 import com.zmm.diary.ui.dialog.SimpleInputDialog;
 import com.zmm.diary.ui.widget.CustomItemView;
 import com.zmm.diary.ui.widget.DateSelectView;
 import com.zmm.diary.ui.widget.SingleSelectView;
 import com.zmm.diary.ui.widget.TitleBar;
+import com.zmm.diary.utils.SharedPreferencesUtil;
 import com.zmm.diary.utils.ToastUtils;
 import com.zmm.diary.utils.UIUtils;
+import com.zmm.diary.utils.config.CommonConfig;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,7 +35,7 @@ import butterknife.ButterKnife;
  * Date:2018/12/26
  * Email:65489469@qq.com
  */
-public class UserInfoActivity extends BaseActivity implements CustomItemView.OnItemClickListener {
+public class UserInfoActivity extends BaseActivity<UserPresenter> implements UserContract.UserView,CustomItemView.OnItemClickListener {
 
 
     @BindView(R.id.title_bar)
@@ -60,7 +66,11 @@ public class UserInfoActivity extends BaseActivity implements CustomItemView.OnI
 
     @Override
     protected void setupActivityComponent(HttpComponent httpComponent) {
-
+        DaggerUserComponent.builder()
+                .httpComponent(httpComponent)
+                .userModule(new UserModule(this))
+                .build()
+                .inject(this);
     }
 
     @Override
@@ -93,6 +103,8 @@ public class UserInfoActivity extends BaseActivity implements CustomItemView.OnI
             @Override
             public void performAction(View view) {
                 ToastUtils.SimpleToast("更新消息");
+
+                mPresenter.updateUser(mUserBean);
             }
         });
 
@@ -115,11 +127,13 @@ public class UserInfoActivity extends BaseActivity implements CustomItemView.OnI
         mCustomItemNickname.setContent(mUserBean.getNickname());
         mCustomItemGender.setContent(mUserBean.getGender());
         mCustomItemSign.setContent(mUserBean.getSign());
-        mCustomItemHeight.setContent((mUserBean.getHeight() == null) ? "":mUserBean.getGender()+"");
-        mCustomItemWeight.setContent((mUserBean.getWeight() == null) ? "":mUserBean.getGender()+"");
+        mCustomItemHeight.setContent((mUserBean.getHeight() == null) ? "":mUserBean.getHeight()+"");
+        mCustomItemWeight.setContent((mUserBean.getWeight() == null) ? "":mUserBean.getWeight()+"");
         mCustomItemBirthday.setContent(mUserBean.getBirthday());
 
     }
+
+
 
 
     @Override
@@ -294,4 +308,14 @@ public class UserInfoActivity extends BaseActivity implements CustomItemView.OnI
     }
 
 
+    @Override
+    public void updateSuccess(UserBean userBean) {
+
+        SharedPreferencesUtil.saveString(CommonConfig.LOGIN_USER,SharedPreferencesUtil.toJson(userBean));
+
+        ToastUtils.SimpleToast("用户信息更新成功");
+
+        finish();
+
+    }
 }

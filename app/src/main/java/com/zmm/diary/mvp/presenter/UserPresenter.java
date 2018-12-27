@@ -66,4 +66,20 @@ public class UserPresenter extends BasePresenter<UserContract.IUserModel,UserCon
                 });
 
     }
+
+    /**
+     * 更新用户信息
+     * @param userBean
+     */
+    public void updateUser(UserBean userBean) {
+        mModel.updateUserBean(userBean)
+                .compose(RxHttpResponseCompat.<UserBean>compatResult())
+                .subscribe(new ErrorHandlerSubscriber<UserBean>() {
+                    @Override
+                    public void onNext(UserBean userBean) {
+                        mView.updateSuccess(userBean);
+                    }
+                });
+
+    }
 }

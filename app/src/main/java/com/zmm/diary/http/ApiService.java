@@ -130,6 +130,10 @@ public interface ApiService {
     @POST("user/uploadIcon/{id}")
     Observable<BaseBean<UserBean>> uploadIcon( @Path("id") String id,  @Part() MultipartBody.Part file);
 
+    @POST("user/updateUser")
+    Observable<BaseBean<UserBean>> updateUserBean(@Body UserBean userBean);
+
+
     /**
      * -----------------------------记录接口-----------------------------
      */
@@ -165,5 +169,6 @@ public interface ApiService {
 
     @GET("hotspot/findAllHotspots")
     Observable<BaseBean<List<HotspotBean>>> findAllHotspots(@Query("page")Integer page, @Query("size")Integer size);
+
 }
 
