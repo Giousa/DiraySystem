@@ -22,6 +22,7 @@ import com.zmm.diary.mvp.presenter.HotspotPresenter;
 import com.zmm.diary.mvp.presenter.contract.HotspotContract;
 import com.zmm.diary.ui.widget.GlideCircleTransform;
 import com.zmm.diary.ui.widget.TitleBar;
+import com.zmm.diary.utils.DateUtils;
 import com.zmm.diary.utils.UIUtils;
 import com.zmm.diary.utils.config.CommonConfig;
 
@@ -195,6 +196,14 @@ public class HotspotDetailActivity extends BaseActivity<HotspotPresenter> implem
 
         mTvHotspotContent.setText(hotspotBean.getContent());
 
+        //发布时间
+        String createTime = hotspotBean.getCreateTime();
+        try {
+            String time = DateUtils.dateToString(DateUtils.stringToDate(createTime, null), null);
+            mTvHotspotCreateTime.setText(time);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
 
         //作者信息
         AuthorBean author = hotspotBean.getAuthor();
