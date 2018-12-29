@@ -76,6 +76,7 @@ public class HotspotDetailActivity extends BaseActivity<HotspotPresenter> implem
     private int mSize = 4;
     private String mHotspotId;
     private String mUserId;
+    private String mAuthorId;
 
     private int mAppreciateCount = 0;
     private int mCollectionCount = 0;
@@ -164,6 +165,7 @@ public class HotspotDetailActivity extends BaseActivity<HotspotPresenter> implem
 
                 break;
             case R.id.ll_hotspot_followers:
+                mPresenter.correlateAuthor(mUserId,mAuthorId);
                 break;
 
             case R.id.iv_hotspot_back:
@@ -183,7 +185,7 @@ public class HotspotDetailActivity extends BaseActivity<HotspotPresenter> implem
     }
 
     @Override
-    public void appreciateOrCollectionStatus(String msg) {
+    public void appreciateOrCollectionOrAuthorStatus(String msg) {
         switch (msg) {
 
             case "appreciateConfirm":
@@ -208,6 +210,14 @@ public class HotspotDetailActivity extends BaseActivity<HotspotPresenter> implem
             case "collectionCancel":
 //                ToastUtils.SimpleToast("取消收藏");
                 mIvHotspotCollection.setImageDrawable(UIUtils.getResources().getDrawable(R.drawable.my_collect_icon));
+                break;
+
+            case "correlateConfirm":
+                mTvHotspotFollowers.setText("取消关注");
+                break;
+
+            case "correlateCancel":
+                mTvHotspotFollowers.setText("关注");
                 break;
         }
     }
@@ -261,6 +271,16 @@ public class HotspotDetailActivity extends BaseActivity<HotspotPresenter> implem
 
         if(author.getUsername().equals(UIUtils.getUserBean().getUsername())){
             mLlHotspotFollowers.setVisibility(View.INVISIBLE);
+        }else {
+            mAuthorId = author.getId();
+            //关注状态
+            boolean hasCorrelate = hotspotBean.isHasCorrelate();
+            if(hasCorrelate){
+                mTvHotspotFollowers.setText("取消关注");
+            }else {
+                mTvHotspotFollowers.setText("关注");
+            }
+
         }
 
         String authorIcon = author.getIcon();

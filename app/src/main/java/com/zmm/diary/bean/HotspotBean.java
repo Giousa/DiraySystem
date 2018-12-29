@@ -25,6 +25,8 @@ public class HotspotBean implements Serializable{
 
     private boolean hasAppreciate;
 
+    private boolean hasCorrelate;
+
     private String createTime;
 
     private String updateTime;
@@ -99,5 +101,13 @@ public class HotspotBean implements Serializable{
 
     public void setHasAppreciate(boolean hasAppreciate) {
         this.hasAppreciate = hasAppreciate;
+    }
+
+    public boolean isHasCorrelate() {
+        return hasCorrelate;
+    }
+
+    public void setHasCorrelate(boolean hasCorrelate) {
+        this.hasCorrelate = hasCorrelate;
     }
 }

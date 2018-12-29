@@ -195,7 +195,7 @@ public class HotspotInfoActivity extends BaseActivity<HotspotPresenter> implemen
     }
 
     @Override
-    public void appreciateOrCollectionStatus(String msg) {
+    public void appreciateOrCollectionOrAuthorStatus(String msg) {
 
     }
 

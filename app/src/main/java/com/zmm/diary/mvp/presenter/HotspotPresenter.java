@@ -153,7 +153,7 @@ public class HotspotPresenter extends BasePresenter<HotspotContract.IHotspotMode
                 .subscribe(new ErrorHandlerSubscriber<String>() {
                     @Override
                     public void onNext(String s) {
-                        mView.appreciateOrCollectionStatus(s);
+                        mView.appreciateOrCollectionOrAuthorStatus(s);
                     }
                 });
     }
@@ -169,7 +169,24 @@ public class HotspotPresenter extends BasePresenter<HotspotContract.IHotspotMode
                 .subscribe(new ErrorHandlerSubscriber<String>() {
                     @Override
                     public void onNext(String s) {
-                        mView.appreciateOrCollectionStatus(s);
+                        mView.appreciateOrCollectionOrAuthorStatus(s);
+                    }
+                });
+    }
+
+    /**
+     * 关注和取消关注作者
+     * @param userId
+     * @param authorId
+     */
+    public void correlateAuthor(String userId, String authorId) {
+
+        mModel.correlateAuthor(userId,authorId)
+                .compose(RxHttpResponseCompat.<String>compatResult())
+                .subscribe(new ErrorHandlerSubscriber<String>() {
+                    @Override
+                    public void onNext(String s) {
+                        mView.appreciateOrCollectionOrAuthorStatus(s);
                     }
                 });
     }

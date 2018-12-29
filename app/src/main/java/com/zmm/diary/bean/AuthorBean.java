@@ -10,11 +10,21 @@ import java.io.Serializable;
  */
 public class AuthorBean implements Serializable{
 
+    private String id;
+
     private String username;
 
     private String nickname;
 
     private String icon;
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
 
     public String getUsername() {
         return username;

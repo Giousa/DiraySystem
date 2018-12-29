@@ -173,7 +173,7 @@ public class HotspotFragment extends BaseFragment<HotspotPresenter> implements H
     }
 
     @Override
-    public void appreciateOrCollectionStatus(String msg) {
+    public void appreciateOrCollectionOrAuthorStatus(String msg) {
 
     }
 

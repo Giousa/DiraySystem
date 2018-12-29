@@ -35,6 +35,8 @@ public interface HotspotContract {
 
         Observable<BaseBean<String>> collectionHotspot(String userId,String hotspotId);
 
+        Observable<BaseBean<String>> correlateAuthor(String userId,String authorId);
+
     }
 
     interface HotspotView extends BaseView{
@@ -43,7 +45,7 @@ public interface HotspotContract {
 
         void deleteSuccess();
 
-        void appreciateOrCollectionStatus(String msg);
+        void appreciateOrCollectionOrAuthorStatus(String msg);
 
         void findHotspotSuccess(HotspotBean hotspotBean);
 

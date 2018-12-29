@@ -65,4 +65,9 @@ public class HotspotModel implements HotspotContract.IHotspotModel {
     public Observable<BaseBean<String>> collectionHotspot(String userId, String hotspotId) {
         return mApiService.collectionHotspot(userId,hotspotId);
     }
+
+    @Override
+    public Observable<BaseBean<String>> correlateAuthor(String userId, String authorId) {
+        return mApiService.correlateAuthor(userId,authorId);
+    }
 }

@@ -179,6 +179,9 @@ public interface ApiService {
     @GET("hotspot/collectionHotspot")
     Observable<BaseBean<String>> collectionHotspot(@Query("userId")String userId,@Query("hotspotId")String hotspotId);
 
+    @GET("hotspot/correlateAuthor")
+    Observable<BaseBean<String>> correlateAuthor(@Query("userId")String userId,@Query("authorId")String authorId);
+
     @GET("hotspot/findCollectionHotspotsByUId")
     Observable<BaseBean<List<HotspotBean>>> findCollectionHotspotsByUId(@Query("userId")String userId, @Query("page")Integer page, @Query("size")Integer size);
 
