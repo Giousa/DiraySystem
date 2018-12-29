@@ -27,6 +27,8 @@ public interface HotspotContract {
 
         Observable<BaseBean<List<HotspotBean>>> findHotspotsByUId(String userId,Integer page,Integer size);
 
+        Observable<BaseBean<List<HotspotBean>>> findCollectionHotspotsByUId(String userId,Integer page,Integer size);
+
         Observable<BaseBean<List<HotspotBean>>> findAllHotspots(Integer page,Integer size);
 
         Observable<BaseBean<String>> appreciateHotspot(String userId,String hotspotId);

@@ -137,6 +137,7 @@
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/ll_hotspot_author"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dp_size_80"
                 android:gravity="center_vertical"

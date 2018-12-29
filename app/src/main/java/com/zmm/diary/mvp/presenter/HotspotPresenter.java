@@ -102,6 +102,30 @@ public class HotspotPresenter extends BasePresenter<HotspotContract.IHotspotMode
     }
 
     /**
+     * 根据用户id，查询所有 收藏热点
+     * @param userId
+     * @param page
+     * @param size
+     * @param flag 0:加载更多  1：刷新
+     */
+    public void findCollectionHotspotsByUId(String userId, int page, int size, final int flag) {
+
+        mModel.findCollectionHotspotsByUId(userId,page,size)
+                .compose(RxHttpResponseCompat.<List<HotspotBean>>compatResult())
+                .subscribe(new ErrorHandlerSubscriber<List<HotspotBean>>() {
+                    @Override
+                    public void onNext(List<HotspotBean> hotspotBeanList) {
+                        if(flag == 0){
+                            mView.loadMoreHotspotSuccess(hotspotBeanList);
+                        }else {
+                            mView.refreshHotspotSuccess(hotspotBeanList);
+                        }
+                    }
+                });
+
+    }
+
+    /**
      * 根据id查询当前热点详情
      * @param userId
      * @param hotspotId

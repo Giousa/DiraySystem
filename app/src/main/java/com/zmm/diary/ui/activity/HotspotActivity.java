@@ -44,6 +44,7 @@ public class HotspotActivity extends BaseActivity<HotspotPresenter> implements H
 
     private int mPage = 0;
     private int mSize = 4;
+    private int mType;//0:我的热点  1:热点收藏
 
     @Override
     protected int setLayout() {
@@ -61,6 +62,10 @@ public class HotspotActivity extends BaseActivity<HotspotPresenter> implements H
 
     @Override
     protected void init() {
+
+
+        mType = getIntent().getIntExtra("type",0);
+
         initToolBar();
 
         initRecyclerView();
@@ -73,12 +78,29 @@ public class HotspotActivity extends BaseActivity<HotspotPresenter> implements H
     protected void onResume() {
         super.onResume();
         mPage = 0;
-        mPresenter.findHotspotsByUId(UIUtils.getUserBean().getId(),mPage, mSize,1);
+
+        if(mType == 0){
+            mPresenter.findHotspotsByUId(UIUtils.getUserBean().getId(),mPage, mSize,1);
+        }else {
+            mPresenter.findCollectionHotspotsByUId(UIUtils.getUserBean().getId(),mPage, mSize,1);
+        }
     }
 
     private void initToolBar() {
 
-        mTitleBar.setTitle("我的热点");
+        if(mType == 0){
+            mTitleBar.setTitle("我的热点");
+
+            mTitleBar.addAction(new TitleBar.ImageAction(R.drawable.icon_add) {
+                @Override
+                public void performAction(View view) {
+
+                    mContext.startActivity(new Intent(mContext, HotspotInfoActivity.class));
+                }
+            });
+        }else {
+            mTitleBar.setTitle("热点收藏");
+        }
         mTitleBar.setLeftImageResource(R.drawable.icon_back);
         mTitleBar.setLeftText("返回");
         mTitleBar.setLeftClickListener(new View.OnClickListener() {
@@ -87,13 +109,7 @@ public class HotspotActivity extends BaseActivity<HotspotPresenter> implements H
                 finish();
             }
         });
-        mTitleBar.addAction(new TitleBar.ImageAction(R.drawable.icon_add) {
-            @Override
-            public void performAction(View view) {
 
-                mContext.startActivity(new Intent(mContext, HotspotInfoActivity.class));
-            }
-        });
 
     }
 
@@ -117,16 +133,22 @@ public class HotspotActivity extends BaseActivity<HotspotPresenter> implements H
 
                 mPage++;
 
-                mPresenter.findHotspotsByUId(UIUtils.getUserBean().getId(),mPage, mSize,0);
-
+                if(mType == 0){
+                    mPresenter.findHotspotsByUId(UIUtils.getUserBean().getId(),mPage, mSize,1);
+                }else {
+                    mPresenter.findCollectionHotspotsByUId(UIUtils.getUserBean().getId(),mPage, mSize,1);
+                }
             }
 
             @Override
             public void onRefreshing() {
                 System.out.println("----onRefreshing----");
                 mPage = 0;
-
-                mPresenter.findHotspotsByUId(UIUtils.getUserBean().getId(),mPage, mSize,1);
+                if(mType == 0){
+                    mPresenter.findHotspotsByUId(UIUtils.getUserBean().getId(),mPage, mSize,1);
+                }else {
+                    mPresenter.findCollectionHotspotsByUId(UIUtils.getUserBean().getId(),mPage, mSize,1);
+                }
             }
         });
     }

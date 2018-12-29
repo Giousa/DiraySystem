@@ -1,5 +1,6 @@
 package com.zmm.diary.ui.activity;
 
+import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.View;
@@ -19,13 +20,13 @@ import com.zmm.diary.mvp.presenter.HotspotPresenter;
 import com.zmm.diary.mvp.presenter.contract.HotspotContract;
 import com.zmm.diary.ui.widget.GlideCircleTransform;
 import com.zmm.diary.utils.DateUtils;
-import com.zmm.diary.utils.ToastUtils;
 import com.zmm.diary.utils.UIUtils;
 import com.zmm.diary.utils.config.CommonConfig;
 
 import java.util.List;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 /**
@@ -67,6 +68,10 @@ public class HotspotDetailActivity extends BaseActivity<HotspotPresenter> implem
     RecyclerView mRvList;
     @BindView(R.id.easy_refresh_layout)
     EasyRefreshLayout mEasyRefreshLayout;
+    @BindView(R.id.iv_hotspot_back)
+    ImageView mIvHotspotBack;
+    @BindView(R.id.ll_hotspot_author)
+    LinearLayout mLlHotspotAuthor;
 
 
     private int mPage = 0;
@@ -107,7 +112,7 @@ public class HotspotDetailActivity extends BaseActivity<HotspotPresenter> implem
     protected void onResume() {
         super.onResume();
 
-        mPresenter.findHotspotById(mUserId,mHotspotId);
+        mPresenter.findHotspotById(mUserId, mHotspotId);
 
     }
 
@@ -145,16 +150,16 @@ public class HotspotDetailActivity extends BaseActivity<HotspotPresenter> implem
         });
     }
 
-    @OnClick({R.id.ll_hotspot_comment, R.id.ll_hotspot_followers,R.id.iv_hotspot_back,R.id.ll_hotspot_appreciate,R.id.ll_hotspot_collection})
+    @OnClick({R.id.ll_hotspot_comment, R.id.ll_hotspot_followers, R.id.iv_hotspot_back, R.id.ll_hotspot_appreciate, R.id.ll_hotspot_collection})
     public void onViewClicked(View view) {
         switch (view.getId()) {
 
             case R.id.ll_hotspot_appreciate:
-                mPresenter.appreciateHotspot(mUserId,mHotspotId);
+                mPresenter.appreciateHotspot(mUserId, mHotspotId);
                 break;
 
             case R.id.ll_hotspot_collection:
-                mPresenter.collectionHotspot(mUserId,mHotspotId);
+                mPresenter.collectionHotspot(mUserId, mHotspotId);
                 break;
 
             case R.id.ll_hotspot_comment:
@@ -181,19 +186,19 @@ public class HotspotDetailActivity extends BaseActivity<HotspotPresenter> implem
 
     @Override
     public void appreciateOrCollectionStatus(String msg) {
-        switch (msg){
+        switch (msg) {
 
             case "appreciateConfirm":
 //                ToastUtils.SimpleToast("点赞");
                 mAppreciateCount++;
-                mTvHotspotAppreciateCount.setText(mAppreciateCount+"");
+                mTvHotspotAppreciateCount.setText(mAppreciateCount + "");
                 mIvHotspotAppreciate.setImageDrawable(UIUtils.getResources().getDrawable(R.drawable.icon_appreciate_selected));
                 break;
 
             case "appreciateCancel":
 //                ToastUtils.SimpleToast("取消点赞");
                 mAppreciateCount--;
-                mTvHotspotAppreciateCount.setText(mAppreciateCount+"");
+                mTvHotspotAppreciateCount.setText(mAppreciateCount + "");
                 mIvHotspotAppreciate.setImageDrawable(UIUtils.getResources().getDrawable(R.drawable.icon_appreciate));
                 break;
 
@@ -226,22 +231,21 @@ public class HotspotDetailActivity extends BaseActivity<HotspotPresenter> implem
 
         //点赞数
         mAppreciateCount = hotspotBean.getAppreciate();
-        mTvHotspotAppreciateCount.setText(mAppreciateCount+"");
+        mTvHotspotAppreciateCount.setText(mAppreciateCount + "");
 
         //是否点赞
         boolean hasAppreciate = hotspotBean.isHasAppreciate();
-        if(hasAppreciate){
+        if (hasAppreciate) {
             mIvHotspotAppreciate.setImageDrawable(UIUtils.getResources().getDrawable(R.drawable.icon_appreciate_selected));
-        }else {
+        } else {
             mIvHotspotAppreciate.setImageDrawable(UIUtils.getResources().getDrawable(R.drawable.icon_appreciate));
         }
 
-
         //是否收藏
         boolean hasCollect = hotspotBean.isHasCollect();
-        if(hasCollect){
+        if (hasCollect) {
             mIvHotspotCollection.setImageDrawable(UIUtils.getResources().getDrawable(R.drawable.my_collect_icon_selected));
-        }else {
+        } else {
             mIvHotspotCollection.setImageDrawable(UIUtils.getResources().getDrawable(R.drawable.my_collect_icon));
         }
 
@@ -250,12 +254,16 @@ public class HotspotDetailActivity extends BaseActivity<HotspotPresenter> implem
         try {
             String time = DateUtils.dateToString(DateUtils.stringToDate(createTime, null), null);
             mTvHotspotCreateTime.setText(time);
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
-        //作者信息
+        //作者信息--倘若是本人，不显示关注信息
         AuthorBean author = hotspotBean.getAuthor();
+
+        if(author.getUsername().equals(UIUtils.getUserBean().getUsername())){
+            mLlHotspotFollowers.setVisibility(View.INVISIBLE);
+        }
 
         String authorIcon = author.getIcon();
 
@@ -266,9 +274,9 @@ public class HotspotDetailActivity extends BaseActivity<HotspotPresenter> implem
                 .transform(new GlideCircleTransform(mContext))
                 .into(mIvHotspotAuthorIcon);
 
-        if(TextUtils.isEmpty(author.getNickname())){
+        if (TextUtils.isEmpty(author.getNickname())) {
             mTvHotspotAuthorName.setText(author.getUsername());
-        }else {
+        } else {
             mTvHotspotAuthorName.setText(author.getNickname());
         }
 

@@ -47,6 +47,11 @@ public class HotspotModel implements HotspotContract.IHotspotModel {
     }
 
     @Override
+    public Observable<BaseBean<List<HotspotBean>>> findCollectionHotspotsByUId(String userId, Integer page, Integer size) {
+        return mApiService.findCollectionHotspotsByUId(userId,page,size);
+    }
+
+    @Override
     public Observable<BaseBean<List<HotspotBean>>> findAllHotspots(Integer page, Integer size) {
         return mApiService.findAllHotspots(page,size);
     }

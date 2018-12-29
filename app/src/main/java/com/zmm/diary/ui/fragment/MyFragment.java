@@ -166,7 +166,10 @@ public class MyFragment extends BaseFragment<UserPresenter> implements CustomIte
             case R.id.rel_my_hotspot:
 
                 if(UIUtils.getUserBean() != null){
-                    startActivity(HotspotActivity.class);
+//                    startActivity(HotspotActivity.class);
+                    Intent intentHotspot = new Intent(mContext,HotspotActivity.class);
+                    intentHotspot.putExtra("type",0);
+                    startActivity(intentHotspot);
                 }else {
                     ToastUtils.SimpleToast("请登录");
                 }
@@ -197,7 +200,9 @@ public class MyFragment extends BaseFragment<UserPresenter> implements CustomIte
     public void OnItemClick(String title) {
         if (title.equals("热点收藏")) {
             if(UIUtils.getUserBean() != null){
-                ToastUtils.SimpleToast("热点收藏");
+                Intent intentHotspot = new Intent(mContext,HotspotActivity.class);
+                intentHotspot.putExtra("type",1);
+                startActivity(intentHotspot);
             }else {
                 ToastUtils.SimpleToast("请登录");
             }
