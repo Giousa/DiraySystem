@@ -103,15 +103,49 @@ public class HotspotPresenter extends BasePresenter<HotspotContract.IHotspotMode
 
     /**
      * 根据id查询当前热点详情
+     * @param userId
      * @param hotspotId
      */
-    public void findHotspotById(String hotspotId) {
-        mModel.findHotspotById(hotspotId)
+    public void findHotspotById(String userId,String hotspotId) {
+        mModel.findHotspotById(userId,hotspotId)
                 .compose(RxHttpResponseCompat.<HotspotBean>compatResult())
                 .subscribe(new ErrorHandlerSubscriber<HotspotBean>() {
                     @Override
                     public void onNext(HotspotBean hotspotBean) {
                         mView.findHotspotSuccess(hotspotBean);
+                    }
+                });
+    }
+
+    /**
+     * 点赞功能
+     * @param userId
+     * @param hotspotId
+     */
+    public void appreciateHotspot(String userId, String hotspotId) {
+
+        mModel.appreciateHotspot(userId,hotspotId)
+                .compose(RxHttpResponseCompat.<String>compatResult())
+                .subscribe(new ErrorHandlerSubscriber<String>() {
+                    @Override
+                    public void onNext(String s) {
+                        mView.appreciateOrCollectionStatus(s);
+                    }
+                });
+    }
+
+    /**
+     * 收藏功能
+     * @param userId
+     * @param hotspotId
+     */
+    public void collectionHotspot(String userId, String hotspotId) {
+        mModel.collectionHotspot(userId,hotspotId)
+                .compose(RxHttpResponseCompat.<String>compatResult())
+                .subscribe(new ErrorHandlerSubscriber<String>() {
+                    @Override
+                    public void onNext(String s) {
+                        mView.appreciateOrCollectionStatus(s);
                     }
                 });
     }

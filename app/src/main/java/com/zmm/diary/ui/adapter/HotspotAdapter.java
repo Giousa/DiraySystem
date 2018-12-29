@@ -65,6 +65,5 @@ public class HotspotAdapter extends BaseQuickAdapter<HotspotBean,BaseViewHolder>
         //点赞数
         helper.setText(R.id.tv_item_appreciate_count,item.getAppreciate()+"");
 
-
     }
 }

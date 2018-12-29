@@ -195,6 +195,11 @@ public class HotspotInfoActivity extends BaseActivity<HotspotPresenter> implemen
     }
 
     @Override
+    public void appreciateOrCollectionStatus(String msg) {
+
+    }
+
+    @Override
     public void findHotspotSuccess(HotspotBean hotspotBean) {
 
     }

@@ -32,8 +32,8 @@ public class HotspotModel implements HotspotContract.IHotspotModel {
     }
 
     @Override
-    public Observable<BaseBean<HotspotBean>> findHotspotById(String hotspotId) {
-        return mApiService.findHotspotById(hotspotId);
+    public Observable<BaseBean<HotspotBean>> findHotspotById(String userId,String hotspotId) {
+        return mApiService.findHotspotById(userId,hotspotId);
     }
 
     @Override
@@ -49,5 +49,15 @@ public class HotspotModel implements HotspotContract.IHotspotModel {
     @Override
     public Observable<BaseBean<List<HotspotBean>>> findAllHotspots(Integer page, Integer size) {
         return mApiService.findAllHotspots(page,size);
+    }
+
+    @Override
+    public Observable<BaseBean<String>> appreciateHotspot(String userId, String hotspotId) {
+        return mApiService.appreciateHotspot(userId,hotspotId);
+    }
+
+    @Override
+    public Observable<BaseBean<String>> collectionHotspot(String userId, String hotspotId) {
+        return mApiService.collectionHotspot(userId,hotspotId);
     }
 }

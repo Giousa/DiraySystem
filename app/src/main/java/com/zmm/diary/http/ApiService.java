@@ -164,8 +164,8 @@ public interface ApiService {
     @GET("hotspot/deleteHotspot/{id}")
     Observable<BaseBean<String>> deleteHotspot(@Path("id")String id);
 
-    @GET("hotspot/findHotspotById/{id}")
-    Observable<BaseBean<HotspotBean>> findHotspotById(@Path("id")String id);
+    @GET("hotspot/findHotspotById")
+    Observable<BaseBean<HotspotBean>> findHotspotById(@Query("userId")String userId,@Query("hotspotId")String hotspotId);
 
     @GET("hotspot/findHotspotsByUId")
     Observable<BaseBean<List<HotspotBean>>> findHotspotsByUId(@Query("userId")String userId, @Query("page")Integer page, @Query("size")Integer size);
@@ -173,5 +173,10 @@ public interface ApiService {
     @GET("hotspot/findAllHotspots")
     Observable<BaseBean<List<HotspotBean>>> findAllHotspots(@Query("page")Integer page, @Query("size")Integer size);
 
+    @GET("hotspot/appreciateHotspot")
+    Observable<BaseBean<String>> appreciateHotspot(@Query("userId")String userId,@Query("hotspotId")String hotspotId);
+
+    @GET("hotspot/collectionHotspot")
+    Observable<BaseBean<String>> collectionHotspot(@Query("userId")String userId,@Query("hotspotId")String hotspotId);
 }
 
