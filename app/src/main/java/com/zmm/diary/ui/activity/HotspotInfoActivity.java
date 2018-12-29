@@ -12,6 +12,7 @@ import com.bumptech.glide.Glide;
 import com.lzy.imagepicker.ImagePicker;
 import com.lzy.imagepicker.bean.ImageItem;
 import com.lzy.imagepicker.ui.ImageGridActivity;
+import com.lzy.imagepicker.view.CropImageView;
 import com.zmm.diary.R;
 import com.zmm.diary.bean.HotspotBean;
 import com.zmm.diary.bean.UserBean;
@@ -129,8 +130,14 @@ public class HotspotInfoActivity extends BaseActivity<HotspotPresenter> implemen
     public void onViewClicked() {
 
         //单选 不允许裁剪
-        ImagePicker.getInstance().setMultiMode(false);
-        ImagePicker.getInstance().setCrop(false);
+        ImagePicker imagePicker = ImagePicker.getInstance();
+        imagePicker.setMultiMode(false);
+        imagePicker.setCrop(false);
+//        imagePicker.setStyle(CropImageView.Style.RECTANGLE);  //裁剪框的形状
+//        imagePicker.setFocusWidth(1080);   //裁剪框的宽度。单位像素（圆形自动取宽高最小值）
+//        imagePicker.setFocusHeight(400);  //裁剪框的高度。单位像素（圆形自动取宽高最小值）
+//        imagePicker.setOutPutX(1080);//保存文件的宽度。单位像素
+//        imagePicker.setOutPutY(400);//保存文件的高度。单位像素
 
         Intent intent = new Intent(mContext, ImageGridActivity.class);
         startActivityForResult(intent, 100);
@@ -155,7 +162,7 @@ public class HotspotInfoActivity extends BaseActivity<HotspotPresenter> implemen
 
 
                         String mimeType = mImages.get(i).mimeType;
-                        if(mimeType.contains("gif")){
+                        if(!TextUtils.isEmpty(mimeType) && mimeType.contains("gif")){
                             mNewListPath.add(0,mImages.get(i).path);
                         }else {
 

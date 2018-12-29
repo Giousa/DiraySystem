@@ -22,6 +22,7 @@
 
     </style>
 
+    <!--全屏，不透明-->
     <style name="AppTheme.Notitle.FullScreen" parent="AppTheme.Notitle">
         <item name="android:windowFullscreen">true</item>
 

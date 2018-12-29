@@ -81,6 +81,7 @@
 
         <!--热点评论-->
         <activity
+            android:theme="@style/AppTheme.Notitle.FullScreen"
             android:name=".ui.activity.HotspotDetailActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:launchMode="singleTask"/>

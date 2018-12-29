@@ -41,8 +41,8 @@ import butterknife.OnClick;
 public class HotspotDetailActivity extends BaseActivity<HotspotPresenter> implements HotspotContract.HotspotView {
 
 
-    @BindView(R.id.title_bar)
-    TitleBar mTitleBar;
+//    @BindView(R.id.title_bar)
+//    TitleBar mTitleBar;
     @BindView(R.id.iv_hotspot_pic)
     ImageView mIvHotspotPic;
     @BindView(R.id.tv_hotspot_content)
@@ -98,7 +98,7 @@ public class HotspotDetailActivity extends BaseActivity<HotspotPresenter> implem
 
         mHotspotId = getIntent().getStringExtra("hotspotId");
 
-        initToolBar();
+//        initToolBar();
 
         initRecyclerView();
 
@@ -116,15 +116,15 @@ public class HotspotDetailActivity extends BaseActivity<HotspotPresenter> implem
 
     private void initToolBar() {
 
-        mTitleBar.setTitle("热点详情");
-        mTitleBar.setLeftImageResource(R.drawable.icon_back);
-        mTitleBar.setLeftText("返回");
-        mTitleBar.setLeftClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
+//        mTitleBar.setTitle("热点详情");
+//        mTitleBar.setLeftImageResource(R.drawable.icon_back);
+//        mTitleBar.setLeftText("返回");
+//        mTitleBar.setLeftClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                finish();
+//            }
+//        });
     }
 
     private void initRecyclerView() {
@@ -161,12 +161,16 @@ public class HotspotDetailActivity extends BaseActivity<HotspotPresenter> implem
         });
     }
 
-    @OnClick({R.id.ll_hotspot_comment, R.id.ll_hotspot_followers})
+    @OnClick({R.id.ll_hotspot_comment, R.id.ll_hotspot_followers,R.id.iv_hotspot_back})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.ll_hotspot_comment:
                 break;
             case R.id.ll_hotspot_followers:
+                break;
+
+            case R.id.iv_hotspot_back:
+                finish();
                 break;
         }
     }
