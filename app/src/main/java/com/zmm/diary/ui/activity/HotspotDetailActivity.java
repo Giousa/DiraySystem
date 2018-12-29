@@ -1,6 +1,5 @@
 package com.zmm.diary.ui.activity;
 
-import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.View;
@@ -26,7 +25,6 @@ import com.zmm.diary.utils.config.CommonConfig;
 import java.util.List;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 /**

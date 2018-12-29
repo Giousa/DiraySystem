@@ -6,6 +6,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
 import com.ajguan.library.EasyRefreshLayout;
+import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.zmm.diary.R;
 import com.zmm.diary.bean.HotspotBean;
 import com.zmm.diary.dagger.component.DaggerHotspotComponent;
@@ -119,7 +120,16 @@ public class HotspotActivity extends BaseActivity<HotspotPresenter> implements H
         mRvList.setLayoutManager(new GridLayoutManager(mContext, 2));
         mRvList.setAdapter(mHotspotAdapter);
         mHotspotAdapter.setEmptyView(R.layout.empty_content, mRvList);
+        mHotspotAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                HotspotBean hotspotBean = (HotspotBean) adapter.getData().get(position);
 
+                Intent intent = new Intent(mContext, HotspotDetailActivity.class);
+                intent.putExtra("hotspotId",hotspotBean.getId());
+                startActivity(intent);
+            }
+        });
     }
 
     /**
@@ -134,9 +144,9 @@ public class HotspotActivity extends BaseActivity<HotspotPresenter> implements H
                 mPage++;
 
                 if(mType == 0){
-                    mPresenter.findHotspotsByUId(UIUtils.getUserBean().getId(),mPage, mSize,1);
+                    mPresenter.findHotspotsByUId(UIUtils.getUserBean().getId(),mPage, mSize,0);
                 }else {
-                    mPresenter.findCollectionHotspotsByUId(UIUtils.getUserBean().getId(),mPage, mSize,1);
+                    mPresenter.findCollectionHotspotsByUId(UIUtils.getUserBean().getId(),mPage, mSize,0);
                 }
             }
 

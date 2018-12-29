@@ -120,13 +120,12 @@ public class RecordInfoActivity extends BaseActivity<RecordPresenter> implements
         //TODO  判断登录
         UserBean userBean = UIUtils.getUserBean();
 
-        if(userBean != null){
+        if(userBean == null){
             startActivity(LoginActivity.class,true);
             return;
         }
 
         String content = mEtContent.getText().toString();
-
 
         if(!TextUtils.isEmpty(content)){
             mPresenter.addRecord(userBean.getId(),content,mNewListPath);
