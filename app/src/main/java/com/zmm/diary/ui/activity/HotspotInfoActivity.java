@@ -2,7 +2,6 @@ package com.zmm.diary.ui.activity;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
@@ -12,7 +11,6 @@ import com.bumptech.glide.Glide;
 import com.lzy.imagepicker.ImagePicker;
 import com.lzy.imagepicker.bean.ImageItem;
 import com.lzy.imagepicker.ui.ImageGridActivity;
-import com.lzy.imagepicker.view.CropImageView;
 import com.zmm.diary.R;
 import com.zmm.diary.bean.HotspotBean;
 import com.zmm.diary.bean.UserBean;
@@ -23,17 +21,14 @@ import com.zmm.diary.mvp.presenter.HotspotPresenter;
 import com.zmm.diary.mvp.presenter.contract.HotspotContract;
 import com.zmm.diary.ui.widget.TitleBar;
 import com.zmm.diary.utils.PictureCompressUtil;
-import com.zmm.diary.utils.SharedPreferencesUtil;
 import com.zmm.diary.utils.ToastUtils;
 import com.zmm.diary.utils.UIUtils;
-import com.zmm.diary.utils.config.CommonConfig;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 /**
@@ -89,6 +84,7 @@ public class HotspotInfoActivity extends BaseActivity<HotspotPresenter> implemen
         mTitleBar.setLeftClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 finish();
             }
         });
@@ -188,7 +184,9 @@ public class HotspotInfoActivity extends BaseActivity<HotspotPresenter> implemen
     @Override
     public void addSuccess() {
         ToastUtils.SimpleToast("发表成功");
+        setResult(2);
         finish();
+
     }
 
     @Override

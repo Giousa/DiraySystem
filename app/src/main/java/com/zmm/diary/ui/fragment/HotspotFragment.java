@@ -72,16 +72,15 @@ public class HotspotFragment extends BaseFragment<HotspotPresenter> implements H
 
         initRefresh();
 
+        initRefreshData();
+
     }
 
-
-    @Override
-    public void onResume() {
-        super.onResume();
-
+    private void initRefreshData(){
         mPage = 0;
         mPresenter.findAllHotspots(mPage, mSize,1);
     }
+
 
     private void initToolBar() {
 
@@ -90,10 +89,23 @@ public class HotspotFragment extends BaseFragment<HotspotPresenter> implements H
             @Override
             public void performAction(View view) {
 
-                mContext.startActivity(new Intent(mContext, HotspotInfoActivity.class));
+//                mContext.startActivity(new Intent(mContext, HotspotInfoActivity.class));
+                startActivityForResult(new Intent(mContext, HotspotInfoActivity.class),1);
             }
         });
 
+    }
+
+    //判断，Only添加热点成功后返回，则刷新界面，否则皆不刷新
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        System.out.println("世界热点：：requestCode = "+requestCode+",resultCode = "+resultCode);
+
+        if(requestCode == 1 && resultCode == 2){
+            initRefreshData();
+        }
     }
 
     private void initRecyclerView() {

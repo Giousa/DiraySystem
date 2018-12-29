@@ -1,8 +1,5 @@
 package com.zmm.diary.ui.activity;
 
-import android.content.Intent;
-import android.os.Bundle;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.View;
@@ -21,15 +18,12 @@ import com.zmm.diary.dagger.module.HotspotModule;
 import com.zmm.diary.mvp.presenter.HotspotPresenter;
 import com.zmm.diary.mvp.presenter.contract.HotspotContract;
 import com.zmm.diary.ui.widget.GlideCircleTransform;
-import com.zmm.diary.ui.widget.TitleBar;
 import com.zmm.diary.utils.DateUtils;
-import com.zmm.diary.utils.UIUtils;
 import com.zmm.diary.utils.config.CommonConfig;
 
 import java.util.List;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 /**
@@ -41,8 +35,6 @@ import butterknife.OnClick;
 public class HotspotDetailActivity extends BaseActivity<HotspotPresenter> implements HotspotContract.HotspotView {
 
 
-//    @BindView(R.id.title_bar)
-//    TitleBar mTitleBar;
     @BindView(R.id.iv_hotspot_pic)
     ImageView mIvHotspotPic;
     @BindView(R.id.tv_hotspot_content)
@@ -98,8 +90,6 @@ public class HotspotDetailActivity extends BaseActivity<HotspotPresenter> implem
 
         mHotspotId = getIntent().getStringExtra("hotspotId");
 
-//        initToolBar();
-
         initRecyclerView();
 
         initRefresh();
@@ -112,19 +102,6 @@ public class HotspotDetailActivity extends BaseActivity<HotspotPresenter> implem
 
         mPresenter.findHotspotById(mHotspotId);
 
-    }
-
-    private void initToolBar() {
-
-//        mTitleBar.setTitle("热点详情");
-//        mTitleBar.setLeftImageResource(R.drawable.icon_back);
-//        mTitleBar.setLeftText("返回");
-//        mTitleBar.setLeftClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                finish();
-//            }
-//        });
     }
 
     private void initRecyclerView() {
