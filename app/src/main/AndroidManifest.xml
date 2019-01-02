@@ -92,6 +92,13 @@
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:launchMode="singleTask"/>
 
+
+        <!--关注和粉丝界面-->
+        <activity
+            android:name=".ui.activity.CorrelateActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:launchMode="singleTask"/>
+
     </application>
 
 </manifest>

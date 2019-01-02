@@ -1,6 +1,7 @@
 package com.zmm.diary.http;
 
 import com.zmm.diary.bean.BaseBean;
+import com.zmm.diary.bean.CorrelateBean;
 import com.zmm.diary.bean.HotspotBean;
 import com.zmm.diary.bean.NoteBean;
 import com.zmm.diary.bean.RecordBean;
@@ -184,6 +185,23 @@ public interface ApiService {
 
     @GET("hotspot/findCollectionHotspotsByUId")
     Observable<BaseBean<List<HotspotBean>>> findCollectionHotspotsByUId(@Query("userId")String userId, @Query("page")Integer page, @Query("size")Integer size);
+
+    /**
+     * -----------------------------关注和粉丝接口-----------------------------
+     */
+
+    @GET("correlate/deleteFollower/{authorId}")
+    Observable<BaseBean<String>> deleteFollower(@Path("authorId")String authorId);
+
+    @GET("correlate/findAllFollowers")
+    Observable<BaseBean<List<CorrelateBean>>> findAllFollowers(@Query("userId")String userId, @Query("page")Integer page, @Query("size")Integer size);
+
+    @GET("correlate/findFollowersByUserId")
+    Observable<BaseBean<List<CorrelateBean>>> findFollowersByUserId(@Query("userId")String userId, @Query("page")Integer page, @Query("size")Integer size);
+
+    @GET("correlate/findFunsByUserId")
+    Observable<BaseBean<List<CorrelateBean>>> findFunsByUserId(@Query("userId")String userId, @Query("page")Integer page, @Query("size")Integer size);
+
 
 }
 

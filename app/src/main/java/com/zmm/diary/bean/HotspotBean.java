@@ -31,6 +31,7 @@ public class HotspotBean implements Serializable{
 
     private String updateTime;
 
+
     public String getId() {
         return id;
     }

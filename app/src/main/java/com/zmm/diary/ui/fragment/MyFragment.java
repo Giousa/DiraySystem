@@ -20,6 +20,7 @@ import com.zmm.diary.dagger.component.HttpComponent;
 import com.zmm.diary.dagger.module.UserModule;
 import com.zmm.diary.mvp.presenter.UserPresenter;
 import com.zmm.diary.mvp.presenter.contract.UserContract;
+import com.zmm.diary.ui.activity.CorrelateActivity;
 import com.zmm.diary.ui.activity.HotspotActivity;
 import com.zmm.diary.ui.activity.RecordActivity;
 import com.zmm.diary.ui.activity.SettingActivity;
@@ -166,7 +167,6 @@ public class MyFragment extends BaseFragment<UserPresenter> implements CustomIte
             case R.id.rel_my_hotspot:
 
                 if(UIUtils.getUserBean() != null){
-//                    startActivity(HotspotActivity.class);
                     Intent intentHotspot = new Intent(mContext,HotspotActivity.class);
                     intentHotspot.putExtra("type",0);
                     startActivity(intentHotspot);
@@ -178,7 +178,9 @@ public class MyFragment extends BaseFragment<UserPresenter> implements CustomIte
             case R.id.rel_my_followers:
 
                 if(UIUtils.getUserBean() != null){
-                    ToastUtils.SimpleToast("关注界面");
+                    Intent intentHotspot = new Intent(mContext,CorrelateActivity.class);
+                    intentHotspot.putExtra("type",0);
+                    startActivity(intentHotspot);
                 }else {
                     ToastUtils.SimpleToast("请登录");
                 }
@@ -187,7 +189,9 @@ public class MyFragment extends BaseFragment<UserPresenter> implements CustomIte
             case R.id.rel_my_funs:
 
                 if(UIUtils.getUserBean() != null){
-                    ToastUtils.SimpleToast("粉丝界面");
+                    Intent intentHotspot = new Intent(mContext,CorrelateActivity.class);
+                    intentHotspot.putExtra("type",1);
+                    startActivity(intentHotspot);
                 }else {
                     ToastUtils.SimpleToast("请登录");
                 }
@@ -274,7 +278,6 @@ public class MyFragment extends BaseFragment<UserPresenter> implements CustomIte
             //签名
             mTvMySign.setVisibility(View.VISIBLE);
             mTvMySign.setText(userBean.getSign());
-
 
             //发布热点数
             mTvMyHotspotCount.setText(userBean.getReleases() + "");
