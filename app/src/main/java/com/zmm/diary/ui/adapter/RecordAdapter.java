@@ -23,6 +23,12 @@ import java.util.ArrayList;
 public class RecordAdapter extends BaseQuickAdapter<RecordBean,BaseViewHolder>{
 
 
+    private OnRecordItemClickListener mOnRecordItemClickListener;
+
+    public void setOnRecordItemClickListener(OnRecordItemClickListener onRecordItemClickListener) {
+        mOnRecordItemClickListener = onRecordItemClickListener;
+    }
+
     public RecordAdapter() {
         super(R.layout.item_record);
     }
@@ -44,7 +50,7 @@ public class RecordAdapter extends BaseQuickAdapter<RecordBean,BaseViewHolder>{
 
             recyclerView.setVisibility(View.VISIBLE);
 
-            String[] splitPics = pics.split(",");
+            final String[] splitPics = pics.split(",");
 
             for (String pic:splitPics) {
                 piclist.add(pic);
@@ -92,13 +98,25 @@ public class RecordAdapter extends BaseQuickAdapter<RecordBean,BaseViewHolder>{
             recordPicsAdapter.setOnItemClickListener(new OnItemClickListener() {
                 @Override
                 public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                    String pic = (String) adapter.getData().get(position);
+//                    String pic = (String) adapter.getData().get(position);
+//
+//                    ToastUtils.SimpleToast(pic);
+//                    System.out.println("选择：item = "+item.getContent());
 
-                    ToastUtils.SimpleToast(pic);
-                    System.out.println("选择：item = "+item.getContent());
+                    if(mOnRecordItemClickListener != null){
+                        mOnRecordItemClickListener.OnRecordPicClick(position,splitPics);
+                    }
 
+                }
+            });
 
-
+            //删除
+            helper.getView(R.id.iv_item_delete).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if(mOnRecordItemClickListener != null){
+                        mOnRecordItemClickListener.OnRecordDelete(item.getId());
+                    }
                 }
             });
 
@@ -106,5 +124,13 @@ public class RecordAdapter extends BaseQuickAdapter<RecordBean,BaseViewHolder>{
             recyclerView.setVisibility(View.GONE);
         }
 
+    }
+
+
+    public interface OnRecordItemClickListener{
+
+        void OnRecordPicClick(int position,String[] pics);
+
+        void OnRecordDelete(String id);
     }
 }

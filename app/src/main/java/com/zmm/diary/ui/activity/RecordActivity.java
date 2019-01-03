@@ -18,6 +18,7 @@ import com.zmm.diary.mvp.presenter.contract.RecordContract;
 import com.zmm.diary.ui.adapter.RecordAdapter;
 import com.zmm.diary.ui.widget.TitleBar;
 import com.zmm.diary.utils.SharedPreferencesUtil;
+import com.zmm.diary.utils.ToastUtils;
 import com.zmm.diary.utils.UIUtils;
 import com.zmm.diary.utils.config.CommonConfig;
 
@@ -128,6 +129,20 @@ public class RecordActivity extends BaseActivity<RecordPresenter> implements Rec
 
         //适配器，设置空布局
         mRecordAdapter.setEmptyView(R.layout.empty_content, mRvList);
+
+        mRecordAdapter.setOnRecordItemClickListener(new RecordAdapter.OnRecordItemClickListener() {
+            @Override
+            public void OnRecordPicClick(int position, String[] pics) {
+                System.out.println("当前选中图片："+position);
+                ToastUtils.SimpleToast("当前选中图片："+position);
+            }
+
+            @Override
+            public void OnRecordDelete(String id) {
+                System.out.println("删除图片 id = "+id);
+                ToastUtils.SimpleToast("删除图片 id = "+id);
+            }
+        });
 
     }
 

@@ -44,7 +44,7 @@ public abstract class BaseActivity<T extends BasePresenter> extends AppCompatAct
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
-        overridePendingTransition(R.anim.in_from_right, R.anim.out_to_left);
+//        overridePendingTransition(R.anim.in_from_right, R.anim.out_to_left);
 
         super.onCreate(savedInstanceState);
 
