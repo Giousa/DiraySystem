@@ -9,10 +9,9 @@
 
     <ImageView
         android:id="@+id/iv_img"
-        android:layout_width="0dp"
+        android:layout_width="150dp"
         android:layout_height="150dp"
-        android:layout_weight="1"
-        android:scaleType="center"
+        android:scaleType="centerCrop"
         android:src="@drawable/selector_image_add" />
 
 </LinearLayout>
