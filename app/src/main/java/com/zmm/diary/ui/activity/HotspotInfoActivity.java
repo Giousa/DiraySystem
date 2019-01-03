@@ -20,6 +20,7 @@ import com.zmm.diary.dagger.module.HotspotModule;
 import com.zmm.diary.mvp.presenter.HotspotPresenter;
 import com.zmm.diary.mvp.presenter.contract.HotspotContract;
 import com.zmm.diary.ui.widget.TitleBar;
+import com.zmm.diary.utils.GlideUtils;
 import com.zmm.diary.utils.PictureCompressUtil;
 import com.zmm.diary.utils.ToastUtils;
 import com.zmm.diary.utils.UIUtils;
@@ -152,7 +153,16 @@ public class HotspotInfoActivity extends BaseActivity<HotspotPresenter> implemen
                 if (mImages != null) {
 
                     //展示图片
-                    Glide.with(mContext).load(mImages.get(0).path).placeholder(R.drawable.default_bg).error(R.drawable.default_bg).into(mIvHotspotSelect);
+//                    Glide.with(mContext)
+//                            .load(mImages.get(0).path)
+//                            .placeholder(R.drawable.default_bg)
+//                            .error(R.drawable.default_bg)
+//                            .into(mIvHotspotSelect);
+
+                    GlideUtils.loadImage(mContext,mImages.get(0).path,mIvHotspotSelect);
+
+
+
 
                     for (int i = 0; i < mImages.size(); i++) {
 

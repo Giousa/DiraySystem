@@ -6,6 +6,7 @@ import com.bumptech.glide.Glide;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.zmm.diary.R;
+import com.zmm.diary.utils.GlideUtils;
 import com.zmm.diary.utils.config.CommonConfig;
 
 import java.util.ArrayList;
@@ -29,11 +30,14 @@ public class RecordPicsAdapter extends BaseQuickAdapter<String,BaseViewHolder>{
 
         ImageView icon = helper.getView(R.id.iv_img);
 
-        Glide.with(mContext)
-                .load(CommonConfig.BASE_PIC_URL+item)
-                .placeholder(R.drawable.default_bg)
-                .error(R.drawable.default_bg)
-                .into(icon);
+//        Glide.with(mContext)
+//                .load(CommonConfig.BASE_PIC_URL+item)
+//                .placeholder(R.drawable.default_bg)
+//                .error(R.drawable.default_bg)
+//                .into(icon);
+
+        GlideUtils.loadImage(mContext,CommonConfig.BASE_PIC_URL + item,icon);
+
 
     }
 }

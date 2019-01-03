@@ -19,6 +19,7 @@ import com.zmm.diary.mvp.presenter.HotspotPresenter;
 import com.zmm.diary.mvp.presenter.contract.HotspotContract;
 import com.zmm.diary.ui.widget.GlideCircleTransform;
 import com.zmm.diary.utils.DateUtils;
+import com.zmm.diary.utils.GlideUtils;
 import com.zmm.diary.utils.UIUtils;
 import com.zmm.diary.utils.config.CommonConfig;
 
@@ -228,11 +229,14 @@ public class HotspotDetailActivity extends BaseActivity<HotspotPresenter> implem
         String icon = hotspotBean.getPic();
 
         if (!TextUtils.isEmpty(icon)) {
-            Glide.with(mContext)
-                    .load(CommonConfig.BASE_PIC_URL + icon)
-                    .placeholder(R.drawable.default_bg)
-                    .error(R.drawable.default_bg)
-                    .into(mIvHotspotPic);
+//            Glide.with(mContext)
+//                    .load(CommonConfig.BASE_PIC_URL + icon)
+//                    .placeholder(R.drawable.default_bg)
+//                    .error(R.drawable.default_bg)
+//                    .into(mIvHotspotPic);
+
+            GlideUtils.loadImage(mContext,CommonConfig.BASE_PIC_URL + icon,mIvHotspotPic);
+
         }
 
         mTvHotspotContent.setText(hotspotBean.getContent());
@@ -285,12 +289,15 @@ public class HotspotDetailActivity extends BaseActivity<HotspotPresenter> implem
 
         String authorIcon = author.getIcon();
 
-        Glide.with(mContext)
-                .load(CommonConfig.BASE_PIC_URL + authorIcon)
-                .placeholder(R.drawable.default_my_icon)
-                .error(R.drawable.default_my_icon)
-                .transform(new GlideCircleTransform(mContext))
-                .into(mIvHotspotAuthorIcon);
+//        Glide.with(mContext)
+//                .load(CommonConfig.BASE_PIC_URL + authorIcon)
+//                .placeholder(R.drawable.default_my_icon)
+//                .error(R.drawable.default_my_icon)
+//                .transform(new GlideCircleTransform(mContext))
+//                .into(mIvHotspotAuthorIcon);
+
+        GlideUtils.loadCircleImage(mContext,CommonConfig.BASE_PIC_URL + authorIcon,mIvHotspotAuthorIcon);
+
 
         if (TextUtils.isEmpty(author.getNickname())) {
             mTvHotspotAuthorName.setText(author.getUsername());

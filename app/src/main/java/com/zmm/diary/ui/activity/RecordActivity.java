@@ -29,7 +29,7 @@ import javax.inject.Inject;
 import butterknife.BindView;
 
 /**
- * Description:
+ * Description: 每日说说
  * Author:zhangmengmeng
  * Date:2018/12/20
  * Email:65489469@qq.com

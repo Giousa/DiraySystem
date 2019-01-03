@@ -9,6 +9,7 @@ import com.chad.library.adapter.base.BaseViewHolder;
 import com.zmm.diary.R;
 import com.zmm.diary.bean.CorrelateBean;
 import com.zmm.diary.ui.widget.GlideCircleTransform;
+import com.zmm.diary.utils.GlideUtils;
 import com.zmm.diary.utils.config.CommonConfig;
 
 /**
@@ -28,12 +29,15 @@ public class CorrelateAdapter extends BaseQuickAdapter<CorrelateBean,BaseViewHol
 
         //头像
         ImageView icon = helper.getView(R.id.iv_correlate_icon);
-        Glide.with(mContext)
-                .load(CommonConfig.BASE_PIC_URL+item.getIcon())
-                .placeholder(R.drawable.default_my_icon)
-                .error(R.drawable.default_my_icon)
-                .transform(new GlideCircleTransform(mContext))
-                .into(icon);
+//        Glide.with(mContext)
+//                .load(CommonConfig.BASE_PIC_URL+item.getIcon())
+//                .placeholder(R.drawable.default_my_icon)
+//                .error(R.drawable.default_my_icon)
+//                .transform(new GlideCircleTransform(mContext))
+//                .into(icon);
+
+        GlideUtils.loadCircleImage(mContext,CommonConfig.BASE_PIC_URL + item.getIcon(),icon);
+
 
         //昵称
         String nickname = item.getNickname();

@@ -28,6 +28,7 @@ import com.zmm.diary.ui.activity.UserInfoActivity;
 import com.zmm.diary.ui.widget.CustomItemView;
 import com.zmm.diary.ui.widget.GlideCircleTransform;
 import com.zmm.diary.ui.widget.TitleBar;
+import com.zmm.diary.utils.GlideUtils;
 import com.zmm.diary.utils.SharedPreferencesUtil;
 import com.zmm.diary.utils.ToastUtils;
 import com.zmm.diary.utils.UIUtils;
@@ -107,12 +108,14 @@ public class MyFragment extends BaseFragment<UserPresenter> implements CustomIte
             String icon = userBean.getIcon();
 
             if (!TextUtils.isEmpty(icon)) {
-                Glide.with(mContext)
-                        .load(CommonConfig.BASE_PIC_URL + icon)
-                        .placeholder(R.drawable.default_my_icon)
-                        .error(R.drawable.default_my_icon)
-                        .transform(new GlideCircleTransform(mContext))
-                        .into(mIvMyIcon);
+//                Glide.with(mContext)
+//                        .load(CommonConfig.BASE_PIC_URL + icon)
+//                        .placeholder(R.drawable.default_my_icon)
+//                        .error(R.drawable.default_my_icon)
+//                        .transform(new GlideCircleTransform(mContext))
+//                        .into(mIvMyIcon);
+
+                GlideUtils.loadCircleImage(mContext,CommonConfig.BASE_PIC_URL + icon,mIvMyIcon);
             }
 
             mPresenter.findUserById(mUserId);
@@ -259,12 +262,14 @@ public class MyFragment extends BaseFragment<UserPresenter> implements CustomIte
             String icon = userBean.getIcon();
 
             if (!TextUtils.isEmpty(icon)) {
-                Glide.with(mContext)
-                        .load(CommonConfig.BASE_PIC_URL + userBean.getIcon())
-                        .placeholder(R.drawable.default_my_icon)
-                        .error(R.drawable.default_my_icon)
-                        .transform(new GlideCircleTransform(mContext))
-                        .into(mIvMyIcon);
+//                Glide.with(mContext)
+//                        .load(CommonConfig.BASE_PIC_URL + userBean.getIcon())
+//                        .placeholder(R.drawable.default_my_icon)
+//                        .error(R.drawable.default_my_icon)
+//                        .transform(new GlideCircleTransform(mContext))
+//                        .into(mIvMyIcon);
+
+                GlideUtils.loadCircleImage(mContext,CommonConfig.BASE_PIC_URL + icon,mIvMyIcon);
             }
 
 
