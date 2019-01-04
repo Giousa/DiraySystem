@@ -180,9 +180,6 @@ public interface ApiService {
     @GET("hotspot/collectionHotspot")
     Observable<BaseBean<String>> collectionHotspot(@Query("userId")String userId,@Query("hotspotId")String hotspotId);
 
-    @GET("hotspot/correlateAuthor")
-    Observable<BaseBean<String>> correlateAuthor(@Query("userId")String userId,@Query("authorId")String authorId);
-
     @GET("hotspot/findCollectionHotspotsByUId")
     Observable<BaseBean<List<HotspotBean>>> findCollectionHotspotsByUId(@Query("userId")String userId, @Query("page")Integer page, @Query("size")Integer size);
 
@@ -190,8 +187,8 @@ public interface ApiService {
      * -----------------------------关注和粉丝接口-----------------------------
      */
 
-    @GET("correlate/deleteFollower/{authorId}")
-    Observable<BaseBean<String>> deleteFollower(@Path("authorId")String authorId);
+    @GET("correlate/correlateAuthor")
+    Observable<BaseBean<String>> correlateAuthor(@Query("userId")String userId,@Query("authorId")String authorId);
 
     @GET("correlate/findAllFollowers")
     Observable<BaseBean<List<CorrelateBean>>> findAllFollowers(@Query("userId")String userId, @Query("page")Integer page, @Query("size")Integer size);

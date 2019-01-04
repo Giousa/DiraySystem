@@ -9,13 +9,17 @@ import android.view.View;
 import com.ajguan.library.EasyRefreshLayout;
 import com.zmm.diary.R;
 import com.zmm.diary.bean.CorrelateBean;
+import com.zmm.diary.bean.UserBean;
 import com.zmm.diary.dagger.component.DaggerCorrelateComponent;
 import com.zmm.diary.dagger.component.HttpComponent;
 import com.zmm.diary.dagger.module.CorrelateModule;
 import com.zmm.diary.mvp.presenter.CorrelatePresenter;
 import com.zmm.diary.mvp.presenter.contract.CorrelateContract;
 import com.zmm.diary.ui.adapter.CorrelateAdapter;
+import com.zmm.diary.ui.dialog.SimpleConfirmDialog;
+import com.zmm.diary.ui.dialog.SimpleRemoveConfirmDialog;
 import com.zmm.diary.ui.widget.TitleBar;
+import com.zmm.diary.utils.ToastUtils;
 import com.zmm.diary.utils.UIUtils;
 
 import java.util.List;
@@ -46,6 +50,7 @@ public class CorrelateActivity extends BaseActivity<CorrelatePresenter> implemen
     private int mPage = 0;
     private int mSize = 4;
     private int mType;//0:关注  1:粉丝
+    private String mUserId;
 
     @Override
     protected int setLayout() {
@@ -64,6 +69,8 @@ public class CorrelateActivity extends BaseActivity<CorrelatePresenter> implemen
     @Override
     protected void init() {
         mType = getIntent().getIntExtra("type",0);
+        UserBean userBean = UIUtils.getUserBean();
+        mUserId = userBean.getId();
 
         initToolBar();
 
@@ -75,6 +82,12 @@ public class CorrelateActivity extends BaseActivity<CorrelatePresenter> implemen
     @Override
     protected void onResume() {
         super.onResume();
+
+        refreshData();
+    }
+
+
+    private void refreshData(){
         mPage = 0;
 
         if(mType == 0){
@@ -124,6 +137,28 @@ public class CorrelateActivity extends BaseActivity<CorrelatePresenter> implemen
         //适配器，设置空布局
         mCorrelateAdapter.setEmptyView(R.layout.empty_content,mRvList);
 
+        mCorrelateAdapter.setOnCorrelateStatusClickListener(new CorrelateAdapter.OnCorrelateStatusClickListener() {
+            @Override
+            public void OnCorrelateStatus(final String id,String username) {
+
+                final SimpleRemoveConfirmDialog simpleConfirmDialog = new SimpleRemoveConfirmDialog(mContext,"是否取消关注？",username);
+                simpleConfirmDialog.setOnClickListener(new SimpleRemoveConfirmDialog.OnClickListener() {
+                    @Override
+                    public void onCancel() {
+                        simpleConfirmDialog.dismiss();
+                    }
+
+                    @Override
+                    public void onConfirm() {
+                        mPresenter.correlateAuthor(mUserId,id);
+                        simpleConfirmDialog.dismiss();
+                    }
+                });
+
+                simpleConfirmDialog.show();
+            }
+        });
+
     }
 
     /**
@@ -141,18 +176,14 @@ public class CorrelateActivity extends BaseActivity<CorrelatePresenter> implemen
                     mPresenter.findFollowersByUserId(UIUtils.getUserBean().getId(),mPage, mSize,0);
 
                 }else {
+
                 }
             }
 
             @Override
             public void onRefreshing() {
                 System.out.println("----onRefreshing----");
-                mPage = 0;
-                if(mType == 0){
-                    mPresenter.findFollowersByUserId(UIUtils.getUserBean().getId(),mPage, mSize,1);
-
-                }else {
-                }
+                refreshData();
             }
         });
     }
@@ -168,8 +199,11 @@ public class CorrelateActivity extends BaseActivity<CorrelatePresenter> implemen
     }
 
     @Override
-    public void deleteFollowerSuccess(String msg) {
-
+    public void correlateChangeSuccess(String msg) {
+        if(msg.equals("correlateCancel")){
+            ToastUtils.SimpleToast("取消关注成功");
+            refreshData();
+        }
     }
 
     @Override

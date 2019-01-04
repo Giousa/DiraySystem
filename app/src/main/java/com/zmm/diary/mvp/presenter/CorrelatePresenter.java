@@ -44,4 +44,20 @@ public class CorrelatePresenter extends BasePresenter<CorrelateContract.ICorrela
                     }
                 });
     }
+
+    /**
+     * 取消关注
+     * @param userId
+     * @param id
+     */
+    public void correlateAuthor(String userId,String id) {
+        mModel.correlateAuthor(userId,id)
+                .compose(RxHttpResponseCompat.<String>compatResult())
+                .subscribe(new ErrorHandlerSubscriber<String>() {
+                    @Override
+                    public void onNext(String s) {
+                        mView.correlateChangeSuccess(s);
+                    }
+                });
+    }
 }

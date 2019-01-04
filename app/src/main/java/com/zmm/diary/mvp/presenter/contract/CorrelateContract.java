@@ -25,7 +25,7 @@ public interface CorrelateContract {
 
         Observable<BaseBean<List<CorrelateBean>>> findFunsByUserId(String userId, Integer page, Integer size);
 
-        Observable<BaseBean<String>> deleteFollower(String authorId);
+        Observable<BaseBean<String>> correlateAuthor(String userId,String authorId);
 
     }
 
@@ -35,7 +35,7 @@ public interface CorrelateContract {
 
         void findFunsSuccess(List<CorrelateBean> correlateBeanList);
 
-        void deleteFollowerSuccess(String msg);
+        void correlateChangeSuccess(String msg);
 
         void loadMoreCorrelateSuccess(List<CorrelateBean> correlateBeanList);
 

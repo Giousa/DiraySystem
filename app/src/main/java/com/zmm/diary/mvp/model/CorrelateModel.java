@@ -40,7 +40,8 @@ public class CorrelateModel implements CorrelateContract.ICorrelateModel{
     }
 
     @Override
-    public Observable<BaseBean<String>> deleteFollower(String authorId) {
-        return mApiService.deleteFollower(authorId);
+    public Observable<BaseBean<String>> correlateAuthor(String userId, String authorId) {
+        return mApiService.correlateAuthor(userId,authorId);
     }
+
 }

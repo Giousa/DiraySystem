@@ -23,12 +23,22 @@
             android:textColor="@color/chart_text"
             android:textSize="18sp"/>
 
+        <TextView
+            android:id="@+id/tv_dialog_username"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="5dp"
+            android:gravity="center"
+            android:text="博丽灵梦"
+            android:textColor="@color/chart_text"
+            android:textSize="18sp"/>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="10dp"
             android:gravity="center"
             android:orientation="horizontal"
             android:padding="15dp">
