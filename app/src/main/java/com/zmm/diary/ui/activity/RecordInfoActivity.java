@@ -234,6 +234,7 @@ public class RecordInfoActivity extends BaseActivity<RecordPresenter> implements
     @Override
     public void addSuccess() {
         ToastUtils.SimpleToast("发表成功");
+        setResult(2);
         finish();
     }
 

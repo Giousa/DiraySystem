@@ -76,25 +76,13 @@ public class RecordActivity extends BaseActivity<RecordPresenter> implements Rec
         initRefresh();
 
 
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-
-
-        //TODO  判断时候登录
         UserBean userBean = UIUtils.getUserBean();
-
-        if(userBean != null){
-
-            mUserId = userBean.getId();
-
-            mPage = 0;
-            mPresenter.findAllRecords(mUserId, mPage, mSize,1);
-        }
+        mUserId = userBean.getId();
+        mPage = 0;
+        mPresenter.findAllRecords(mUserId, mPage, mSize,1);
 
     }
+
 
     private void initToolBar() {
 
@@ -112,7 +100,8 @@ public class RecordActivity extends BaseActivity<RecordPresenter> implements Rec
             @Override
             public void performAction(View view) {
 
-                mContext.startActivity(new Intent(mContext, RecordInfoActivity.class));
+//                mContext.startActivity(new Intent(mContext, RecordInfoActivity.class));
+                startActivityForResult(new Intent(mContext, RecordInfoActivity.class),1);
             }
         });
 
@@ -147,6 +136,19 @@ public class RecordActivity extends BaseActivity<RecordPresenter> implements Rec
             }
         });
 
+    }
+
+
+    //判断，Only添加说说成功后返回，则刷新界面，否则皆不刷新
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if(requestCode == 1 && resultCode == 2){
+
+            mPage = 0;
+            mPresenter.findAllRecords(mUserId, mPage, mSize,1);
+        }
     }
 
     /**
