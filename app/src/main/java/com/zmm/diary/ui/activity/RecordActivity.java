@@ -22,6 +22,7 @@ import com.zmm.diary.utils.ToastUtils;
 import com.zmm.diary.utils.UIUtils;
 import com.zmm.diary.utils.config.CommonConfig;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -133,8 +134,10 @@ public class RecordActivity extends BaseActivity<RecordPresenter> implements Rec
         mRecordAdapter.setOnRecordItemClickListener(new RecordAdapter.OnRecordItemClickListener() {
             @Override
             public void OnRecordPicClick(int position, String[] pics) {
-                System.out.println("当前选中图片："+position);
-                ToastUtils.SimpleToast("当前选中图片："+position);
+                Intent intent = new Intent(RecordActivity.this,PreviewActivity.class);
+                intent.putExtra("position",position);
+                intent.putExtra("pics",pics);
+                startActivity(intent);
             }
 
             @Override
