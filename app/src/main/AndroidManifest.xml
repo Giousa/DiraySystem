@@ -56,13 +56,14 @@
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:launchMode="singleTask" />
 
-        <!--随笔-->
+        <!--说说-->
         <activity
             android:name=".ui.activity.RecordActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
-            android:launchMode="singleTask" />
+            android:launchMode="singleTask"
+            android:theme="@style/AppTheme.Notitle.FullScreen"/>
 
-        <!--随笔信息-->
+        <!--说说详情-->
         <activity
             android:name=".ui.activity.RecordInfoActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
