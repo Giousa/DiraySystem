@@ -9,7 +9,6 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.zmm.diary.R;
 import com.zmm.diary.bean.RecordBean;
-import com.zmm.diary.utils.ToastUtils;
 import com.zmm.diary.utils.UIUtils;
 
 import java.util.ArrayList;

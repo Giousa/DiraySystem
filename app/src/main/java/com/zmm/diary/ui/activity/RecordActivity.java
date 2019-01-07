@@ -7,6 +7,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
 import com.ajguan.library.EasyRefreshLayout;
+import com.previewlibrary.GPreviewBuilder;
 import com.zmm.diary.R;
 import com.zmm.diary.bean.RecordBean;
 import com.zmm.diary.bean.UserBean;
@@ -16,8 +17,8 @@ import com.zmm.diary.dagger.module.RecordModule;
 import com.zmm.diary.mvp.presenter.RecordPresenter;
 import com.zmm.diary.mvp.presenter.contract.RecordContract;
 import com.zmm.diary.ui.adapter.RecordAdapter;
+import com.zmm.diary.ui.widget.MyThumbViewInfo;
 import com.zmm.diary.ui.widget.TitleBar;
-import com.zmm.diary.utils.SharedPreferencesUtil;
 import com.zmm.diary.utils.ToastUtils;
 import com.zmm.diary.utils.UIUtils;
 import com.zmm.diary.utils.config.CommonConfig;
@@ -44,7 +45,6 @@ public class RecordActivity extends BaseActivity<RecordPresenter> implements Rec
     RecyclerView mRvList;
     @BindView(R.id.easy_refresh_layout)
     EasyRefreshLayout mEasyRefreshLayout;
-
 
     @Inject
     RecordAdapter mRecordAdapter;
@@ -79,7 +79,7 @@ public class RecordActivity extends BaseActivity<RecordPresenter> implements Rec
         UserBean userBean = UIUtils.getUserBean();
         mUserId = userBean.getId();
         mPage = 0;
-        mPresenter.findAllRecords(mUserId, mPage, mSize,1);
+        mPresenter.findAllRecords(mUserId, mPage, mSize, 1);
 
     }
 
@@ -101,7 +101,7 @@ public class RecordActivity extends BaseActivity<RecordPresenter> implements Rec
             public void performAction(View view) {
 
 //                mContext.startActivity(new Intent(mContext, RecordInfoActivity.class));
-                startActivityForResult(new Intent(mContext, RecordInfoActivity.class),1);
+                startActivityForResult(new Intent(mContext, RecordInfoActivity.class), 1);
             }
         });
 
@@ -123,31 +123,53 @@ public class RecordActivity extends BaseActivity<RecordPresenter> implements Rec
         mRecordAdapter.setOnRecordItemClickListener(new RecordAdapter.OnRecordItemClickListener() {
             @Override
             public void OnRecordPicClick(int position, String[] pics) {
-                Intent intent = new Intent(RecordActivity.this,PreviewActivity.class);
-                intent.putExtra("position",position);
-                intent.putExtra("pics",pics);
-                startActivity(intent);
+//                Intent intent = new Intent(RecordActivity.this, PreviewActivity.class);
+//                intent.putExtra("position", position);
+//                intent.putExtra("pics", pics);
+//                startActivity(intent);
+
+                showPreviewPics(position,pics);
+
             }
 
             @Override
             public void OnRecordDelete(String id) {
-                System.out.println("删除图片 id = "+id);
-                ToastUtils.SimpleToast("删除图片 id = "+id);
+                System.out.println("删除图片 id = " + id);
+                ToastUtils.SimpleToast("删除图片 id = " + id);
             }
         });
 
     }
 
+    /**
+     * 展示预览图片
+     * @param position
+     * @param pics
+     */
+    private void showPreviewPics(int position, String[] pics) {
+        List<MyThumbViewInfo> myThumbViewInfos = new ArrayList<>();
+        for (String pic : pics) {
+            myThumbViewInfos.add(new MyThumbViewInfo(CommonConfig.BASE_PIC_URL+pic));
+        }
+
+        GPreviewBuilder.from(this)
+                .setData(myThumbViewInfos)
+                .setCurrentIndex(position)
+                .setDrag(true,0.6f)
+                .setType(GPreviewBuilder.IndicatorType.Number)
+                .setFullscreen(true)
+                .start();
+    }
 
     //判断，Only添加说说成功后返回，则刷新界面，否则皆不刷新
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if(requestCode == 1 && resultCode == 2){
+        if (requestCode == 1 && resultCode == 2) {
 
             mPage = 0;
-            mPresenter.findAllRecords(mUserId, mPage, mSize,1);
+            mPresenter.findAllRecords(mUserId, mPage, mSize, 1);
         }
     }
 
@@ -162,7 +184,7 @@ public class RecordActivity extends BaseActivity<RecordPresenter> implements Rec
 
                 mPage++;
 
-                mPresenter.findAllRecords(mUserId, mPage, mSize,0);
+                mPresenter.findAllRecords(mUserId, mPage, mSize, 0);
 
             }
 
@@ -171,12 +193,11 @@ public class RecordActivity extends BaseActivity<RecordPresenter> implements Rec
                 System.out.println("----onRefreshing----");
                 mPage = 0;
 
-                mPresenter.findAllRecords(mUserId, mPage, mSize,1);
+                mPresenter.findAllRecords(mUserId, mPage, mSize, 1);
             }
         });
 
     }
-
 
 
     @Override
@@ -191,12 +212,12 @@ public class RecordActivity extends BaseActivity<RecordPresenter> implements Rec
 
     @Override
     public void loadMoreRecordsSuccess(List<RecordBean> recordBeanList) {
-        if(recordBeanList.size() > 0){
+        if (recordBeanList.size() > 0) {
             for (int i = 0; i < recordBeanList.size(); i++) {
 
                 try {
-                    mRecordAdapter.addData(mPage*mSize+i ,recordBeanList.get(i));
-                }catch (Exception e){
+                    mRecordAdapter.addData(mPage * mSize + i, recordBeanList.get(i));
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
             }

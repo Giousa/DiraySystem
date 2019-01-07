@@ -4,9 +4,6 @@
     android:layout_height="match_parent"
     android:background="@color/md_dark_appbar">
 
-    <com.liyi.viewer.widget.ImageViewer
-        android:id="@+id/image_preivew"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+
 
 </RelativeLayout>
