@@ -65,6 +65,9 @@ public class VerificationUtils {
         return testRegex(regex, value);
     }
 
+    public static String hidePhoneNumber(String number){
+        return number.replaceAll("(\\d{3})\\d{4}(\\d{4})","$1****$2");
+    }
 
     public static boolean matcherEmail(String value) {
 //      String regex = "^([a-z0-9A-Z]+[-|\\.]?)+[a-z0-9A-Z]@([a-z0-9A-Z]+(-[a-z0-9A-Z]+)?\\.)" +

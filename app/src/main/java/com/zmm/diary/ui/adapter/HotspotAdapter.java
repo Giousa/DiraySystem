@@ -12,6 +12,7 @@ import com.zmm.diary.bean.AuthorBean;
 import com.zmm.diary.bean.HotspotBean;
 import com.zmm.diary.ui.widget.GlideCircleTransform;
 import com.zmm.diary.utils.GlideUtils;
+import com.zmm.diary.utils.VerificationUtils;
 import com.zmm.diary.utils.config.CommonConfig;
 
 /**
@@ -62,7 +63,7 @@ public class HotspotAdapter extends BaseQuickAdapter<HotspotBean,BaseViewHolder>
 
 
             if(TextUtils.isEmpty(author.getNickname())){
-                helper.setText(R.id.tv_item_author_name,author.getUsername());
+                helper.setText(R.id.tv_item_author_name, VerificationUtils.hidePhoneNumber(author.getUsername()));
             }else {
                 helper.setText(R.id.tv_item_author_name,author.getNickname());
             }

@@ -21,6 +21,7 @@ import com.zmm.diary.ui.widget.GlideCircleTransform;
 import com.zmm.diary.utils.DateUtils;
 import com.zmm.diary.utils.GlideUtils;
 import com.zmm.diary.utils.UIUtils;
+import com.zmm.diary.utils.VerificationUtils;
 import com.zmm.diary.utils.config.CommonConfig;
 
 import java.util.List;
@@ -273,7 +274,7 @@ public class HotspotDetailActivity extends BaseActivity<HotspotPresenter> implem
         //作者信息--倘若是本人，不显示关注信息
         AuthorBean author = hotspotBean.getAuthor();
 
-        if(author.getUsername().equals(UIUtils.getUserBean().getUsername())){
+        if(author.getUsername().equals(VerificationUtils.hidePhoneNumber(UIUtils.getUserBean().getUsername()))){
             mLlHotspotFollowers.setVisibility(View.INVISIBLE);
         }else {
             mAuthorId = author.getId();
@@ -300,7 +301,7 @@ public class HotspotDetailActivity extends BaseActivity<HotspotPresenter> implem
 
 
         if (TextUtils.isEmpty(author.getNickname())) {
-            mTvHotspotAuthorName.setText(author.getUsername());
+            mTvHotspotAuthorName.setText(VerificationUtils.hidePhoneNumber(author.getUsername()));
         } else {
             mTvHotspotAuthorName.setText(author.getNickname());
         }

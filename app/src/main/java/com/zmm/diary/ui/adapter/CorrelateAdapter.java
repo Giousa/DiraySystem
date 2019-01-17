@@ -11,6 +11,7 @@ import com.zmm.diary.R;
 import com.zmm.diary.bean.CorrelateBean;
 import com.zmm.diary.ui.widget.GlideCircleTransform;
 import com.zmm.diary.utils.GlideUtils;
+import com.zmm.diary.utils.VerificationUtils;
 import com.zmm.diary.utils.config.CommonConfig;
 
 /**
@@ -45,7 +46,7 @@ public class CorrelateAdapter extends BaseQuickAdapter<CorrelateBean,BaseViewHol
         //昵称
         mNickname = item.getNickname();
         if(TextUtils.isEmpty(mNickname)){
-            mNickname = item.getUsername();
+            mNickname = VerificationUtils.hidePhoneNumber(item.getUsername());
         }
 
         helper.setText(R.id.tv_correlate_name, mNickname);
