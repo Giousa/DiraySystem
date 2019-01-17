@@ -4,9 +4,11 @@ import android.content.Intent;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.View;
 
 import com.ajguan.library.EasyRefreshLayout;
+import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.zmm.diary.R;
 import com.zmm.diary.bean.CorrelateBean;
 import com.zmm.diary.bean.UserBean;
@@ -20,6 +22,7 @@ import com.zmm.diary.ui.dialog.SimpleRemoveConfirmDialog;
 import com.zmm.diary.ui.widget.TitleBar;
 import com.zmm.diary.utils.ToastUtils;
 import com.zmm.diary.utils.UIUtils;
+import com.zmm.diary.utils.VerificationUtils;
 
 import java.util.List;
 
@@ -155,6 +158,22 @@ public class CorrelateActivity extends BaseActivity<CorrelatePresenter> implemen
                 });
 
                 simpleConfirmDialog.show();
+            }
+        });
+
+        mCorrelateAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                CorrelateBean correlateBean = (CorrelateBean) adapter.getData().get(position);
+                Intent intentHotspot = new Intent(mContext,HotspotActivity.class);
+                intentHotspot.putExtra("type",0);
+                intentHotspot.putExtra("followId",correlateBean.getId());
+                if(TextUtils.isEmpty(correlateBean.getNickname())){
+                    intentHotspot.putExtra("followName", VerificationUtils.hidePhoneNumber(correlateBean.getUsername()));
+                }else {
+                    intentHotspot.putExtra("followName",correlateBean.getNickname());
+                }
+                startActivity(intentHotspot);
             }
         });
 

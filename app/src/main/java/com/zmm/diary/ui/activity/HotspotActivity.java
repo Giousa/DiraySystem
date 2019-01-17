@@ -3,6 +3,7 @@ package com.zmm.diary.ui.activity;
 import android.content.Intent;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.View;
 
 import com.ajguan.library.EasyRefreshLayout;
@@ -45,7 +46,9 @@ public class HotspotActivity extends BaseActivity<HotspotPresenter> implements H
 
     private int mPage = 0;
     private int mSize = 4;
-    private int mType;//0:我的热点  1:热点收藏
+    private int mType;//0:我的热点  1:热点收藏  2:关注其他成员热点
+    private String mFollowId;
+    private String mFollowName;
 
     @Override
     protected int setLayout() {
@@ -66,6 +69,8 @@ public class HotspotActivity extends BaseActivity<HotspotPresenter> implements H
 
 
         mType = getIntent().getIntExtra("type",0);
+        mFollowId = getIntent().getStringExtra("followId");
+        mFollowName = getIntent().getStringExtra("followName");
 
         initToolBar();
 
@@ -81,8 +86,12 @@ public class HotspotActivity extends BaseActivity<HotspotPresenter> implements H
         mPage = 0;
 
         if(mType == 0){
-            mPresenter.findHotspotsByUId(UIUtils.getUserBean().getId(),mPage, mSize,1);
-        }else {
+            if(TextUtils.isEmpty(mFollowId)){
+                mPresenter.findHotspotsByUId(UIUtils.getUserBean().getId(),mPage, mSize,1);
+            }else {
+                mPresenter.findHotspotsByUId(mFollowId,mPage, mSize,1);
+            }
+        }else if(mType == 1){
             mPresenter.findCollectionHotspotsByUId(UIUtils.getUserBean().getId(),mPage, mSize,1);
         }
     }
@@ -90,15 +99,21 @@ public class HotspotActivity extends BaseActivity<HotspotPresenter> implements H
     private void initToolBar() {
 
         if(mType == 0){
-            mTitleBar.setTitle("我的热点");
+            if(TextUtils.isEmpty(mFollowName)){
+                mTitleBar.setTitle("我的热点");
 
-            mTitleBar.addAction(new TitleBar.ImageAction(R.drawable.icon_add) {
-                @Override
-                public void performAction(View view) {
+                mTitleBar.addAction(new TitleBar.ImageAction(R.drawable.icon_add) {
+                    @Override
+                    public void performAction(View view) {
 
-                    mContext.startActivity(new Intent(mContext, HotspotInfoActivity.class));
-                }
-            });
+                        mContext.startActivity(new Intent(mContext, HotspotInfoActivity.class));
+                    }
+                });
+
+            }else {
+                mTitleBar.setTitle(mFollowName);
+            }
+
         }else {
             mTitleBar.setTitle("热点收藏");
         }
@@ -144,7 +159,11 @@ public class HotspotActivity extends BaseActivity<HotspotPresenter> implements H
                 mPage++;
 
                 if(mType == 0){
-                    mPresenter.findHotspotsByUId(UIUtils.getUserBean().getId(),mPage, mSize,0);
+                    if(TextUtils.isEmpty(mFollowId)){
+                        mPresenter.findHotspotsByUId(UIUtils.getUserBean().getId(),mPage, mSize,0);
+                    }else {
+                        mPresenter.findHotspotsByUId(mFollowId,mPage, mSize,0);
+                    }
                 }else {
                     mPresenter.findCollectionHotspotsByUId(UIUtils.getUserBean().getId(),mPage, mSize,0);
                 }
@@ -155,7 +174,11 @@ public class HotspotActivity extends BaseActivity<HotspotPresenter> implements H
                 System.out.println("----onRefreshing----");
                 mPage = 0;
                 if(mType == 0){
-                    mPresenter.findHotspotsByUId(UIUtils.getUserBean().getId(),mPage, mSize,1);
+                    if(TextUtils.isEmpty(mFollowId)){
+                        mPresenter.findHotspotsByUId(UIUtils.getUserBean().getId(),mPage, mSize,1);
+                    }else {
+                        mPresenter.findHotspotsByUId(mFollowId,mPage, mSize,1);
+                    }
                 }else {
                     mPresenter.findCollectionHotspotsByUId(UIUtils.getUserBean().getId(),mPage, mSize,1);
                 }
