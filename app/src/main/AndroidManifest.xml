@@ -101,6 +101,12 @@
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:launchMode="singleTask" />
 
+        <!--推荐关注-->
+        <activity
+            android:name=".ui.activity.CorrelateAllActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:launchMode="singleTask" />
+
         <!--图片预览界面-->
         <activity
             android:name=".ui.activity.PreviewActivity"

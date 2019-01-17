@@ -1,6 +1,5 @@
 package com.zmm.diary.ui.activity;
 
-import android.content.Intent;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -28,12 +27,12 @@ import javax.inject.Inject;
 import butterknife.BindView;
 
 /**
- * Description: 关注和粉丝界面
+ * Description: 推荐关注
  * Author:zhangmengmeng
  * Date:2019/1/2
  * Email:65489469@qq.com
  */
-public class CorrelateActivity extends BaseActivity<CorrelatePresenter> implements CorrelateContract.CorrelateView {
+public class CorrelateAllActivity extends BaseActivity<CorrelatePresenter> implements CorrelateContract.CorrelateView {
 
 
     @BindView(R.id.title_bar)
@@ -48,7 +47,6 @@ public class CorrelateActivity extends BaseActivity<CorrelatePresenter> implemen
 
     private int mPage = 0;
     private int mSize = 4;
-    private int mType;//0:关注  1:粉丝
     private String mUserId;
 
     @Override
@@ -67,7 +65,8 @@ public class CorrelateActivity extends BaseActivity<CorrelatePresenter> implemen
 
     @Override
     protected void init() {
-        mType = getIntent().getIntExtra("type",0);
+
+
         UserBean userBean = UIUtils.getUserBean();
         mUserId = userBean.getId();
 
@@ -89,28 +88,14 @@ public class CorrelateActivity extends BaseActivity<CorrelatePresenter> implemen
     private void refreshData(){
         mPage = 0;
 
-        if(mType == 0){
-            mPresenter.findFollowersByUserId(UIUtils.getUserBean().getId(),mPage, mSize,1);
+        mPresenter.findFollowersByUserId(UIUtils.getUserBean().getId(),mPage, mSize,1);
 
-        }else {
-        }
     }
 
     private void initToolBar() {
 
-        if(mType == 0){
-            mTitleBar.setTitle("关注成员");
+        mTitleBar.setTitle("推荐关注");
 
-            mTitleBar.addAction(new TitleBar.ImageAction(R.drawable.icon_add) {
-                @Override
-                public void performAction(View view) {
-
-                    mContext.startActivity(new Intent(mContext, CorrelateAllActivity.class));
-                }
-            });
-        }else {
-            mTitleBar.setTitle("我的粉丝");
-        }
         mTitleBar.setLeftImageResource(R.drawable.icon_back);
         mTitleBar.setLeftText("返回");
         mTitleBar.setLeftClickListener(new View.OnClickListener() {
@@ -170,13 +155,8 @@ public class CorrelateActivity extends BaseActivity<CorrelatePresenter> implemen
                 System.out.println("----onLoadMore----");
 
                 mPage++;
+                mPresenter.findFollowersByUserId(UIUtils.getUserBean().getId(),mPage, mSize,0);
 
-                if(mType == 0){
-                    mPresenter.findFollowersByUserId(UIUtils.getUserBean().getId(),mPage, mSize,0);
-
-                }else {
-
-                }
             }
 
             @Override

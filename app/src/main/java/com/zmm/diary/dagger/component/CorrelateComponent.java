@@ -3,6 +3,7 @@ package com.zmm.diary.dagger.component;
 import com.zmm.diary.dagger.ActivityScope;
 import com.zmm.diary.dagger.module.CorrelateModule;
 import com.zmm.diary.ui.activity.CorrelateActivity;
+import com.zmm.diary.ui.activity.CorrelateAllActivity;
 
 import dagger.Component;
 
@@ -17,4 +18,6 @@ import dagger.Component;
 public interface CorrelateComponent {
 
     void inject(CorrelateActivity activity);
+
+    void inject(CorrelateAllActivity allActivity);
 }
