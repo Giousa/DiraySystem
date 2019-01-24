@@ -63,7 +63,7 @@ public class CorrelateActivity extends BaseActivity<CorrelatePresenter> implemen
     protected void setupActivityComponent(HttpComponent httpComponent) {
         DaggerCorrelateComponent.builder()
                 .httpComponent(httpComponent)
-                .correlateModule(new CorrelateModule(this))
+                .correlateModule(new CorrelateModule(this,0))
                 .build()
                 .inject(this);
     }
@@ -141,7 +141,7 @@ public class CorrelateActivity extends BaseActivity<CorrelatePresenter> implemen
 
         mCorrelateAdapter.setOnCorrelateStatusClickListener(new CorrelateAdapter.OnCorrelateStatusClickListener() {
             @Override
-            public void OnCorrelateStatus(final String id,String username) {
+            public void OnCorrelateStatus(final String id,String username,boolean attention) {
 
                 final SimpleRemoveConfirmDialog simpleConfirmDialog = new SimpleRemoveConfirmDialog(mContext,"是否取消关注？",username);
                 simpleConfirmDialog.setOnClickListener(new SimpleRemoveConfirmDialog.OnClickListener() {

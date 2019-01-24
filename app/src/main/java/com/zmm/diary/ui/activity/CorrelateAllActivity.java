@@ -58,7 +58,7 @@ public class CorrelateAllActivity extends BaseActivity<CorrelatePresenter> imple
     protected void setupActivityComponent(HttpComponent httpComponent) {
         DaggerCorrelateComponent.builder()
                 .httpComponent(httpComponent)
-                .correlateModule(new CorrelateModule(this))
+                .correlateModule(new CorrelateModule(this,1))
                 .build()
                 .inject(this);
     }
@@ -88,7 +88,7 @@ public class CorrelateAllActivity extends BaseActivity<CorrelatePresenter> imple
     private void refreshData(){
         mPage = 0;
 
-        mPresenter.findFollowersByUserId(UIUtils.getUserBean().getId(),mPage, mSize,1);
+        mPresenter.findAllFollowers(UIUtils.getUserBean().getId(),mPage, mSize,1);
 
     }
 
@@ -123,23 +123,30 @@ public class CorrelateAllActivity extends BaseActivity<CorrelatePresenter> imple
 
         mCorrelateAdapter.setOnCorrelateStatusClickListener(new CorrelateAdapter.OnCorrelateStatusClickListener() {
             @Override
-            public void OnCorrelateStatus(final String id,String username) {
+            public void OnCorrelateStatus(final String id,String username,boolean attention) {
 
-                final SimpleRemoveConfirmDialog simpleConfirmDialog = new SimpleRemoveConfirmDialog(mContext,"是否取消关注？",username);
-                simpleConfirmDialog.setOnClickListener(new SimpleRemoveConfirmDialog.OnClickListener() {
-                    @Override
-                    public void onCancel() {
-                        simpleConfirmDialog.dismiss();
-                    }
+                if(!attention){
+                    mPresenter.correlateAuthor(mUserId,id);
+                }else {
+                    ToastUtils.SimpleToast("当前用户，已关注");
+                }
 
-                    @Override
-                    public void onConfirm() {
-                        mPresenter.correlateAuthor(mUserId,id);
-                        simpleConfirmDialog.dismiss();
-                    }
-                });
 
-                simpleConfirmDialog.show();
+//                final SimpleRemoveConfirmDialog simpleConfirmDialog = new SimpleRemoveConfirmDialog(mContext,"是否取消关注？",username);
+//                simpleConfirmDialog.setOnClickListener(new SimpleRemoveConfirmDialog.OnClickListener() {
+//                    @Override
+//                    public void onCancel() {
+//                        simpleConfirmDialog.dismiss();
+//                    }
+//
+//                    @Override
+//                    public void onConfirm() {
+//                        mPresenter.correlateAuthor(mUserId,id);
+//                        simpleConfirmDialog.dismiss();
+//                    }
+//                });
+//
+//                simpleConfirmDialog.show();
             }
         });
 
@@ -155,7 +162,7 @@ public class CorrelateAllActivity extends BaseActivity<CorrelatePresenter> imple
                 System.out.println("----onLoadMore----");
 
                 mPage++;
-                mPresenter.findFollowersByUserId(UIUtils.getUserBean().getId(),mPage, mSize,0);
+                mPresenter.findAllFollowers(UIUtils.getUserBean().getId(),mPage, mSize,0);
 
             }
 
@@ -179,10 +186,11 @@ public class CorrelateAllActivity extends BaseActivity<CorrelatePresenter> imple
 
     @Override
     public void correlateChangeSuccess(String msg) {
-        if(msg.equals("correlateCancel")){
-            ToastUtils.SimpleToast("取消关注成功");
+        if(msg.equals("correlateConfirm")){
+            ToastUtils.SimpleToast("恭喜您，关注成功！");
             refreshData();
         }
+
     }
 
     @Override

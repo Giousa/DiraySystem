@@ -46,6 +46,28 @@ public class CorrelatePresenter extends BasePresenter<CorrelateContract.ICorrela
     }
 
     /**
+     * 查询所有推荐关注成员
+     * @param userId
+     * @param page
+     * @param size
+     * @param flag
+     */
+    public void findAllFollowers(String userId, int page, int size, final int flag) {
+        mModel.findAllFollowers(userId,page,size)
+                .compose(RxHttpResponseCompat.<List<CorrelateBean>>compatResult())
+                .subscribe(new ErrorHandlerSubscriber<List<CorrelateBean>>() {
+                    @Override
+                    public void onNext(List<CorrelateBean> correlateBeanList) {
+                        if(flag == 0){
+                            mView.loadMoreCorrelateSuccess(correlateBeanList);
+                        }else {
+                            mView.refreshCorrelateSuccess(correlateBeanList);
+                        }
+                    }
+                });
+    }
+
+    /**
      * 取消关注
      * @param userId
      * @param id
@@ -60,4 +82,6 @@ public class CorrelatePresenter extends BasePresenter<CorrelateContract.ICorrela
                     }
                 });
     }
+
+
 }

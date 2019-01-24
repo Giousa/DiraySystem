@@ -25,13 +25,16 @@ public class CorrelateAdapter extends BaseQuickAdapter<CorrelateBean,BaseViewHol
 
     private OnCorrelateStatusClickListener mOnCorrelateStatusClickListener;
     private String mNickname;
+    private int mType;//0:关注 1：推荐关注
 
     public void setOnCorrelateStatusClickListener(OnCorrelateStatusClickListener onCorrelateStatusClickListener) {
         mOnCorrelateStatusClickListener = onCorrelateStatusClickListener;
     }
 
-    public CorrelateAdapter(){
+    public CorrelateAdapter(int type){
         super(R.layout.item_correlate);
+
+        mType = type;
     }
 
     @Override
@@ -60,23 +63,32 @@ public class CorrelateAdapter extends BaseQuickAdapter<CorrelateBean,BaseViewHol
         //粉丝
         helper.setText(R.id.tv_correlate_fun_count,item.getFuns()+"");
 
-        //移除关注
+        //关注状态
+        if(mType == 0){
+            helper.setText(R.id.tv_correlate_followers_status,item.isAttention() ? "取消关注" : "关注");
+        }else {
+            helper.setText(R.id.tv_correlate_followers_status,item.isAttention() ? "已关注" : "关注");
+        }
+
+        //移除和关注
         helper.getView(R.id.ll_correlate_followers).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
                 if(mOnCorrelateStatusClickListener != null){
-                    mOnCorrelateStatusClickListener.OnCorrelateStatus(item.getId(), mNickname);
+                    mOnCorrelateStatusClickListener.OnCorrelateStatus(item.getId(), mNickname,item.isAttention());
                 }
             }
         });
+
+
 
     }
 
 
     public interface OnCorrelateStatusClickListener{
 
-        void OnCorrelateStatus(String id,String username);
+        void OnCorrelateStatus(String id,String username,boolean attention);
     }
 
 }

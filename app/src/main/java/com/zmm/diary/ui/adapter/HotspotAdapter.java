@@ -36,31 +36,16 @@ public class HotspotAdapter extends BaseQuickAdapter<HotspotBean,BaseViewHolder>
 
         ImageView picBg = helper.getView(R.id.iv_item_pic_bg);
 
-//        Glide.with(mContext)
-//                .load(CommonConfig.BASE_PIC_URL+item.getPic())
-//                .placeholder(R.drawable.default_bg)
-//                .error(R.drawable.default_bg)
-//                .into(picBg);
-
         GlideUtils.loadImage(mContext,CommonConfig.BASE_PIC_URL + item.getPic(),picBg);
 
+        ImageView authorIcon = helper.getView(R.id.iv_item_author_icon);
 
         //作者信息
         AuthorBean author = item.getAuthor();
 
         if(author != null){
 
-            ImageView authorIcon = helper.getView(R.id.iv_item_author_icon);
-
-//            Glide.with(mContext)
-//                    .load(CommonConfig.BASE_PIC_URL+author.getIcon())
-//                    .placeholder(R.drawable.default_my_icon)
-//                    .error(R.drawable.default_my_icon)
-//                    .transform(new GlideCircleTransform(mContext))
-//                    .into(authorIcon);
-
             GlideUtils.loadCircleImage(mContext,CommonConfig.BASE_PIC_URL + author.getIcon(),authorIcon);
-
 
             if(TextUtils.isEmpty(author.getNickname())){
                 helper.setText(R.id.tv_item_author_name, VerificationUtils.hidePhoneNumber(author.getUsername()));
@@ -69,6 +54,8 @@ public class HotspotAdapter extends BaseQuickAdapter<HotspotBean,BaseViewHolder>
             }
 
         }
+
+
         //点赞数
         helper.setText(R.id.tv_item_appreciate_count,item.getAppreciate()+"");
 

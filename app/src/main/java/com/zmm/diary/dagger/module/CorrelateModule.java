@@ -20,9 +20,11 @@ public class CorrelateModule {
 
 
     private CorrelateContract.CorrelateView mCorrelateView;
+    private int mType;
 
-    public CorrelateModule(CorrelateContract.CorrelateView correlateView) {
+    public CorrelateModule(CorrelateContract.CorrelateView correlateView,int type) {
         mCorrelateView = correlateView;
+        mType = type;
     }
 
     @Provides
@@ -37,7 +39,7 @@ public class CorrelateModule {
 
     @Provides
     public CorrelateAdapter provideCorrelateAdapter(){
-        return new CorrelateAdapter();
+        return new CorrelateAdapter(mType);
     }
 
 }

@@ -24,6 +24,9 @@ public class CorrelateBean implements Serializable{
 
     private int funs;
 
+    private boolean attention;
+
+
     public String getId() {
         return id;
     }
@@ -78,5 +81,13 @@ public class CorrelateBean implements Serializable{
 
     public void setFuns(int funs) {
         this.funs = funs;
+    }
+
+    public boolean isAttention() {
+        return attention;
+    }
+
+    public void setAttention(boolean attention) {
+        this.attention = attention;
     }
 }
