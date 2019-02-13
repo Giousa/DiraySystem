@@ -1,14 +1,17 @@
 package com.zmm.diary.ui.activity;
 
-import android.support.v7.widget.RecyclerView;
+import android.os.Bundle;
+import android.support.design.widget.AppBarLayout;
+import android.support.design.widget.CollapsingToolbarLayout;
+import android.support.design.widget.CoordinatorLayout;
+import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.ajguan.library.EasyRefreshLayout;
-import com.bumptech.glide.Glide;
 import com.zmm.diary.R;
 import com.zmm.diary.bean.AuthorBean;
 import com.zmm.diary.bean.HotspotBean;
@@ -17,7 +20,7 @@ import com.zmm.diary.dagger.component.HttpComponent;
 import com.zmm.diary.dagger.module.HotspotModule;
 import com.zmm.diary.mvp.presenter.HotspotPresenter;
 import com.zmm.diary.mvp.presenter.contract.HotspotContract;
-import com.zmm.diary.ui.widget.GlideCircleTransform;
+import com.zmm.diary.ui.widget.CommentExpandableListView;
 import com.zmm.diary.utils.DateUtils;
 import com.zmm.diary.utils.GlideUtils;
 import com.zmm.diary.utils.UIUtils;
@@ -27,6 +30,7 @@ import com.zmm.diary.utils.config.CommonConfig;
 import java.util.List;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 /**
@@ -64,14 +68,20 @@ public class HotspotDetailActivity extends BaseActivity<HotspotPresenter> implem
     TextView mTvHotspotFollowers;
     @BindView(R.id.ll_hotspot_followers)
     LinearLayout mLlHotspotFollowers;
-    @BindView(R.id.rv_list)
-    RecyclerView mRvList;
-    @BindView(R.id.easy_refresh_layout)
-    EasyRefreshLayout mEasyRefreshLayout;
-    @BindView(R.id.iv_hotspot_back)
-    ImageView mIvHotspotBack;
     @BindView(R.id.ll_hotspot_author)
     LinearLayout mLlHotspotAuthor;
+    @BindView(R.id.toolbar_hotspot)
+    Toolbar mToolbarHotspot;
+    @BindView(R.id.collapsing_toolbar_hotspot)
+    CollapsingToolbarLayout mCollapsingToolbarHotspot;
+    @BindView(R.id.appbar_hotspot)
+    AppBarLayout mAppbarHotspot;
+    @BindView(R.id.main_content_hotspot)
+    CoordinatorLayout mMainContentHotspot;
+    @BindView(R.id.detail_page_do_comment)
+    TextView mDetailPageDoComment;
+    @BindView(R.id.comment_list_view)
+    CommentExpandableListView mCommentListView;
 
 
     private int mPage = 0;
@@ -103,6 +113,11 @@ public class HotspotDetailActivity extends BaseActivity<HotspotPresenter> implem
         mHotspotId = getIntent().getStringExtra("hotspotId");
         mUserId = UIUtils.getUserBean().getId();
 
+
+        setSupportActionBar(mToolbarHotspot);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
+
         initRecyclerView();
 
         initRefresh();
@@ -115,6 +130,15 @@ public class HotspotDetailActivity extends BaseActivity<HotspotPresenter> implem
 
         mPresenter.findHotspotById(mUserId, mHotspotId);
 
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            finish();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     private void initRecyclerView() {
@@ -130,28 +154,28 @@ public class HotspotDetailActivity extends BaseActivity<HotspotPresenter> implem
      * 下拉加载
      */
     private void initRefresh() {
-        mEasyRefreshLayout.addEasyEvent(new EasyRefreshLayout.EasyEvent() {
-            @Override
-            public void onLoadMore() {
-                System.out.println("----onLoadMore----");
-
-                mPage++;
-
-//                mPresenter.findHotspotsByUId(UIUtils.getUserBean().getId(),mPage, mSize,0);
-
-            }
-
-            @Override
-            public void onRefreshing() {
-                System.out.println("----onRefreshing----");
-                mPage = 0;
-
-//                mPresenter.findHotspotsByUId(UIUtils.getUserBean().getId(),mPage, mSize,1);
-            }
-        });
+//        mEasyRefreshLayout.addEasyEvent(new EasyRefreshLayout.EasyEvent() {
+//            @Override
+//            public void onLoadMore() {
+//                System.out.println("----onLoadMore----");
+//
+//                mPage++;
+//
+////                mPresenter.findHotspotsByUId(UIUtils.getUserBean().getId(),mPage, mSize,0);
+//
+//            }
+//
+//            @Override
+//            public void onRefreshing() {
+//                System.out.println("----onRefreshing----");
+//                mPage = 0;
+//
+////                mPresenter.findHotspotsByUId(UIUtils.getUserBean().getId(),mPage, mSize,1);
+//            }
+//        });
     }
 
-    @OnClick({R.id.ll_hotspot_comment, R.id.ll_hotspot_followers, R.id.iv_hotspot_back, R.id.ll_hotspot_appreciate, R.id.ll_hotspot_collection})
+    @OnClick({R.id.ll_hotspot_comment, R.id.ll_hotspot_followers, R.id.ll_hotspot_appreciate, R.id.ll_hotspot_collection})
     public void onViewClicked(View view) {
         switch (view.getId()) {
 
@@ -167,11 +191,7 @@ public class HotspotDetailActivity extends BaseActivity<HotspotPresenter> implem
 
                 break;
             case R.id.ll_hotspot_followers:
-                mPresenter.correlateAuthor(mUserId,mAuthorId);
-                break;
-
-            case R.id.iv_hotspot_back:
-                finish();
+                mPresenter.correlateAuthor(mUserId, mAuthorId);
                 break;
         }
     }
@@ -236,7 +256,7 @@ public class HotspotDetailActivity extends BaseActivity<HotspotPresenter> implem
 //                    .error(R.drawable.default_bg)
 //                    .into(mIvHotspotPic);
 
-            GlideUtils.loadImage(mContext,CommonConfig.BASE_PIC_URL + icon,mIvHotspotPic);
+            GlideUtils.loadImage(mContext, CommonConfig.BASE_PIC_URL + icon, mIvHotspotPic);
 
         }
 
@@ -274,15 +294,15 @@ public class HotspotDetailActivity extends BaseActivity<HotspotPresenter> implem
         //作者信息--倘若是本人，不显示关注信息
         AuthorBean author = hotspotBean.getAuthor();
 
-        if(author.getUsername().equals(VerificationUtils.hidePhoneNumber(UIUtils.getUserBean().getUsername()))){
+        if (author.getUsername().equals(VerificationUtils.hidePhoneNumber(UIUtils.getUserBean().getUsername()))) {
             mLlHotspotFollowers.setVisibility(View.INVISIBLE);
-        }else {
+        } else {
             mAuthorId = author.getId();
             //关注状态
             boolean hasCorrelate = hotspotBean.isHasCorrelate();
-            if(hasCorrelate){
+            if (hasCorrelate) {
                 mTvHotspotFollowers.setText("取消关注");
-            }else {
+            } else {
                 mTvHotspotFollowers.setText("关注");
             }
 
@@ -297,7 +317,7 @@ public class HotspotDetailActivity extends BaseActivity<HotspotPresenter> implem
 //                .transform(new GlideCircleTransform(mContext))
 //                .into(mIvHotspotAuthorIcon);
 
-        GlideUtils.loadCircleImage(mContext,CommonConfig.BASE_PIC_URL + authorIcon,mIvHotspotAuthorIcon);
+        GlideUtils.loadCircleImage(mContext, CommonConfig.BASE_PIC_URL + authorIcon, mIvHotspotAuthorIcon);
 
 
         if (TextUtils.isEmpty(author.getNickname())) {

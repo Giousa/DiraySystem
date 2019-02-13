@@ -85,8 +85,8 @@ public interface ApiService {
      * @return
      */
     @FormUrlEncoded
-    @POST("user/newPassword/")
-    Observable<BaseBean<String>> modifyPassword(@Field("phone") String phone, @Field("newPassword") String newPassword, @Field("verifyCode") String verifyCode);
+    @POST("user/resetPassword/")
+    Observable<BaseBean<String>> resetPassword(@Field("phone") String phone, @Field("newPassword") String newPassword, @Field("verifyCode") String verifyCode);
 
 
     /**

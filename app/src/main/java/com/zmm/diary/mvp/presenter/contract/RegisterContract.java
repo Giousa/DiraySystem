@@ -22,7 +22,7 @@ public interface RegisterContract {
 
         Observable<BaseBean<UserBean>> register(String phone, String password,String code);
 
-        Observable<BaseBean<String>> modifyPassword(String phone,String newPassword,String code);
+        Observable<BaseBean<String>> resetPassword(String phone,String newPassword,String code);
 
 
     }

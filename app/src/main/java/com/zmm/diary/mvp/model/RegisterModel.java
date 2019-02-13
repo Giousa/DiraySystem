@@ -32,7 +32,7 @@ public class RegisterModel implements RegisterContract.IRegisterModel{
     }
 
     @Override
-    public Observable<BaseBean<String>> modifyPassword(String phone, String newPassword,String code) {
-        return mApiService.modifyPassword(phone,newPassword,code);
+    public Observable<BaseBean<String>> resetPassword(String phone, String newPassword,String code) {
+        return mApiService.resetPassword(phone,newPassword,code);
     }
 }

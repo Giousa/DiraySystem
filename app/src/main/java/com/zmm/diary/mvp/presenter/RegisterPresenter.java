@@ -44,9 +44,9 @@ public class RegisterPresenter extends BasePresenter<RegisterContract.IRegisterM
                 });
     }
 
-    public void modifyPassword(String phone, String password, String verifyCode) {
+    public void resetPassword(String phone, String password, String verifyCode) {
 
-        mModel.modifyPassword(phone,password,verifyCode)
+        mModel.resetPassword(phone,password,verifyCode)
                 .compose(RxHttpResponseCompat.<String>compatResult())
                 .subscribe(new ErrorHandlerSubscriber<String>() {
                     @Override

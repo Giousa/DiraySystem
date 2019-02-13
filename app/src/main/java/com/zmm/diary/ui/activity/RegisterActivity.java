@@ -162,7 +162,7 @@ public class RegisterActivity extends BaseActivity<RegisterPresenter> implements
      * 重置密码
      */
     private void resetPassword(String phone, String password, String verifyCode) {
-        mPresenter.modifyPassword(phone, password, verifyCode);
+        mPresenter.resetPassword(phone, password, verifyCode);
 
     }
 
@@ -170,7 +170,7 @@ public class RegisterActivity extends BaseActivity<RegisterPresenter> implements
      * 修改密码
      */
     private void modifyPassword(String phone, String password, String verifyCode) {
-        mPresenter.modifyPassword(phone, password, verifyCode);
+        mPresenter.resetPassword(phone, password, verifyCode);
 
     }
 
@@ -288,14 +288,21 @@ public class RegisterActivity extends BaseActivity<RegisterPresenter> implements
 
         SharedPreferencesUtil.saveString(CommonConfig.LOGIN_USER,SharedPreferencesUtil.toJson(userBean));
 
-        mDisposable.dispose();
         startActivity(MainActivity.class, true);
     }
 
     @Override
     public void modifyPasswordSuccess(String msg) {
+
         ToastUtils.SimpleToast(msg);
         startActivity(LoginActivity.class, true);
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if(mDisposable != null){
+            mDisposable.dispose();
+        }
+    }
 }
