@@ -12,6 +12,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.ajguan.library.EasyRefreshLayout;
 import com.zmm.diary.R;
 import com.zmm.diary.bean.AuthorBean;
 import com.zmm.diary.bean.HotspotBean;
@@ -82,10 +83,10 @@ public class HotspotDetailActivity extends BaseActivity<HotspotPresenter> implem
     TextView mDetailPageDoComment;
     @BindView(R.id.comment_list_view)
     CommentExpandableListView mCommentListView;
+    @BindView(R.id.easy_refresh_layout)
+    EasyRefreshLayout mEasyRefreshLayout;
 
 
-    private int mPage = 0;
-    private int mSize = 4;
     private String mHotspotId;
     private String mUserId;
     private String mAuthorId;
@@ -120,7 +121,7 @@ public class HotspotDetailActivity extends BaseActivity<HotspotPresenter> implem
 
         initRecyclerView();
 
-        initRefresh();
+        initLoadAndRefresh();
 
     }
 
@@ -151,28 +152,24 @@ public class HotspotDetailActivity extends BaseActivity<HotspotPresenter> implem
     }
 
     /**
-     * 下拉加载
+     * 下拉刷新和上拉加载
      */
-    private void initRefresh() {
-//        mEasyRefreshLayout.addEasyEvent(new EasyRefreshLayout.EasyEvent() {
-//            @Override
-//            public void onLoadMore() {
-//                System.out.println("----onLoadMore----");
-//
-//                mPage++;
-//
-////                mPresenter.findHotspotsByUId(UIUtils.getUserBean().getId(),mPage, mSize,0);
-//
-//            }
-//
-//            @Override
-//            public void onRefreshing() {
-//                System.out.println("----onRefreshing----");
-//                mPage = 0;
-//
-////                mPresenter.findHotspotsByUId(UIUtils.getUserBean().getId(),mPage, mSize,1);
-//            }
-//        });
+    private void initLoadAndRefresh() {
+
+        mEasyRefreshLayout.setEnablePullToRefresh(false);
+
+        mEasyRefreshLayout.addEasyEvent(new EasyRefreshLayout.EasyEvent() {
+            @Override
+            public void onLoadMore() {
+                System.out.println("----onLoadMore----");
+
+            }
+
+            @Override
+            public void onRefreshing() {
+                System.out.println("----onRefreshing----");
+            }
+        });
     }
 
     @OnClick({R.id.ll_hotspot_comment, R.id.ll_hotspot_followers, R.id.ll_hotspot_appreciate, R.id.ll_hotspot_collection})
@@ -310,13 +307,6 @@ public class HotspotDetailActivity extends BaseActivity<HotspotPresenter> implem
 
         String authorIcon = author.getIcon();
 
-//        Glide.with(mContext)
-//                .load(CommonConfig.BASE_PIC_URL + authorIcon)
-//                .placeholder(R.drawable.default_my_icon)
-//                .error(R.drawable.default_my_icon)
-//                .transform(new GlideCircleTransform(mContext))
-//                .into(mIvHotspotAuthorIcon);
-
         GlideUtils.loadCircleImage(mContext, CommonConfig.BASE_PIC_URL + authorIcon, mIvHotspotAuthorIcon);
 
 
@@ -337,4 +327,5 @@ public class HotspotDetailActivity extends BaseActivity<HotspotPresenter> implem
     public void refreshHotspotSuccess(List<HotspotBean> hotspotBeanList) {
 
     }
+
 }
