@@ -190,4 +190,22 @@ public class HotspotPresenter extends BasePresenter<HotspotContract.IHotspotMode
                     }
                 });
     }
+
+    /**
+     * 评论
+     * @param hotspotId
+     * @param fromUid
+     * @param content
+     */
+    public void newComment(String hotspotId, String fromUid, String content) {
+
+        mModel.newComment(hotspotId,fromUid,content)
+                .compose(RxHttpResponseCompat.<String>compatResult())
+                .subscribe(new ErrorHandlerSubscriber<String>() {
+                    @Override
+                    public void onNext(String s) {
+                        mView.commentSuccess();
+                    }
+                });
+    }
 }

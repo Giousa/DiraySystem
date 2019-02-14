@@ -1,6 +1,8 @@
 package com.zmm.diary.mvp.presenter.contract;
 
 import com.zmm.diary.bean.BaseBean;
+import com.zmm.diary.bean.CommentBean;
+import com.zmm.diary.bean.CommentReplyBean;
 import com.zmm.diary.bean.HotspotBean;
 import com.zmm.diary.mvp.view.BaseView;
 
@@ -37,6 +39,12 @@ public interface HotspotContract {
 
         Observable<BaseBean<String>> correlateAuthor(String userId,String authorId);
 
+        //评论和回复
+        Observable<BaseBean<String>> newComment(String hotspotId,String fromUid,String content);
+
+        Observable<BaseBean<String>> replyComment(String commentId,String fromUid,String toUid,String content);
+
+
     }
 
     interface HotspotView extends BaseView{
@@ -52,5 +60,9 @@ public interface HotspotContract {
         void loadMoreHotspotSuccess(List<HotspotBean> hotspotBeanList);
 
         void refreshHotspotSuccess(List<HotspotBean> hotspotBeanList);
+
+        void commentSuccess();
+
+        void commentReplySuccess();
     }
 }

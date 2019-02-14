@@ -205,4 +205,14 @@ public class HotspotFragment extends BaseFragment<HotspotPresenter> implements H
         mEasyRefreshLayout.refreshComplete();
 
     }
+
+    @Override
+    public void commentSuccess() {
+
+    }
+
+    @Override
+    public void commentReplySuccess() {
+
+    }
 }

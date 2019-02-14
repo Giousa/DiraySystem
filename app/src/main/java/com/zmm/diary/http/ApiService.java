@@ -1,6 +1,8 @@
 package com.zmm.diary.http;
 
 import com.zmm.diary.bean.BaseBean;
+import com.zmm.diary.bean.CommentBean;
+import com.zmm.diary.bean.CommentReplyBean;
 import com.zmm.diary.bean.CorrelateBean;
 import com.zmm.diary.bean.HotspotBean;
 import com.zmm.diary.bean.NoteBean;
@@ -200,5 +202,13 @@ public interface ApiService {
     Observable<BaseBean<List<CorrelateBean>>> findFunsByUserId(@Query("userId")String userId, @Query("page")Integer page, @Query("size")Integer size);
 
 
+    /**
+     * -----------------------------评论和回复接口-----------------------------
+     */
+    @GET("comment/newComment")
+    Observable<BaseBean<String>> newComment(@Query("hotspotId")String hotspotId, @Query("fromUid")String fromUid, @Query("content")String content);
+
+    @GET("comment/replyComment")
+    Observable<BaseBean<String>> replyComment(@Query("commentId")String commentId, @Query("fromUid")String fromUid, @Query("toUid")String toUid, @Query("content")String content);
 }
 

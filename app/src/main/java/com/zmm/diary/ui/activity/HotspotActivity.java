@@ -227,4 +227,14 @@ public class HotspotActivity extends BaseActivity<HotspotPresenter> implements H
         mHotspotAdapter.setNewData(hotspotBeanList);
         mEasyRefreshLayout.refreshComplete();
     }
+
+    @Override
+    public void commentSuccess() {
+
+    }
+
+    @Override
+    public void commentReplySuccess() {
+
+    }
 }

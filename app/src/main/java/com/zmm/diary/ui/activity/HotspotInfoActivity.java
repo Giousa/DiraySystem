@@ -223,4 +223,14 @@ public class HotspotInfoActivity extends BaseActivity<HotspotPresenter> implemen
     public void refreshHotspotSuccess(List<HotspotBean> hotspotBeanList) {
 
     }
+
+    @Override
+    public void commentSuccess() {
+
+    }
+
+    @Override
+    public void commentReplySuccess() {
+
+    }
 }

@@ -24,6 +24,7 @@ import android.widget.Toast;
 import com.ajguan.library.EasyRefreshLayout;
 import com.zmm.diary.R;
 import com.zmm.diary.bean.AuthorBean;
+import com.zmm.diary.bean.CommentBean;
 import com.zmm.diary.bean.HotspotBean;
 import com.zmm.diary.dagger.component.DaggerHotspotComponent;
 import com.zmm.diary.dagger.component.HttpComponent;
@@ -210,6 +211,62 @@ public class HotspotDetailActivity extends BaseActivity<HotspotPresenter> implem
         }
     }
 
+    /**
+     * 展示评论dialog
+     */
+    private void showCommentDialog() {
+        dialog = new BottomSheetDialog(this);
+        View commentView = LayoutInflater.from(this).inflate(R.layout.comment_dialog_layout,null);
+        final EditText commentText = commentView.findViewById(R.id.dialog_comment_et);
+        final Button bt_comment = commentView.findViewById(R.id.dialog_comment_bt);
+        dialog.setContentView(commentView);
+        /**
+         * 解决bsd显示不全的情况
+         */
+        View parent = (View) commentView.getParent();
+        BottomSheetBehavior behavior = BottomSheetBehavior.from(parent);
+        commentView.measure(0,0);
+        behavior.setPeekHeight(commentView.getMeasuredHeight());
+
+        bt_comment.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View view) {
+                String commentContent = commentText.getText().toString().trim();
+                if(!TextUtils.isEmpty(commentContent)){
+                    dialog.dismiss();
+//                    ToastUtils.SimpleToast("评论内容成功");
+                    mPresenter.newComment(mHotspotId,mUserId,commentContent);
+                }else {
+                    ToastUtils.SimpleToast("评论内容不能为空");
+                }
+            }
+        });
+        commentText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                if(!TextUtils.isEmpty(charSequence) && charSequence.length()>2){
+                    bt_comment.setBackgroundColor(Color.parseColor("#FFB568"));
+                }else {
+                    bt_comment.setBackgroundColor(Color.parseColor("#D8D8D8"));
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
+        dialog.show();
+
+    }
+
+
 
     @Override
     public void addSuccess() {
@@ -265,11 +322,6 @@ public class HotspotDetailActivity extends BaseActivity<HotspotPresenter> implem
         String icon = hotspotBean.getPic();
 
         if (!TextUtils.isEmpty(icon)) {
-//            Glide.with(mContext)
-//                    .load(CommonConfig.BASE_PIC_URL + icon)
-//                    .placeholder(R.drawable.default_bg)
-//                    .error(R.drawable.default_bg)
-//                    .into(mIvHotspotPic);
 
             GlideUtils.loadImage(mContext, CommonConfig.BASE_PIC_URL + icon, mIvHotspotPic);
 
@@ -346,60 +398,16 @@ public class HotspotDetailActivity extends BaseActivity<HotspotPresenter> implem
 
     }
 
-
-    /**
-     * 展示评论dialog
-     */
-    private void showCommentDialog() {
-        dialog = new BottomSheetDialog(this);
-        View commentView = LayoutInflater.from(this).inflate(R.layout.comment_dialog_layout,null);
-        final EditText commentText = commentView.findViewById(R.id.dialog_comment_et);
-        final Button bt_comment = commentView.findViewById(R.id.dialog_comment_bt);
-        dialog.setContentView(commentView);
-        /**
-         * 解决bsd显示不全的情况
-         */
-        View parent = (View) commentView.getParent();
-        BottomSheetBehavior behavior = BottomSheetBehavior.from(parent);
-        commentView.measure(0,0);
-        behavior.setPeekHeight(commentView.getMeasuredHeight());
-
-        bt_comment.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View view) {
-                String commentContent = commentText.getText().toString().trim();
-                if(!TextUtils.isEmpty(commentContent)){
-                    dialog.dismiss();
-                    ToastUtils.SimpleToast("评论内容成功");
-
-                }else {
-                    ToastUtils.SimpleToast("评论内容不能为空");
-                }
-            }
-        });
-        commentText.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                if(!TextUtils.isEmpty(charSequence) && charSequence.length()>2){
-                    bt_comment.setBackgroundColor(Color.parseColor("#FFB568"));
-                }else {
-                    bt_comment.setBackgroundColor(Color.parseColor("#D8D8D8"));
-                }
-            }
-
-            @Override
-            public void afterTextChanged(Editable editable) {
-
-            }
-        });
-        dialog.show();
-
+    @Override
+    public void commentSuccess() {
+        ToastUtils.SimpleToast("评论内容成功");
     }
+
+    @Override
+    public void commentReplySuccess() {
+        ToastUtils.SimpleToast("回复内容成功");
+    }
+
+
 
 }

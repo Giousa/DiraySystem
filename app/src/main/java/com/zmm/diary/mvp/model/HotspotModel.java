@@ -1,6 +1,8 @@
 package com.zmm.diary.mvp.model;
 
 import com.zmm.diary.bean.BaseBean;
+import com.zmm.diary.bean.CommentBean;
+import com.zmm.diary.bean.CommentReplyBean;
 import com.zmm.diary.bean.HotspotBean;
 import com.zmm.diary.bean.UserBean;
 import com.zmm.diary.http.ApiService;
@@ -69,5 +71,15 @@ public class HotspotModel implements HotspotContract.IHotspotModel {
     @Override
     public Observable<BaseBean<String>> correlateAuthor(String userId, String authorId) {
         return mApiService.correlateAuthor(userId,authorId);
+    }
+
+    @Override
+    public Observable<BaseBean<String>> newComment(String hotspotId,String fromUid,String content) {
+        return mApiService.newComment(hotspotId,fromUid,content);
+    }
+
+    @Override
+    public Observable<BaseBean<String>> replyComment(String commentId,String fromUid,String toUid,String content) {
+        return mApiService.replyComment(commentId,fromUid,toUid,content);
     }
 }
