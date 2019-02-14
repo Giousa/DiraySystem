@@ -1,16 +1,25 @@
 package com.zmm.diary.ui.activity;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
+import android.support.design.widget.BottomSheetBehavior;
+import android.support.design.widget.BottomSheetDialog;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.v7.widget.Toolbar;
+import android.text.Editable;
 import android.text.TextUtils;
+import android.text.TextWatcher;
+import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.ajguan.library.EasyRefreshLayout;
 import com.zmm.diary.R;
@@ -24,6 +33,7 @@ import com.zmm.diary.mvp.presenter.contract.HotspotContract;
 import com.zmm.diary.ui.widget.CommentExpandableListView;
 import com.zmm.diary.utils.DateUtils;
 import com.zmm.diary.utils.GlideUtils;
+import com.zmm.diary.utils.ToastUtils;
 import com.zmm.diary.utils.UIUtils;
 import com.zmm.diary.utils.VerificationUtils;
 import com.zmm.diary.utils.config.CommonConfig;
@@ -79,8 +89,8 @@ public class HotspotDetailActivity extends BaseActivity<HotspotPresenter> implem
     AppBarLayout mAppbarHotspot;
     @BindView(R.id.main_content_hotspot)
     CoordinatorLayout mMainContentHotspot;
-    @BindView(R.id.detail_page_do_comment)
-    TextView mDetailPageDoComment;
+    @BindView(R.id.tv_hotspot_comment_bottom)
+    TextView mHotspotCommentBottom;
     @BindView(R.id.comment_list_view)
     CommentExpandableListView mCommentListView;
     @BindView(R.id.easy_refresh_layout)
@@ -93,6 +103,8 @@ public class HotspotDetailActivity extends BaseActivity<HotspotPresenter> implem
 
     private int mAppreciateCount = 0;
     private int mCollectionCount = 0;
+    private BottomSheetDialog dialog;
+
 
     @Override
     protected int setLayout() {
@@ -172,7 +184,7 @@ public class HotspotDetailActivity extends BaseActivity<HotspotPresenter> implem
         });
     }
 
-    @OnClick({R.id.ll_hotspot_comment, R.id.ll_hotspot_followers, R.id.ll_hotspot_appreciate, R.id.ll_hotspot_collection})
+    @OnClick({R.id.ll_hotspot_comment, R.id.ll_hotspot_followers, R.id.ll_hotspot_appreciate, R.id.ll_hotspot_collection,R.id.tv_hotspot_comment_bottom})
     public void onViewClicked(View view) {
         switch (view.getId()) {
 
@@ -190,8 +202,14 @@ public class HotspotDetailActivity extends BaseActivity<HotspotPresenter> implem
             case R.id.ll_hotspot_followers:
                 mPresenter.correlateAuthor(mUserId, mAuthorId);
                 break;
+
+            case R.id.tv_hotspot_comment_bottom:
+                showCommentDialog();
+
+                break;
         }
     }
+
 
     @Override
     public void addSuccess() {
@@ -325,6 +343,62 @@ public class HotspotDetailActivity extends BaseActivity<HotspotPresenter> implem
 
     @Override
     public void refreshHotspotSuccess(List<HotspotBean> hotspotBeanList) {
+
+    }
+
+
+    /**
+     * 展示评论dialog
+     */
+    private void showCommentDialog() {
+        dialog = new BottomSheetDialog(this);
+        View commentView = LayoutInflater.from(this).inflate(R.layout.comment_dialog_layout,null);
+        final EditText commentText = commentView.findViewById(R.id.dialog_comment_et);
+        final Button bt_comment = commentView.findViewById(R.id.dialog_comment_bt);
+        dialog.setContentView(commentView);
+        /**
+         * 解决bsd显示不全的情况
+         */
+        View parent = (View) commentView.getParent();
+        BottomSheetBehavior behavior = BottomSheetBehavior.from(parent);
+        commentView.measure(0,0);
+        behavior.setPeekHeight(commentView.getMeasuredHeight());
+
+        bt_comment.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View view) {
+                String commentContent = commentText.getText().toString().trim();
+                if(!TextUtils.isEmpty(commentContent)){
+                    dialog.dismiss();
+                    ToastUtils.SimpleToast("评论内容成功");
+
+                }else {
+                    ToastUtils.SimpleToast("评论内容不能为空");
+                }
+            }
+        });
+        commentText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                if(!TextUtils.isEmpty(charSequence) && charSequence.length()>2){
+                    bt_comment.setBackgroundColor(Color.parseColor("#FFB568"));
+                }else {
+                    bt_comment.setBackgroundColor(Color.parseColor("#D8D8D8"));
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
+        dialog.show();
 
     }
 

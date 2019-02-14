@@ -263,7 +263,7 @@
         android:gravity="center_vertical">
 
         <TextView
-            android:id="@+id/detail_page_do_comment"
+            android:id="@+id/tv_hotspot_comment_bottom"
             android:layout_width="match_parent"
             android:layout_height="34dp"
             android:textColor="#B6B6B6"
