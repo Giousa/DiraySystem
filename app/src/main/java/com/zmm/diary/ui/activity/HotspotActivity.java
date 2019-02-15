@@ -9,6 +9,7 @@ import android.view.View;
 import com.ajguan.library.EasyRefreshLayout;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.zmm.diary.R;
+import com.zmm.diary.bean.CommentBean;
 import com.zmm.diary.bean.HotspotBean;
 import com.zmm.diary.dagger.component.DaggerHotspotComponent;
 import com.zmm.diary.dagger.component.HttpComponent;
@@ -236,5 +237,9 @@ public class HotspotActivity extends BaseActivity<HotspotPresenter> implements H
     @Override
     public void commentReplySuccess() {
 
+    }
+
+    @Override
+    public void findAllCommentsSuccess(List<CommentBean> commentBeanList) {
     }
 }

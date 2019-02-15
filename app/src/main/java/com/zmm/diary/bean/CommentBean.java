@@ -1,6 +1,7 @@
 package com.zmm.diary.bean;
 
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * Description:
@@ -22,6 +23,9 @@ public class CommentBean implements Serializable{
     private int praiseCount;
 
     private String createTime;
+
+    private List<CommentReplyBean> replyList;
+
 
     public String getId() {
         return id;
@@ -69,5 +73,13 @@ public class CommentBean implements Serializable{
 
     public void setCreateTime(String createTime) {
         this.createTime = createTime;
+    }
+
+    public List<CommentReplyBean> getReplyList() {
+        return replyList;
+    }
+
+    public void setReplyList(List<CommentReplyBean> replyList) {
+        this.replyList = replyList;
     }
 }

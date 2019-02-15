@@ -1,5 +1,6 @@
 package com.zmm.diary.mvp.presenter;
 
+import com.zmm.diary.bean.CommentBean;
 import com.zmm.diary.bean.HotspotBean;
 import com.zmm.diary.mvp.presenter.contract.HotspotContract;
 import com.zmm.diary.rx.RxHttpResponseCompat;
@@ -205,6 +206,23 @@ public class HotspotPresenter extends BasePresenter<HotspotContract.IHotspotMode
                     @Override
                     public void onNext(String s) {
                         mView.commentSuccess();
+                    }
+                });
+    }
+
+    /**
+     * 分页查询评论列表
+     * @param hotspotId
+     * @param page
+     * @param size
+     */
+    public void findAllCommentsByHotspotId(String hotspotId, int page, int size) {
+        mModel.findAllCommentsByHotspotId(hotspotId,page,size)
+                .compose(RxHttpResponseCompat.<List<CommentBean>>compatResult())
+                .subscribe(new ErrorHandlerSubscriber<List<CommentBean>>() {
+                    @Override
+                    public void onNext(List<CommentBean> commentBeans) {
+                        mView.findAllCommentsSuccess(commentBeans);
                     }
                 });
     }

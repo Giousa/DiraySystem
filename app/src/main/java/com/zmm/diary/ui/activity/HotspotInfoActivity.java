@@ -12,6 +12,7 @@ import com.lzy.imagepicker.ImagePicker;
 import com.lzy.imagepicker.bean.ImageItem;
 import com.lzy.imagepicker.ui.ImageGridActivity;
 import com.zmm.diary.R;
+import com.zmm.diary.bean.CommentBean;
 import com.zmm.diary.bean.HotspotBean;
 import com.zmm.diary.bean.UserBean;
 import com.zmm.diary.dagger.component.DaggerHotspotComponent;
@@ -231,6 +232,11 @@ public class HotspotInfoActivity extends BaseActivity<HotspotPresenter> implemen
 
     @Override
     public void commentReplySuccess() {
+
+    }
+
+    @Override
+    public void findAllCommentsSuccess(List<CommentBean> commentBeanList) {
 
     }
 }

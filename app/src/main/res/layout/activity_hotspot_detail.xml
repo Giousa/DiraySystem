@@ -58,14 +58,12 @@
                 android:layout_height="match_parent"
                 android:orientation="vertical">
 
-
                 <TextView
                     android:id="@+id/tv_hotspot_content"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="@dimen/dp_size_20"
                     android:text="这个是图片介绍" />
-
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -228,9 +226,15 @@
                     </RelativeLayout>
                 </LinearLayout>
 
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginRight="16dp"
+                    android:layout_marginLeft="16dp"
+                    android:background="#e6e6e6"/>
 
-                <com.ajguan.library.EasyRefreshLayout
-                    android:id="@+id/easy_refresh_layout"
+                <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
 
@@ -243,8 +247,22 @@
                         android:listSelector="@android:color/transparent"
                         android:scrollbars="none"/>
 
-                </com.ajguan.library.EasyRefreshLayout>
+                    <!--<com.ajguan.library.EasyRefreshLayout-->
+                        <!--android:id="@+id/easy_refresh_layout"-->
+                        <!--android:layout_width="match_parent"-->
+                        <!--android:layout_height="match_parent">-->
 
+                        <!--<com.zmm.diary.ui.widget.CommentExpandableListView-->
+                            <!--android:id="@+id/comment_list_view"-->
+                            <!--android:layout_width="match_parent"-->
+                            <!--android:layout_height="match_parent"-->
+                            <!--android:divider="@null"-->
+                            <!--android:layout_marginBottom="64dp"-->
+                            <!--android:listSelector="@android:color/transparent"-->
+                            <!--android:scrollbars="none"/>-->
+
+                    <!--</com.ajguan.library.EasyRefreshLayout>-->
+                </RelativeLayout>
 
             </LinearLayout>
 

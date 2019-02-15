@@ -82,4 +82,9 @@ public class HotspotModel implements HotspotContract.IHotspotModel {
     public Observable<BaseBean<String>> replyComment(String commentId,String fromUid,String toUid,String content) {
         return mApiService.replyComment(commentId,fromUid,toUid,content);
     }
+
+    @Override
+    public Observable<BaseBean<List<CommentBean>>> findAllCommentsByHotspotId(String hotspotId, Integer page, Integer size) {
+        return mApiService.findAllCommentsByHotspotId(hotspotId,page,size);
+    }
 }

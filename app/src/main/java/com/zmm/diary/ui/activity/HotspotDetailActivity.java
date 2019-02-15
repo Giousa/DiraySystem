@@ -1,7 +1,6 @@
 package com.zmm.diary.ui.activity;
 
 import android.graphics.Color;
-import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.BottomSheetBehavior;
 import android.support.design.widget.BottomSheetDialog;
@@ -11,11 +10,13 @@ import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ExpandableListView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -31,6 +32,7 @@ import com.zmm.diary.dagger.component.HttpComponent;
 import com.zmm.diary.dagger.module.HotspotModule;
 import com.zmm.diary.mvp.presenter.HotspotPresenter;
 import com.zmm.diary.mvp.presenter.contract.HotspotContract;
+import com.zmm.diary.ui.adapter.CommentExpandAdapter;
 import com.zmm.diary.ui.widget.CommentExpandableListView;
 import com.zmm.diary.utils.DateUtils;
 import com.zmm.diary.utils.GlideUtils;
@@ -42,7 +44,6 @@ import com.zmm.diary.utils.config.CommonConfig;
 import java.util.List;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 /**
@@ -94,9 +95,11 @@ public class HotspotDetailActivity extends BaseActivity<HotspotPresenter> implem
     TextView mHotspotCommentBottom;
     @BindView(R.id.comment_list_view)
     CommentExpandableListView mCommentListView;
-    @BindView(R.id.easy_refresh_layout)
-    EasyRefreshLayout mEasyRefreshLayout;
+//    @BindView(R.id.easy_refresh_layout)
+//    EasyRefreshLayout mEasyRefreshLayout;
 
+    private int mPage = 0;
+    private int mSize = 4;
 
     private String mHotspotId;
     private String mUserId;
@@ -105,6 +108,7 @@ public class HotspotDetailActivity extends BaseActivity<HotspotPresenter> implem
     private int mAppreciateCount = 0;
     private int mCollectionCount = 0;
     private BottomSheetDialog dialog;
+    private CommentExpandAdapter mCommentExpandAdapter;
 
 
     @Override
@@ -132,7 +136,10 @@ public class HotspotDetailActivity extends BaseActivity<HotspotPresenter> implem
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
 
-        initRecyclerView();
+
+        mPresenter.findAllCommentsByHotspotId(mHotspotId, mPage, mSize);
+
+        initExpandableListView();
 
         initLoadAndRefresh();
 
@@ -143,6 +150,7 @@ public class HotspotDetailActivity extends BaseActivity<HotspotPresenter> implem
         super.onResume();
 
         mPresenter.findHotspotById(mUserId, mHotspotId);
+
 
     }
 
@@ -155,13 +163,48 @@ public class HotspotDetailActivity extends BaseActivity<HotspotPresenter> implem
         return super.onOptionsItemSelected(item);
     }
 
-    private void initRecyclerView() {
 
-//        mRvList.setHasFixedSize(true);
-//        mRvList.setLayoutManager(new GridLayoutManager(mContext, 2));
-//        mRvList.setAdapter(mHotspotAdapter);
-//        mHotspotAdapter.setEmptyView(R.layout.empty_content, mRvList);
+    /**
+     * 初始化评论和回复列表
+     */
+    private void initExpandableListView() {
 
+        mCommentListView.setGroupIndicator(null);
+        //默认展开所有回复
+        mCommentExpandAdapter = new CommentExpandAdapter(this);
+        mCommentListView.setAdapter(mCommentExpandAdapter);
+        mCommentListView.setOnGroupClickListener(new ExpandableListView.OnGroupClickListener() {
+            @Override
+            public boolean onGroupClick(ExpandableListView expandableListView, View view, int groupPosition, long l) {
+                boolean isExpanded = expandableListView.isGroupExpanded(groupPosition);
+                System.out.println("当前评论id");
+//                Log.e(TAG, "onGroupClick: 当前的评论id>>>"+commentList.get(groupPosition).getId());
+//                if(isExpanded){
+//                    expandableListView.collapseGroup(groupPosition);
+//                }else {
+//                    expandableListView.expandGroup(groupPosition, true);
+//                }
+//                showReplyDialog(groupPosition);
+                return true;
+            }
+        });
+
+        mCommentListView.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
+            @Override
+            public boolean onChildClick(ExpandableListView expandableListView, View view, int groupPosition, int childPosition, long l) {
+//                Toast.makeText(MainActivity.this,"点击了回复",Toast.LENGTH_SHORT).show();
+                ToastUtils.SimpleToast("点击了回复");
+                return false;
+            }
+        });
+
+        mCommentListView.setOnGroupExpandListener(new ExpandableListView.OnGroupExpandListener() {
+            @Override
+            public void onGroupExpand(int groupPosition) {
+                //toast("展开第"+groupPosition+"个分组");
+
+            }
+        });
     }
 
     /**
@@ -169,23 +212,23 @@ public class HotspotDetailActivity extends BaseActivity<HotspotPresenter> implem
      */
     private void initLoadAndRefresh() {
 
-        mEasyRefreshLayout.setEnablePullToRefresh(false);
-
-        mEasyRefreshLayout.addEasyEvent(new EasyRefreshLayout.EasyEvent() {
-            @Override
-            public void onLoadMore() {
-                System.out.println("----onLoadMore----");
-
-            }
-
-            @Override
-            public void onRefreshing() {
-                System.out.println("----onRefreshing----");
-            }
-        });
+//        mEasyRefreshLayout.setEnablePullToRefresh(false);
+//
+//        mEasyRefreshLayout.addEasyEvent(new EasyRefreshLayout.EasyEvent() {
+//            @Override
+//            public void onLoadMore() {
+//                System.out.println("----onLoadMore----");
+//
+//            }
+//
+//            @Override
+//            public void onRefreshing() {
+//                System.out.println("----onRefreshing----");
+//            }
+//        });
     }
 
-    @OnClick({R.id.ll_hotspot_comment, R.id.ll_hotspot_followers, R.id.ll_hotspot_appreciate, R.id.ll_hotspot_collection,R.id.tv_hotspot_comment_bottom})
+    @OnClick({R.id.ll_hotspot_comment, R.id.ll_hotspot_followers, R.id.ll_hotspot_appreciate, R.id.ll_hotspot_collection, R.id.tv_hotspot_comment_bottom})
     public void onViewClicked(View view) {
         switch (view.getId()) {
 
@@ -216,7 +259,7 @@ public class HotspotDetailActivity extends BaseActivity<HotspotPresenter> implem
      */
     private void showCommentDialog() {
         dialog = new BottomSheetDialog(this);
-        View commentView = LayoutInflater.from(this).inflate(R.layout.comment_dialog_layout,null);
+        View commentView = LayoutInflater.from(this).inflate(R.layout.comment_dialog_layout, null);
         final EditText commentText = commentView.findViewById(R.id.dialog_comment_et);
         final Button bt_comment = commentView.findViewById(R.id.dialog_comment_bt);
         dialog.setContentView(commentView);
@@ -225,7 +268,7 @@ public class HotspotDetailActivity extends BaseActivity<HotspotPresenter> implem
          */
         View parent = (View) commentView.getParent();
         BottomSheetBehavior behavior = BottomSheetBehavior.from(parent);
-        commentView.measure(0,0);
+        commentView.measure(0, 0);
         behavior.setPeekHeight(commentView.getMeasuredHeight());
 
         bt_comment.setOnClickListener(new View.OnClickListener() {
@@ -233,11 +276,11 @@ public class HotspotDetailActivity extends BaseActivity<HotspotPresenter> implem
             @Override
             public void onClick(View view) {
                 String commentContent = commentText.getText().toString().trim();
-                if(!TextUtils.isEmpty(commentContent)){
+                if (!TextUtils.isEmpty(commentContent)) {
                     dialog.dismiss();
 //                    ToastUtils.SimpleToast("评论内容成功");
-                    mPresenter.newComment(mHotspotId,mUserId,commentContent);
-                }else {
+                    mPresenter.newComment(mHotspotId, mUserId, commentContent);
+                } else {
                     ToastUtils.SimpleToast("评论内容不能为空");
                 }
             }
@@ -250,9 +293,9 @@ public class HotspotDetailActivity extends BaseActivity<HotspotPresenter> implem
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                if(!TextUtils.isEmpty(charSequence) && charSequence.length()>2){
+                if (!TextUtils.isEmpty(charSequence) && charSequence.length() > 2) {
                     bt_comment.setBackgroundColor(Color.parseColor("#FFB568"));
-                }else {
+                } else {
                     bt_comment.setBackgroundColor(Color.parseColor("#D8D8D8"));
                 }
             }
@@ -265,7 +308,6 @@ public class HotspotDetailActivity extends BaseActivity<HotspotPresenter> implem
         dialog.show();
 
     }
-
 
 
     @Override
@@ -408,6 +450,11 @@ public class HotspotDetailActivity extends BaseActivity<HotspotPresenter> implem
         ToastUtils.SimpleToast("回复内容成功");
     }
 
+    @Override
+    public void findAllCommentsSuccess(List<CommentBean> commentBeanList) {
+        System.out.println("commentBeanList = " + commentBeanList);
 
+        mCommentExpandAdapter.setNewData(commentBeanList);
+    }
 
 }

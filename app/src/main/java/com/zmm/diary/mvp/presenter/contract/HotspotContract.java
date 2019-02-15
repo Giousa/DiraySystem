@@ -44,6 +44,9 @@ public interface HotspotContract {
 
         Observable<BaseBean<String>> replyComment(String commentId,String fromUid,String toUid,String content);
 
+        Observable<BaseBean<List<CommentBean>>> findAllCommentsByHotspotId(String hotspotId,Integer page,Integer size);
+
+
 
     }
 
@@ -64,5 +67,7 @@ public interface HotspotContract {
         void commentSuccess();
 
         void commentReplySuccess();
+
+        void findAllCommentsSuccess(List<CommentBean> commentBeanList);
     }
 }

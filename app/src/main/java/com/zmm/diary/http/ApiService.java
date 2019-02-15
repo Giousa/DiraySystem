@@ -210,5 +210,11 @@ public interface ApiService {
 
     @GET("comment/replyComment")
     Observable<BaseBean<String>> replyComment(@Query("commentId")String commentId, @Query("fromUid")String fromUid, @Query("toUid")String toUid, @Query("content")String content);
+
+    @GET("comment/findAllCommentsByHotspotId")
+    Observable<BaseBean<List<CommentBean>>> findAllCommentsByHotspotId(@Query("hotspotId")String hotspotId, @Query("page")Integer page, @Query("size")Integer size);
+
+
+
 }
 
