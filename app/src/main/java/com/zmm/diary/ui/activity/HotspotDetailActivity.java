@@ -27,6 +27,7 @@ import com.zmm.diary.R;
 import com.zmm.diary.bean.AuthorBean;
 import com.zmm.diary.bean.CommentBean;
 import com.zmm.diary.bean.HotspotBean;
+import com.zmm.diary.bean.UserBean;
 import com.zmm.diary.dagger.component.DaggerHotspotComponent;
 import com.zmm.diary.dagger.component.HttpComponent;
 import com.zmm.diary.dagger.module.HotspotModule;
@@ -403,7 +404,7 @@ public class HotspotDetailActivity extends BaseActivity<HotspotPresenter> implem
         //作者信息--倘若是本人，不显示关注信息
         AuthorBean author = hotspotBean.getAuthor();
 
-        if (author.getUsername().equals(VerificationUtils.hidePhoneNumber(UIUtils.getUserBean().getUsername()))) {
+        if (author.getUsername().equals(UIUtils.getUserBean().getUsername())) {
             mLlHotspotFollowers.setVisibility(View.INVISIBLE);
         } else {
             mAuthorId = author.getId();
