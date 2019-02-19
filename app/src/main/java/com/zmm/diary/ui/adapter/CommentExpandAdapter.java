@@ -115,6 +115,8 @@ public class CommentExpandAdapter extends BaseExpandableListAdapter {
     @Override
     public View getChildView(final int groupPosition, int childPosition, boolean b, View convertView, ViewGroup viewGroup) {
         final ChildHolder childHolder;
+
+        System.out.println("回复数据：：：：：：：");
         if(convertView == null){
             convertView = LayoutInflater.from(context).inflate(R.layout.comment_reply_item_layout,viewGroup, false);
             childHolder = new ChildHolder(convertView);

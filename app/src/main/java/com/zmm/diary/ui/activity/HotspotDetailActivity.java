@@ -23,6 +23,7 @@ import android.widget.TextView;
 import com.zmm.diary.R;
 import com.zmm.diary.bean.AuthorBean;
 import com.zmm.diary.bean.CommentBean;
+import com.zmm.diary.bean.CommentReplyBean;
 import com.zmm.diary.bean.HotspotBean;
 import com.zmm.diary.dagger.component.DaggerHotspotComponent;
 import com.zmm.diary.dagger.component.HttpComponent;
@@ -38,6 +39,7 @@ import com.zmm.diary.utils.UIUtils;
 import com.zmm.diary.utils.VerificationUtils;
 import com.zmm.diary.utils.config.CommonConfig;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -450,9 +452,45 @@ public class HotspotDetailActivity extends BaseActivity<HotspotPresenter> implem
 
     @Override
     public void findAllCommentsSuccess(List<CommentBean> commentBeanList) {
+
+//        if(commentBeanList != null && commentBeanList.size() > 0){
+//            for (int i = 0; i < commentBeanList.size(); i++) {
+//                List<CommentReplyBean> replyList = new ArrayList<>();
+//
+//                for (int j = 0; j < 4; j++) {
+//                    CommentReplyBean commentReplyBean = new CommentReplyBean();
+//                    commentReplyBean.setContent("测试回复_"+j);
+//                    replyList.add(commentReplyBean);
+//                }
+//
+//                commentBeanList.get(i).setReplyList(replyList);
+//                mCommentListView.expandGroup(i);
+//
+//
+//            }
+//        }
+
+        for (CommentBean commentBean:commentBeanList) {
+            List<CommentReplyBean> replyList = new ArrayList<>();
+
+            for (int j = 0; j < 4; j++) {
+                CommentReplyBean commentReplyBean = new CommentReplyBean();
+                commentReplyBean.setContent("测试回复_"+j);
+                replyList.add(commentReplyBean);
+            }
+
+            commentBean.setReplyList(replyList);
+        }
+
         System.out.println("commentBeanList = " + commentBeanList);
 
         mCommentExpandAdapter.setNewData(commentBeanList);
+
+        for (int i = 0; i < commentBeanList.size(); i++) {
+            mCommentListView.expandGroup(i);
+
+        }
+
 
     }
 
