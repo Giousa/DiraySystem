@@ -10,7 +10,6 @@ import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -20,14 +19,11 @@ import android.widget.ExpandableListView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.ajguan.library.EasyRefreshLayout;
 import com.zmm.diary.R;
 import com.zmm.diary.bean.AuthorBean;
 import com.zmm.diary.bean.CommentBean;
 import com.zmm.diary.bean.HotspotBean;
-import com.zmm.diary.bean.UserBean;
 import com.zmm.diary.dagger.component.DaggerHotspotComponent;
 import com.zmm.diary.dagger.component.HttpComponent;
 import com.zmm.diary.dagger.module.HotspotModule;
@@ -145,6 +141,7 @@ public class HotspotDetailActivity extends BaseActivity<HotspotPresenter> implem
         initLoadAndRefresh();
 
     }
+
 
     @Override
     protected void onResume() {
@@ -456,6 +453,7 @@ public class HotspotDetailActivity extends BaseActivity<HotspotPresenter> implem
         System.out.println("commentBeanList = " + commentBeanList);
 
         mCommentExpandAdapter.setNewData(commentBeanList);
+
     }
 
 }

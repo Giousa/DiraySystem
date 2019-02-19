@@ -8,7 +8,7 @@ import java.io.Serializable;
  * Date:2019/2/14
  * Email:65489469@qq.com
  */
-public class CommentReplyBean implements Serializable{
+public class CommentReplyBean implements Serializable {
 
     private String id;
 
@@ -68,5 +68,17 @@ public class CommentReplyBean implements Serializable{
 
     public void setCreateTime(String createTime) {
         this.createTime = createTime;
+    }
+
+    @Override
+    public String toString() {
+        return "CommentReplyBean{" +
+                "id='" + id + '\'' +
+                ", commentId='" + commentId + '\'' +
+                ", fromUid='" + fromUid + '\'' +
+                ", toUid='" + toUid + '\'' +
+                ", content='" + content + '\'' +
+                ", createTime='" + createTime + '\'' +
+                '}';
     }
 }

@@ -9,7 +9,7 @@ import java.util.List;
  * Date:2019/2/14
  * Email:65489469@qq.com
  */
-public class CommentBean implements Serializable{
+public class CommentBean implements Serializable {
 
     private String id;
 
@@ -81,5 +81,18 @@ public class CommentBean implements Serializable{
 
     public void setReplyList(List<CommentReplyBean> replyList) {
         this.replyList = replyList;
+    }
+
+    @Override
+    public String toString() {
+        return "CommentBean{" +
+                "id='" + id + '\'' +
+                ", fromUid='" + fromUid + '\'' +
+                ", hotspotId='" + hotspotId + '\'' +
+                ", content='" + content + '\'' +
+                ", praiseCount=" + praiseCount +
+                ", createTime='" + createTime + '\'' +
+                ", replyList=" + replyList +
+                '}';
     }
 }
