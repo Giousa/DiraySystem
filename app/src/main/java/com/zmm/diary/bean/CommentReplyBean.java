@@ -14,9 +14,9 @@ public class CommentReplyBean implements Serializable {
 
     private String commentId;
 
-    private String fromUid;
+    private String fromName;
 
-    private String toUid;
+    private String toName;
 
     private String content;
 
@@ -38,20 +38,20 @@ public class CommentReplyBean implements Serializable {
         this.commentId = commentId;
     }
 
-    public String getFromUid() {
-        return fromUid;
+    public String getFromName() {
+        return fromName;
     }
 
-    public void setFromUid(String fromUid) {
-        this.fromUid = fromUid;
+    public void setFromName(String fromName) {
+        this.fromName = fromName;
     }
 
-    public String getToUid() {
-        return toUid;
+    public String getToName() {
+        return toName;
     }
 
-    public void setToUid(String toUid) {
-        this.toUid = toUid;
+    public void setToName(String toName) {
+        this.toName = toName;
     }
 
     public String getContent() {
@@ -75,10 +75,10 @@ public class CommentReplyBean implements Serializable {
         return "CommentReplyBean{" +
                 "id='" + id + '\'' +
                 ", commentId='" + commentId + '\'' +
-                ", fromUid='" + fromUid + '\'' +
-                ", toUid='" + toUid + '\'' +
+                ", fromName='" + fromName + '\'' +
+                ", toName='" + toName + '\'' +
                 ", content='" + content + '\'' +
-                ", createTime='" + createTime + '\'' +
+                ", createTime=" + createTime +
                 '}';
     }
 }

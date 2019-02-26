@@ -20,6 +20,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.ajguan.library.EasyRefreshLayout;
 import com.zmm.diary.R;
 import com.zmm.diary.bean.AuthorBean;
 import com.zmm.diary.bean.CommentBean;
@@ -453,44 +454,53 @@ public class HotspotDetailActivity extends BaseActivity<HotspotPresenter> implem
     @Override
     public void findAllCommentsSuccess(List<CommentBean> commentBeanList) {
 
-//        if(commentBeanList != null && commentBeanList.size() > 0){
-//            for (int i = 0; i < commentBeanList.size(); i++) {
-//                List<CommentReplyBean> replyList = new ArrayList<>();
-//
-//                for (int j = 0; j < 4; j++) {
-//                    CommentReplyBean commentReplyBean = new CommentReplyBean();
-//                    commentReplyBean.setContent("测试回复_"+j);
-//                    replyList.add(commentReplyBean);
-//                }
-//
-//                commentBeanList.get(i).setReplyList(replyList);
+        System.out.println("查询所有评论 ： "+commentBeanList);
+
+        if(commentBeanList != null && commentBeanList.size() > 0){
+            for (int i = 0; i < commentBeanList.size(); i++) {
+                List<CommentReplyBean> replyList = new ArrayList<>();
+
+                for (int j = 0; j < 4; j++) {
+                    CommentReplyBean commentReplyBean = new CommentReplyBean();
+                    commentReplyBean.setContent("测试回复_"+j);
+                    replyList.add(commentReplyBean);
+                }
+
+                commentBeanList.get(i).setCommentReplyList(replyList);
 //                mCommentListView.expandGroup(i);
-//
-//
-//            }
-//        }
 
-        for (CommentBean commentBean:commentBeanList) {
-            List<CommentReplyBean> replyList = new ArrayList<>();
 
-            for (int j = 0; j < 4; j++) {
-                CommentReplyBean commentReplyBean = new CommentReplyBean();
-                commentReplyBean.setContent("测试回复_"+j);
-                replyList.add(commentReplyBean);
             }
-
-            commentBean.setReplyList(replyList);
         }
 
-        System.out.println("commentBeanList = " + commentBeanList);
-
         mCommentExpandAdapter.setNewData(commentBeanList);
-
         for (int i = 0; i < commentBeanList.size(); i++) {
             mCommentListView.expandGroup(i);
 
         }
 
+//        for (CommentBean commentBean:commentBeanList) {
+//            List<CommentReplyBean> replyList = new ArrayList<>();
+//
+//            for (int j = 0; j < 4; j++) {
+//                CommentReplyBean commentReplyBean = new CommentReplyBean();
+//                commentReplyBean.setContent("测试回复_"+j);
+//                replyList.add(commentReplyBean);
+//            }
+//
+//            commentBean.setCommentReplyDTOList(replyList);
+//        }
+//
+//        System.out.println("commentBeanList = " + commentBeanList);
+//
+//        mCommentExpandAdapter.setNewData(commentBeanList);
+//
+//        for (int i = 0; i < commentBeanList.size(); i++) {
+//            mCommentListView.expandGroup(i);
+//
+//        }
+
+//        mCommentExpandAdapter.setNewData(commentBeanList);
 
     }
 

@@ -13,7 +13,7 @@ public class CommentBean implements Serializable {
 
     private String id;
 
-    private String fromUid;
+    private UserBean fromUser;
 
     private String hotspotId;
 
@@ -24,8 +24,7 @@ public class CommentBean implements Serializable {
 
     private String createTime;
 
-    private List<CommentReplyBean> replyList;
-
+    private List<CommentReplyBean> commentReplyList;
 
     public String getId() {
         return id;
@@ -35,12 +34,12 @@ public class CommentBean implements Serializable {
         this.id = id;
     }
 
-    public String getFromUid() {
-        return fromUid;
+    public UserBean getFromUser() {
+        return fromUser;
     }
 
-    public void setFromUid(String fromUid) {
-        this.fromUid = fromUid;
+    public void setFromUser(UserBean fromUser) {
+        this.fromUser = fromUser;
     }
 
     public String getHotspotId() {
@@ -75,24 +74,24 @@ public class CommentBean implements Serializable {
         this.createTime = createTime;
     }
 
-    public List<CommentReplyBean> getReplyList() {
-        return replyList;
+    public List<CommentReplyBean> getCommentReplyList() {
+        return commentReplyList;
     }
 
-    public void setReplyList(List<CommentReplyBean> replyList) {
-        this.replyList = replyList;
+    public void setCommentReplyList(List<CommentReplyBean> commentReplyList) {
+        this.commentReplyList = commentReplyList;
     }
 
     @Override
     public String toString() {
         return "CommentBean{" +
                 "id='" + id + '\'' +
-                ", fromUid='" + fromUid + '\'' +
+                ", fromUser=" + fromUser +
                 ", hotspotId='" + hotspotId + '\'' +
                 ", content='" + content + '\'' +
                 ", praiseCount=" + praiseCount +
-                ", createTime='" + createTime + '\'' +
-                ", replyList=" + replyList +
+                ", createTime=" + createTime +
+                ", commentReplyList=" + commentReplyList +
                 '}';
     }
 }

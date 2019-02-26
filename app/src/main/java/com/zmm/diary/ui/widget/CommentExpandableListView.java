@@ -5,6 +5,7 @@ import android.os.Build;
 import android.support.v4.view.NestedScrollingChild;
 import android.support.v4.view.NestedScrollingChildHelper;
 import android.util.AttributeSet;
+import android.view.MotionEvent;
 import android.widget.ExpandableListView;
 
 /**
@@ -15,7 +16,6 @@ import android.widget.ExpandableListView;
  */
 public class CommentExpandableListView extends ExpandableListView implements NestedScrollingChild {
     private NestedScrollingChildHelper mScrollingChildHelper;
-
 
     public CommentExpandableListView(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -80,4 +80,5 @@ public class CommentExpandableListView extends ExpandableListView implements Nes
     public boolean dispatchNestedPreFling(float velocityX, float velocityY) {
         return mScrollingChildHelper.dispatchNestedPreFling(velocityX, velocityY);
     }
+
 }
