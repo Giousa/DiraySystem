@@ -178,7 +178,6 @@ public class HotspotDetailActivity extends BaseActivity<HotspotPresenter> implem
             @Override
             public boolean onGroupClick(ExpandableListView expandableListView, View view, int groupPosition, long l) {
                 boolean isExpanded = expandableListView.isGroupExpanded(groupPosition);
-                System.out.println("当前评论id");
 //                Log.e(TAG, "onGroupClick: 当前的评论id>>>"+commentList.get(groupPosition).getId());
 //                if(isExpanded){
 //                    expandableListView.collapseGroup(groupPosition);
@@ -186,6 +185,7 @@ public class HotspotDetailActivity extends BaseActivity<HotspotPresenter> implem
 //                    expandableListView.expandGroup(groupPosition, true);
 //                }
 //                showReplyDialog(groupPosition);
+                ToastUtils.SimpleToast("主回复条目 = "+groupPosition);
                 return true;
             }
         });
@@ -193,8 +193,7 @@ public class HotspotDetailActivity extends BaseActivity<HotspotPresenter> implem
         mCommentListView.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
             @Override
             public boolean onChildClick(ExpandableListView expandableListView, View view, int groupPosition, int childPosition, long l) {
-//                Toast.makeText(MainActivity.this,"点击了回复",Toast.LENGTH_SHORT).show();
-                ToastUtils.SimpleToast("点击了回复");
+                ToastUtils.SimpleToast("子回复条目 = "+childPosition+"主p = "+groupPosition);
                 return false;
             }
         });
@@ -444,6 +443,7 @@ public class HotspotDetailActivity extends BaseActivity<HotspotPresenter> implem
     @Override
     public void commentSuccess() {
         ToastUtils.SimpleToast("评论内容成功");
+        mPresenter.findAllCommentsByHotspotId(mHotspotId, mPage, mSize);
     }
 
     @Override
@@ -456,28 +456,28 @@ public class HotspotDetailActivity extends BaseActivity<HotspotPresenter> implem
 
         System.out.println("查询所有评论 ： "+commentBeanList);
 
-        if(commentBeanList != null && commentBeanList.size() > 0){
-            for (int i = 0; i < commentBeanList.size(); i++) {
-                List<CommentReplyBean> replyList = new ArrayList<>();
-
-                for (int j = 0; j < 4; j++) {
-                    CommentReplyBean commentReplyBean = new CommentReplyBean();
-                    commentReplyBean.setContent("测试回复_"+j);
-                    replyList.add(commentReplyBean);
-                }
-
-                commentBeanList.get(i).setCommentReplyList(replyList);
-//                mCommentListView.expandGroup(i);
-
-
-            }
-        }
-
+//        if(commentBeanList != null && commentBeanList.size() > 0){
+//            for (int i = 0; i < commentBeanList.size(); i++) {
+//                List<CommentReplyBean> replyList = new ArrayList<>();
+//
+//                for (int j = 0; j < 4; j++) {
+//                    CommentReplyBean commentReplyBean = new CommentReplyBean();
+//                    commentReplyBean.setContent("测试回复_"+j);
+//                    replyList.add(commentReplyBean);
+//                }
+//
+//                commentBeanList.get(i).setCommentReplyList(replyList);
+////                mCommentListView.expandGroup(i);
+//
+//
+//            }
+//        }
+//
         mCommentExpandAdapter.setNewData(commentBeanList);
-        for (int i = 0; i < commentBeanList.size(); i++) {
-            mCommentListView.expandGroup(i);
-
-        }
+//        for (int i = 0; i < commentBeanList.size(); i++) {
+//            mCommentListView.expandGroup(i);
+//
+//        }
 
 //        for (CommentBean commentBean:commentBeanList) {
 //            List<CommentReplyBean> replyList = new ArrayList<>();
