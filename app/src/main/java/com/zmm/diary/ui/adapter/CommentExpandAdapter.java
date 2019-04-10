@@ -128,13 +128,20 @@ public class CommentExpandAdapter extends BaseExpandableListAdapter {
         String replyUser = null;
         if(!TextUtils.isEmpty(fromName)){
 
-            if(!TextUtils.isEmpty(toName) && !fromName.equals(toName)){
-                replyUser = commentReplyBean.getFromName()+"@"+commentReplyBean.getToName();
 
+            if(!TextUtils.isEmpty(toName)){
+                replyUser = commentReplyBean.getFromName()+"@"+commentReplyBean.getToName();
             }else {
                 replyUser = commentReplyBean.getFromName();
-
             }
+
+//            if(!TextUtils.isEmpty(toName) && !fromName.equals(toName)){
+//                replyUser = commentReplyBean.getFromName()+"@"+commentReplyBean.getToName();
+//
+//            }else {
+//                replyUser = commentReplyBean.getFromName();
+//
+//            }
         }
 
         if(!TextUtils.isEmpty(replyUser)){

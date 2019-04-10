@@ -250,7 +250,7 @@ public class HotspotDetailActivity extends BaseActivity<HotspotPresenter> implem
                 break;
 
             case R.id.ll_hotspot_comment:
-
+                showCommentDialog();
                 break;
             case R.id.ll_hotspot_followers:
                 mPresenter.correlateAuthor(mUserId, mAuthorId);
@@ -302,7 +302,7 @@ public class HotspotDetailActivity extends BaseActivity<HotspotPresenter> implem
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                if (!TextUtils.isEmpty(charSequence) && charSequence.length() > 2) {
+                if (!TextUtils.isEmpty(charSequence) && charSequence.length() >= 1) {
                     bt_comment.setBackgroundColor(Color.parseColor("#FFB568"));
                 } else {
                     bt_comment.setBackgroundColor(Color.parseColor("#D8D8D8"));
@@ -326,9 +326,9 @@ public class HotspotDetailActivity extends BaseActivity<HotspotPresenter> implem
         final Button bt_comment = (Button) commentView.findViewById(R.id.dialog_comment_bt);
 
         if(flag){
-            commentText.setHint("回复 " + commentBean.getCommentReplyList().get(childPosition).getFromName() + " 的评论:");
+            commentText.setHint("回复 " + commentBean.getCommentReplyList().get(childPosition).getFromName() + ":");
         }else {
-            commentText.setHint("回复 " + commentBean.getFromUser().getNickname() + " 的评论:");
+            commentText.setHint("回复 " + commentBean.getFromUser().getNickname() + ":");
         }
         dialog.setContentView(commentView);
         bt_comment.setOnClickListener(new View.OnClickListener() {
@@ -372,7 +372,7 @@ public class HotspotDetailActivity extends BaseActivity<HotspotPresenter> implem
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                if(!TextUtils.isEmpty(charSequence) && charSequence.length()>2){
+                if(!TextUtils.isEmpty(charSequence) && charSequence.length() >=1 ){
                     bt_comment.setBackgroundColor(Color.parseColor("#FFB568"));
                 }else {
                     bt_comment.setBackgroundColor(Color.parseColor("#D8D8D8"));
