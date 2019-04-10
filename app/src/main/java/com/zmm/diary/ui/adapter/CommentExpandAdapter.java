@@ -16,7 +16,10 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.zmm.diary.R;
 import com.zmm.diary.bean.CommentBean;
 import com.zmm.diary.bean.CommentReplyBean;
+import com.zmm.diary.bean.UserBean;
+import com.zmm.diary.utils.GlideUtils;
 import com.zmm.diary.utils.ToastUtils;
+import com.zmm.diary.utils.config.CommonConfig;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -88,20 +91,16 @@ public class CommentExpandAdapter extends BaseExpandableListAdapter {
         }else {
             groupHolder = (GroupHolder) convertView.getTag();
         }
-        Glide.with(context).load(R.drawable.login_header)
-                .diskCacheStrategy(DiskCacheStrategy.RESULT)
-                .error(R.mipmap.ic_launcher)
-                .centerCrop()
-                .into(groupHolder.logo);
-        groupHolder.tv_name.setText("昵称");
-        groupHolder.tv_time.setText("日期");
-        groupHolder.tv_content.setText(commentBeanList.get(groupPosition).getContent());
-        groupHolder.iv_like.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ToastUtils.SimpleToast("点赞：");
-            }
-        });
+
+
+        CommentBean commentBean = commentBeanList.get(groupPosition);
+        UserBean fromUser = commentBean.getFromUser();
+
+        GlideUtils.loadCircleImage(context, CommonConfig.BASE_PIC_URL + fromUser.getIcon(),groupHolder.logo);
+
+        groupHolder.tv_name.setText(TextUtils.isEmpty(fromUser.getNickname()) ? fromUser.getUsername() : fromUser.getNickname());
+        groupHolder.tv_time.setText(commentBean.getCreateTime());
+        groupHolder.tv_content.setText(commentBean.getContent());
 
 
         return convertView;
@@ -121,8 +120,6 @@ public class CommentExpandAdapter extends BaseExpandableListAdapter {
             childHolder = (ChildHolder) convertView.getTag();
         }
 
-//        String replyUser = commentBeanList.get(groupPosition).getReplyList().get(childPosition).getNickName();
-//        String replyUser = commentBeanList.get(groupPosition).getCommentReplyList().get(childPosition).getFromName();
 
         CommentReplyBean commentReplyBean = commentBeanList.get(groupPosition).getCommentReplyList().get(childPosition);
         String fromName = commentReplyBean.getFromName();
@@ -146,7 +143,6 @@ public class CommentExpandAdapter extends BaseExpandableListAdapter {
             childHolder.tv_name.setText("匿名"+":");
         }
 
-//        childHolder.tv_content.setText(commentBeanList.get(groupPosition).getCommentReplyList().get(childPosition).getContent());
         childHolder.tv_content.setText(commentReplyBean.getContent());
 
         return convertView;
@@ -162,13 +158,11 @@ public class CommentExpandAdapter extends BaseExpandableListAdapter {
     private class GroupHolder{
         private CircleImageView logo;
         private TextView tv_name, tv_content, tv_time;
-        private ImageView iv_like;
         public GroupHolder(View view) {
             logo = view.findViewById(R.id.comment_item_logo);
             tv_content = view.findViewById(R.id.comment_item_content);
             tv_name = view.findViewById(R.id.comment_item_userName);
             tv_time = view.findViewById(R.id.comment_item_time);
-            iv_like = view.findViewById(R.id.comment_item_like);
         }
     }
 
