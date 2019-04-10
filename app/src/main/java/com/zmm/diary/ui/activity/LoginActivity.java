@@ -3,12 +3,14 @@ package com.zmm.diary.ui.activity;
 import android.content.Intent;
 import android.graphics.PointF;
 import android.text.TextUtils;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.EditText;
 
 import com.davemorrissey.labs.subscaleview.ImageSource;
 import com.davemorrissey.labs.subscaleview.ImageViewState;
 import com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView;
+import com.zmm.diary.MyApplication;
 import com.zmm.diary.R;
 import com.zmm.diary.bean.UserBean;
 import com.zmm.diary.dagger.component.DaggerLoginComponent;
@@ -43,6 +45,9 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
     private String mUsernameStr;
     private String mPasswordStr;
 
+    private long time = 0;
+
+
     @Override
     protected int setLayout() {
         return R.layout.activity_login;
@@ -61,6 +66,10 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
     @Override
     protected void init() {
 
+
+        removeAllOtherActivity(this);
+
+
         mSubImage.setImage(ImageSource.resource(R.drawable.login_bg),new ImageViewState(1.2f, new PointF(0, 0), 0));
         mSubImage.setZoomEnabled(false);
         mSubImage.setPanEnabled(false);
@@ -72,6 +81,7 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
 
         SharedPreferencesUtil.saveString(CommonConfig.LOGIN_USER,SharedPreferencesUtil.toJson(userBean));
 
+        System.out.println("登录成功：："+SharedPreferencesUtil.toJson(userBean));
         startActivity(MainActivity.class,true);
     }
 
@@ -120,5 +130,20 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
 
 
         mPresenter.login(mUsernameStr.trim(), mPasswordStr.trim());
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+
+        if (keyCode == event.KEYCODE_BACK) {
+            if (System.currentTimeMillis() - time > 2000) {
+                time = System.currentTimeMillis();
+                ToastUtils.SimpleToast( "再次点击，退出应用");
+            } else {
+                removeAllActivity();
+            }
+        }
+
+        return true;
     }
 }

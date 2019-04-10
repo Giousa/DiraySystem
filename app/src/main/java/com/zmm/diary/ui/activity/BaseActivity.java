@@ -118,8 +118,16 @@ public abstract class BaseActivity<T extends BasePresenter> extends AppCompatAct
         mMyApplication.removeActivity_(mBaseActivity);
     }
 
+    public void removeActivity(BaseActivity baseActivity) {
+        mMyApplication.removeActivity_(baseActivity);
+    }
+
     public void removeAllActivity() {
         mMyApplication.removeAllActivity_();
+    }
+
+    public void removeAllOtherActivity(BaseActivity baseActivity) {
+        mMyApplication.removeAllOtherActivity_(baseActivity);
     }
 
 

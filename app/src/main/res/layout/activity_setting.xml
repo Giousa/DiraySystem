@@ -23,4 +23,11 @@
         android:layout_marginTop="@dimen/dp_size_20"
         app:title="退出登录" />
 
+    <com.zmm.diary.ui.widget.CustomTitleItemView
+        android:id="@+id/custom_title_item_delete"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_size_20"
+        app:title="#注销账号#" />
+
 </LinearLayout>

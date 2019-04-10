@@ -126,6 +126,18 @@ public class MyApplication extends Application {
         }
     }
 
+    /**
+     * 销毁其他全部Activity
+     */
+    public void removeAllOtherActivity_(BaseActivity baseActivity){
+        for (BaseActivity activity:mBaseActivityList) {
+
+            if(!activity.equals(baseActivity)){
+                activity.finish();
+            }
+        }
+    }
+
 
     public static Context getContext() {
         return mContext;

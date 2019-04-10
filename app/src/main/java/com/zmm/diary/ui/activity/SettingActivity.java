@@ -1,5 +1,6 @@
 package com.zmm.diary.ui.activity;
 
+import android.os.Bundle;
 import android.view.View;
 
 import com.zmm.diary.R;
@@ -10,6 +11,7 @@ import com.zmm.diary.utils.SharedPreferencesUtil;
 import com.zmm.diary.utils.config.CommonConfig;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 
 /**
  * Description:
@@ -26,6 +28,8 @@ public class SettingActivity extends BaseActivity implements CustomTitleItemView
     CustomTitleItemView mCustomTitleItemCheckout;
     @BindView(R.id.custom_title_item_signout)
     CustomTitleItemView mCustomTitleItemSignout;
+    @BindView(R.id.custom_title_item_delete)
+    CustomTitleItemView mCustomTitleItemDelete;
 
     @Override
     protected int setLayout() {
@@ -43,6 +47,7 @@ public class SettingActivity extends BaseActivity implements CustomTitleItemView
 
         mCustomTitleItemCheckout.setOnItemClickListener(this);
         mCustomTitleItemSignout.setOnItemClickListener(this);
+        mCustomTitleItemDelete.setOnItemClickListener(this);
     }
 
     private void initToolBar() {
@@ -62,11 +67,14 @@ public class SettingActivity extends BaseActivity implements CustomTitleItemView
     public void OnItemClick(String title) {
 
 
-        if(title.equals("切换账号")){
-            startActivity(LoginActivity.class,true);
-        }else {
-            SharedPreferencesUtil.saveString(CommonConfig.LOGIN_USER,null);
+        if (title.equals("切换账号")) {
+            SharedPreferencesUtil.saveString(CommonConfig.LOGIN_USER, null);
+            startActivity(LoginActivity.class, true);
+        } else if(title.equals("退出登录")){
+            SharedPreferencesUtil.saveString(CommonConfig.LOGIN_USER, null);
             removeAllActivity();
+        } else {
+
         }
     }
 }
