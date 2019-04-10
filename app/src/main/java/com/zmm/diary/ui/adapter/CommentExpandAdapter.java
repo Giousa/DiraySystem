@@ -20,11 +20,14 @@ import com.zmm.diary.R;
 import com.zmm.diary.bean.CommentBean;
 import com.zmm.diary.bean.CommentReplyBean;
 import com.zmm.diary.bean.UserBean;
+import com.zmm.diary.utils.DateUtils;
 import com.zmm.diary.utils.GlideUtils;
+import com.zmm.diary.utils.TimeUtils;
 import com.zmm.diary.utils.ToastUtils;
 import com.zmm.diary.utils.UIUtils;
 import com.zmm.diary.utils.config.CommonConfig;
 
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -103,8 +106,16 @@ public class CommentExpandAdapter extends BaseExpandableListAdapter {
         GlideUtils.loadCircleImage(context, CommonConfig.BASE_PIC_URL + fromUser.getIcon(),groupHolder.logo);
 
         groupHolder.tv_name.setText(TextUtils.isEmpty(fromUser.getNickname()) ? fromUser.getUsername() : fromUser.getNickname());
-        groupHolder.tv_time.setText(commentBean.getCreateTime());
         groupHolder.tv_content.setText(commentBean.getContent());
+
+        //处理时间
+        try {
+            String timeFormatText = TimeUtils.getTimeFormatText(DateUtils.stringToDate(commentBean.getCreateTime(), "yyyy-MM-dd HH:mm:ss"));
+            groupHolder.tv_time.setText(timeFormatText);
+
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
 
 
         return convertView;
