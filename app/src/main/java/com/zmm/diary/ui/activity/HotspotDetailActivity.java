@@ -190,8 +190,7 @@ public class HotspotDetailActivity extends BaseActivity<HotspotPresenter> implem
 //                }else {
 //                    expandableListView.expandGroup(groupPosition, true);
 //                }
-                showReplyDialog(mCommentBeanList.get(groupPosition));
-                ToastUtils.SimpleToast("主回复条目 = "+groupPosition);
+                showReplyDialog(mCommentBeanList.get(groupPosition),0,false);
                 return true;
             }
         });
@@ -199,18 +198,20 @@ public class HotspotDetailActivity extends BaseActivity<HotspotPresenter> implem
         mCommentListView.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
             @Override
             public boolean onChildClick(ExpandableListView expandableListView, View view, int groupPosition, int childPosition, long l) {
-                ToastUtils.SimpleToast("子回复条目 = "+childPosition+"主p = "+groupPosition);
+
+                showReplyDialog(mCommentBeanList.get(groupPosition),childPosition,true);
+
                 return false;
             }
         });
 
-        mCommentListView.setOnGroupExpandListener(new ExpandableListView.OnGroupExpandListener() {
-            @Override
-            public void onGroupExpand(int groupPosition) {
-                //toast("展开第"+groupPosition+"个分组");
-
-            }
-        });
+//        mCommentListView.setOnGroupExpandListener(new ExpandableListView.OnGroupExpandListener() {
+//            @Override
+//            public void onGroupExpand(int groupPosition) {
+//                //toast("展开第"+groupPosition+"个分组");
+//
+//            }
+//        });
     }
 
 
@@ -317,13 +318,18 @@ public class HotspotDetailActivity extends BaseActivity<HotspotPresenter> implem
 
     }
 
-    private void showReplyDialog(final CommentBean commentBean) {
+    private void showReplyDialog(final CommentBean commentBean, final int childPosition, final boolean flag) {
 
         dialog = new BottomSheetDialog(this);
         View commentView = LayoutInflater.from(this).inflate(R.layout.comment_dialog_layout,null);
         final EditText commentText = (EditText) commentView.findViewById(R.id.dialog_comment_et);
         final Button bt_comment = (Button) commentView.findViewById(R.id.dialog_comment_bt);
-        commentText.setHint("回复 " + commentBean.getFromUser().getNickname() + " 的评论:");
+
+        if(flag){
+            commentText.setHint("回复 " + commentBean.getCommentReplyList().get(childPosition).getFromName() + " 的评论:");
+        }else {
+            commentText.setHint("回复 " + commentBean.getFromUser().getNickname() + " 的评论:");
+        }
         dialog.setContentView(commentView);
         bt_comment.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -332,17 +338,23 @@ public class HotspotDetailActivity extends BaseActivity<HotspotPresenter> implem
                 if(!TextUtils.isEmpty(replyContent)){
 
                     dialog.dismiss();
-//                    ReplyDetailBean detailBean = new ReplyDetailBean("小红",replyContent);
-//                    adapter.addTheReplyData(detailBean, position);
-//                    expandableListView.expandGroup(position);
-//                    String commentId,String fromUid,String toUid,String content
 
                     UserBean userBean = UIUtils.getUserBean();
                     if(userBean != null){
-                        mPresenter.replyComment(commentBean.getId(),
-                                userBean.getId(),
-                                commentBean.getFromUser().getId(),
-                                replyContent);
+
+                        if(flag){
+                            mPresenter.replyComment(commentBean.getId(),
+                                    userBean.getId(),
+                                    commentBean.getCommentReplyList().get(childPosition).getFromId(),
+                                    replyContent);
+                        }else {
+                            //因为是回复的主回复条目，不需要显示toName
+                            mPresenter.replyComment(commentBean.getId(),
+                                    userBean.getId(),
+                                    null,
+                                    replyContent);
+                        }
+
 
                     }
 
@@ -549,29 +561,6 @@ public class HotspotDetailActivity extends BaseActivity<HotspotPresenter> implem
             mCommentListView.expandGroup(i);
 
         }
-
-//        for (CommentBean commentBean:commentBeanList) {
-//            List<CommentReplyBean> replyList = new ArrayList<>();
-//
-//            for (int j = 0; j < 4; j++) {
-//                CommentReplyBean commentReplyBean = new CommentReplyBean();
-//                commentReplyBean.setContent("测试回复_"+j);
-//                replyList.add(commentReplyBean);
-//            }
-//
-//            commentBean.setCommentReplyDTOList(replyList);
-//        }
-//
-//        System.out.println("commentBeanList = " + commentBeanList);
-//
-//        mCommentExpandAdapter.setNewData(commentBeanList);
-//
-//        for (int i = 0; i < commentBeanList.size(); i++) {
-//            mCommentListView.expandGroup(i);
-//
-//        }
-
-//        mCommentExpandAdapter.setNewData(commentBeanList);
 
     }
 

@@ -129,9 +129,9 @@ public class CommentExpandAdapter extends BaseExpandableListAdapter {
         String toName = commentReplyBean.getToName();
 
         String replyUser = null;
-        if(!TextUtils.isEmpty(fromName) && !TextUtils.isEmpty(fromName)){
+        if(!TextUtils.isEmpty(fromName)){
 
-            if(!fromName.equals(toName)){
+            if(!TextUtils.isEmpty(toName) && !fromName.equals(toName)){
                 replyUser = commentReplyBean.getFromName()+"@"+commentReplyBean.getToName();
 
             }else {
@@ -143,10 +143,11 @@ public class CommentExpandAdapter extends BaseExpandableListAdapter {
         if(!TextUtils.isEmpty(replyUser)){
             childHolder.tv_name.setText(replyUser + ":");
         }else {
-            childHolder.tv_name.setText("无名"+":");
+            childHolder.tv_name.setText("匿名"+":");
         }
 
-        childHolder.tv_content.setText(commentBeanList.get(groupPosition).getCommentReplyList().get(childPosition).getContent());
+//        childHolder.tv_content.setText(commentBeanList.get(groupPosition).getCommentReplyList().get(childPosition).getContent());
+        childHolder.tv_content.setText(commentReplyBean.getContent());
 
         return convertView;
     }
