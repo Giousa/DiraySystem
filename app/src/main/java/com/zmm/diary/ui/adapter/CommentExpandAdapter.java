@@ -2,7 +2,10 @@ package com.zmm.diary.ui.adapter;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.text.Spannable;
+import android.text.SpannableStringBuilder;
 import android.text.TextUtils;
+import android.text.style.ForegroundColorSpan;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,6 +22,7 @@ import com.zmm.diary.bean.CommentReplyBean;
 import com.zmm.diary.bean.UserBean;
 import com.zmm.diary.utils.GlideUtils;
 import com.zmm.diary.utils.ToastUtils;
+import com.zmm.diary.utils.UIUtils;
 import com.zmm.diary.utils.config.CommonConfig;
 
 import java.util.ArrayList;
@@ -150,7 +154,12 @@ public class CommentExpandAdapter extends BaseExpandableListAdapter {
             childHolder.tv_name.setText("匿名"+":");
         }
 
-        childHolder.tv_content.setText(commentReplyBean.getContent());
+//        childHolder.tv_content.setText(replyUser + ":"+commentReplyBean.getContent());
+        String content = replyUser + ":" + commentReplyBean.getContent();
+        SpannableStringBuilder spannable = new SpannableStringBuilder(content);
+        spannable.setSpan(new ForegroundColorSpan(UIUtils.getResources().getColor(R.color.md_light_green_500)),0,replyUser.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        childHolder.tv_content.setText(spannable);
+
 
         return convertView;
     }
