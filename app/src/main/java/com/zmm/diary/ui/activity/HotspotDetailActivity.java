@@ -19,6 +19,7 @@ import android.widget.ExpandableListView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.ajguan.library.EasyRefreshLayout;
 import com.zmm.diary.R;
@@ -26,6 +27,7 @@ import com.zmm.diary.bean.AuthorBean;
 import com.zmm.diary.bean.CommentBean;
 import com.zmm.diary.bean.CommentReplyBean;
 import com.zmm.diary.bean.HotspotBean;
+import com.zmm.diary.bean.UserBean;
 import com.zmm.diary.dagger.component.DaggerHotspotComponent;
 import com.zmm.diary.dagger.component.HttpComponent;
 import com.zmm.diary.dagger.module.HotspotModule;
@@ -99,7 +101,7 @@ public class HotspotDetailActivity extends BaseActivity<HotspotPresenter> implem
 //    EasyRefreshLayout mEasyRefreshLayout;
 
     private int mPage = 0;
-    private int mSize = 4;
+    private int mSize = 10;
 
     private String mHotspotId;
     private String mUserId;
@@ -109,6 +111,8 @@ public class HotspotDetailActivity extends BaseActivity<HotspotPresenter> implem
     private int mCollectionCount = 0;
     private BottomSheetDialog dialog;
     private CommentExpandAdapter mCommentExpandAdapter;
+
+    private List<CommentBean> mCommentBeanList;
 
 
     @Override
@@ -136,6 +140,8 @@ public class HotspotDetailActivity extends BaseActivity<HotspotPresenter> implem
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
 
+
+        mCommentBeanList = new ArrayList<>();
 
         mPresenter.findAllCommentsByHotspotId(mHotspotId, mPage, mSize);
 
@@ -177,14 +183,14 @@ public class HotspotDetailActivity extends BaseActivity<HotspotPresenter> implem
         mCommentListView.setOnGroupClickListener(new ExpandableListView.OnGroupClickListener() {
             @Override
             public boolean onGroupClick(ExpandableListView expandableListView, View view, int groupPosition, long l) {
-                boolean isExpanded = expandableListView.isGroupExpanded(groupPosition);
+//                boolean isExpanded = expandableListView.isGroupExpanded(groupPosition);
 //                Log.e(TAG, "onGroupClick: 当前的评论id>>>"+commentList.get(groupPosition).getId());
 //                if(isExpanded){
 //                    expandableListView.collapseGroup(groupPosition);
 //                }else {
 //                    expandableListView.expandGroup(groupPosition, true);
 //                }
-//                showReplyDialog(groupPosition);
+                showReplyDialog(mCommentBeanList.get(groupPosition));
                 ToastUtils.SimpleToast("主回复条目 = "+groupPosition);
                 return true;
             }
@@ -206,6 +212,8 @@ public class HotspotDetailActivity extends BaseActivity<HotspotPresenter> implem
             }
         });
     }
+
+
 
     /**
      * 下拉刷新和上拉加载
@@ -307,6 +315,64 @@ public class HotspotDetailActivity extends BaseActivity<HotspotPresenter> implem
         });
         dialog.show();
 
+    }
+
+    private void showReplyDialog(final CommentBean commentBean) {
+
+        dialog = new BottomSheetDialog(this);
+        View commentView = LayoutInflater.from(this).inflate(R.layout.comment_dialog_layout,null);
+        final EditText commentText = (EditText) commentView.findViewById(R.id.dialog_comment_et);
+        final Button bt_comment = (Button) commentView.findViewById(R.id.dialog_comment_bt);
+        commentText.setHint("回复 " + commentBean.getFromUser().getNickname() + " 的评论:");
+        dialog.setContentView(commentView);
+        bt_comment.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String replyContent = commentText.getText().toString().trim();
+                if(!TextUtils.isEmpty(replyContent)){
+
+                    dialog.dismiss();
+//                    ReplyDetailBean detailBean = new ReplyDetailBean("小红",replyContent);
+//                    adapter.addTheReplyData(detailBean, position);
+//                    expandableListView.expandGroup(position);
+//                    String commentId,String fromUid,String toUid,String content
+
+                    UserBean userBean = UIUtils.getUserBean();
+                    if(userBean != null){
+                        mPresenter.replyComment(commentBean.getId(),
+                                userBean.getId(),
+                                commentBean.getFromUser().getId(),
+                                replyContent);
+
+                    }
+
+
+                }else {
+                    ToastUtils.SimpleToast("回复内容不能为空");
+                }
+            }
+        });
+        commentText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                if(!TextUtils.isEmpty(charSequence) && charSequence.length()>2){
+                    bt_comment.setBackgroundColor(Color.parseColor("#FFB568"));
+                }else {
+                    bt_comment.setBackgroundColor(Color.parseColor("#D8D8D8"));
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
+        dialog.show();
     }
 
 
@@ -448,11 +514,16 @@ public class HotspotDetailActivity extends BaseActivity<HotspotPresenter> implem
 
     @Override
     public void commentReplySuccess() {
-        ToastUtils.SimpleToast("回复内容成功");
+        ToastUtils.SimpleToast("回复成功");
+        mPresenter.findAllCommentsByHotspotId(mHotspotId, mPage, mSize);
+
     }
 
     @Override
     public void findAllCommentsSuccess(List<CommentBean> commentBeanList) {
+
+        mCommentBeanList.clear();
+        mCommentBeanList = commentBeanList;
 
         System.out.println("查询所有评论 ： "+commentBeanList);
 
@@ -474,10 +545,10 @@ public class HotspotDetailActivity extends BaseActivity<HotspotPresenter> implem
 //        }
 //
         mCommentExpandAdapter.setNewData(commentBeanList);
-//        for (int i = 0; i < commentBeanList.size(); i++) {
-//            mCommentListView.expandGroup(i);
-//
-//        }
+        for (int i = 0; i < commentBeanList.size(); i++) {
+            mCommentListView.expandGroup(i);
+
+        }
 
 //        for (CommentBean commentBean:commentBeanList) {
 //            List<CommentReplyBean> replyList = new ArrayList<>();

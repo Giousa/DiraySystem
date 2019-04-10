@@ -122,7 +122,24 @@ public class CommentExpandAdapter extends BaseExpandableListAdapter {
         }
 
 //        String replyUser = commentBeanList.get(groupPosition).getReplyList().get(childPosition).getNickName();
-        String replyUser = "作死管家";
+//        String replyUser = commentBeanList.get(groupPosition).getCommentReplyList().get(childPosition).getFromName();
+
+        CommentReplyBean commentReplyBean = commentBeanList.get(groupPosition).getCommentReplyList().get(childPosition);
+        String fromName = commentReplyBean.getFromName();
+        String toName = commentReplyBean.getToName();
+
+        String replyUser = null;
+        if(!TextUtils.isEmpty(fromName) && !TextUtils.isEmpty(fromName)){
+
+            if(!fromName.equals(toName)){
+                replyUser = commentReplyBean.getFromName()+"@"+commentReplyBean.getToName();
+
+            }else {
+                replyUser = commentReplyBean.getFromName();
+
+            }
+        }
+
         if(!TextUtils.isEmpty(replyUser)){
             childHolder.tv_name.setText(replyUser + ":");
         }else {

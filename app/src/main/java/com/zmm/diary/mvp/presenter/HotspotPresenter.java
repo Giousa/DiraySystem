@@ -226,4 +226,25 @@ public class HotspotPresenter extends BasePresenter<HotspotContract.IHotspotMode
                     }
                 });
     }
+
+    /**
+     * 回复评论
+     * @param commentId
+     * @param fromUid
+     * @param toUid
+     * @param content
+     */
+    public void replyComment(String commentId,String fromUid,String toUid,String content) {
+        mModel.replyComment(commentId,fromUid,toUid,content)
+                .compose(RxHttpResponseCompat.<String>compatResult())
+                .subscribe(new ErrorHandlerSubscriber<String>() {
+                    @Override
+                    public void onNext(String s) {
+//                        if("回复成功".equals(s)){
+//                            mView.commentReplySuccess();
+//                        }
+                        mView.commentReplySuccess();
+                    }
+                });
+    }
 }
