@@ -16,18 +16,14 @@ public class TimeUtils {
     private final static long month = 31 * day;// 月
     private final static long year = 12 * month;// 年
 
-    /**
-     * 返回文字描述的日期
-     *
-     * @param date
-     * @return
-     */
+
     public static String getTimeFormatText(Date date) {
         if (date == null) {
             return null;
         }
         long diff = new Date().getTime() - date.getTime();
-        long r = 0;
+        long r;
+
         if (diff > year) {
             r = (diff / year);
             return r + "年前";
@@ -48,6 +44,7 @@ public class TimeUtils {
             r = (diff / minute);
             return r + "分钟前";
         }
+
         return "刚刚";
     }
 

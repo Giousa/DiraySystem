@@ -23,7 +23,11 @@ public interface UserContract {
 
         Observable<BaseBean<UserBean>> findUserById(String id);
 
+        Observable<BaseBean<String>> deleteUserById(String id);
+
         Observable<BaseBean<UserBean>> updateUserBean(UserBean userBean);
+
+
 
     }
 
@@ -31,6 +35,8 @@ public interface UserContract {
     interface UserView extends BaseView {
 
         void updateSuccess(UserBean userBean);
+
+        void deleteSuccess();
         
     }
 

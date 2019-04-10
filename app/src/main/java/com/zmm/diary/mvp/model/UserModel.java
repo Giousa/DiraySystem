@@ -33,6 +33,11 @@ public class UserModel implements UserContract.IUserModel {
     }
 
     @Override
+    public Observable<BaseBean<String>> deleteUserById(String id) {
+        return mApiService.deleteUserById(id);
+    }
+
+    @Override
     public Observable<BaseBean<UserBean>> updateUserBean(UserBean userBean) {
         return mApiService.updateUserBean(userBean);
     }

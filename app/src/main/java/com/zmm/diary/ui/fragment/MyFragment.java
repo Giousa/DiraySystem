@@ -297,5 +297,10 @@ public class MyFragment extends BaseFragment<UserPresenter> implements CustomIte
         }
     }
 
+    @Override
+    public void deleteSuccess() {
+
+    }
+
 
 }

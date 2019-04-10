@@ -1,17 +1,22 @@
 package com.zmm.diary.ui.activity;
 
-import android.os.Bundle;
 import android.view.View;
 
 import com.zmm.diary.R;
+import com.zmm.diary.bean.UserBean;
+import com.zmm.diary.dagger.component.DaggerUserComponent;
 import com.zmm.diary.dagger.component.HttpComponent;
+import com.zmm.diary.dagger.module.UserModule;
+import com.zmm.diary.mvp.presenter.UserPresenter;
+import com.zmm.diary.mvp.presenter.contract.UserContract;
 import com.zmm.diary.ui.widget.CustomTitleItemView;
 import com.zmm.diary.ui.widget.TitleBar;
 import com.zmm.diary.utils.SharedPreferencesUtil;
+import com.zmm.diary.utils.ToastUtils;
+import com.zmm.diary.utils.UIUtils;
 import com.zmm.diary.utils.config.CommonConfig;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 
 /**
  * Description:
@@ -19,7 +24,7 @@ import butterknife.ButterKnife;
  * Date:2018/11/21
  * Email:65489469@qq.com
  */
-public class SettingActivity extends BaseActivity implements CustomTitleItemView.OnItemClickListener {
+public class SettingActivity extends BaseActivity<UserPresenter> implements UserContract.UserView,CustomTitleItemView.OnItemClickListener {
 
 
     @BindView(R.id.title_bar)
@@ -38,7 +43,11 @@ public class SettingActivity extends BaseActivity implements CustomTitleItemView
 
     @Override
     protected void setupActivityComponent(HttpComponent httpComponent) {
-
+        DaggerUserComponent.builder()
+                .httpComponent(httpComponent)
+                .userModule(new UserModule(this))
+                .build()
+                .inject(this);
     }
 
     @Override
@@ -74,7 +83,22 @@ public class SettingActivity extends BaseActivity implements CustomTitleItemView
             SharedPreferencesUtil.saveString(CommonConfig.LOGIN_USER, null);
             removeAllActivity();
         } else {
-
+            UserBean userBean = UIUtils.getUserBean();
+            if(userBean != null){
+                mPresenter.deleteUserById(userBean.getId());
+            }
         }
+    }
+
+    @Override
+    public void updateSuccess(UserBean userBean) {
+
+    }
+
+    @Override
+    public void deleteSuccess() {
+        ToastUtils.SimpleToast("账户删除成功");
+        SharedPreferencesUtil.saveString(CommonConfig.LOGIN_USER, null);
+        startActivity(LoginActivity.class, true);
     }
 }

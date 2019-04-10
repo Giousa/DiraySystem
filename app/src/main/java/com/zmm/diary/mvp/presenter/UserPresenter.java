@@ -82,4 +82,20 @@ public class UserPresenter extends BasePresenter<UserContract.IUserModel,UserCon
                 });
 
     }
+
+    /**
+     * 删除用户
+     * @param id
+     */
+    public void deleteUserById(String id) {
+
+        mModel.deleteUserById(id)
+                .compose(RxHttpResponseCompat.<String>compatResult())
+                .subscribe(new ErrorHandlerSubscriber<String>() {
+                    @Override
+                    public void onNext(String s) {
+                        mView.deleteSuccess();
+                    }
+                });
+    }
 }

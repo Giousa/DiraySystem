@@ -101,14 +101,13 @@ public class HotspotDetailActivity extends BaseActivity<HotspotPresenter> implem
 //    EasyRefreshLayout mEasyRefreshLayout;
 
     private int mPage = 0;
-    private int mSize = 10;
+    private int mSize = 4;
 
     private String mHotspotId;
     private String mUserId;
     private String mAuthorId;
 
-    private int mAppreciateCount = 0;
-    private int mCollectionCount = 0;
+    private int mAppreciateCount = 0;//点赞数
     private BottomSheetDialog dialog;
     private CommentExpandAdapter mCommentExpandAdapter;
 

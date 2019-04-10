@@ -313,4 +313,9 @@ public class UserInfoActivity extends BaseActivity<UserPresenter> implements Use
         finish();
 
     }
+
+    @Override
+    public void deleteSuccess() {
+
+    }
 }

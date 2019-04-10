@@ -99,6 +99,14 @@ public interface ApiService {
     @GET("user/findUserById/{id}")
     Observable<BaseBean<UserBean>> findUserById(@Path("id") String id);
 
+    /**
+     * 根据id删除用户信息（本质是修改了手机号）
+     * @param id
+     * @return
+     */
+    @GET("user/deleteUserById/{id}")
+    Observable<BaseBean<String>> deleteUserById(@Path("id") String id);
+
 
     /**
      * -----------------------------日记界面接口-----------------------------
