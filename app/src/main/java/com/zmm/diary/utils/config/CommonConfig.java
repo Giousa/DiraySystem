@@ -18,6 +18,7 @@ public class CommonConfig {
 
     //Cookie
     public static final String COOKIE="diary_cookie";
+//    public static final String COOKIE="diary_session";
 
     //登录用户
     public static final String LOGIN_USER="LOGIN_USER";

@@ -32,7 +32,26 @@ public class ReceivedCookiesInterceptor implements Interceptor {
     public Response intercept(Chain chain) throws IOException {
 
         // 获取 Cookie
+//        Response resp = chain.proceed(chain.request());
+//
+//        List<String> cookies = resp.headers("Set-Cookie");
+//        String cookieStr = "";
+//        if (cookies != null && cookies.size() > 0) {
+//            for (int i = 0; i < cookies.size(); i++) {
+//                cookieStr += cookies.get(i);
+//            }
+//
+//            System.out.println("cookieStr11 = "+cookieStr);
+//
+//            if(cookieStr.contains(CommonConfig.COOKIE)){
+//                SharedPreferencesUtil.saveString(CommonConfig.COOKIE,cookieStr);
+//            }
+//
+//
+//        }
+
         Response resp = chain.proceed(chain.request());
+
         List<String> cookies = resp.headers("Set-Cookie");
         String cookieStr = "";
         if (cookies != null && cookies.size() > 0) {

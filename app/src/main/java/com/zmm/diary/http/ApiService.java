@@ -55,8 +55,12 @@ public interface ApiService {
      * @param phone
      * @return
      */
-    @GET("user/getVerifyCode/{phone}")
-    Observable<BaseBean<String>> getVerifyCode(@Path("phone") String phone);
+//    @GET("user/getVerifyCode/{phone}")
+//    Observable<BaseBean<String>> getVerifyCode(@Path("phone") String phone);
+
+    @FormUrlEncoded
+    @POST("user/getVerifyCode")
+    Observable<BaseBean<String>> getVerifyCode(@Field("phone") String phone);
 
 
     /**
@@ -66,7 +70,7 @@ public interface ApiService {
      * @return
      */
     @FormUrlEncoded
-    @POST("user/login/")
+    @POST("user/login")
     Observable<BaseBean<UserBean>> login(@Field("phone") String phone, @Field("password") String password);
 
     /**
@@ -76,7 +80,7 @@ public interface ApiService {
      * @return
      */
     @FormUrlEncoded
-    @POST("user/register/")
+    @POST("user/register")
     Observable<BaseBean<UserBean>> register(@Field("phone") String phone, @Field("password") String password, @Field("verifyCode") String verifyCode);
 
     /**
@@ -87,7 +91,7 @@ public interface ApiService {
      * @return
      */
     @FormUrlEncoded
-    @POST("user/resetPassword/")
+    @POST("user/resetPassword")
     Observable<BaseBean<String>> resetPassword(@Field("phone") String phone, @Field("newPassword") String newPassword, @Field("verifyCode") String verifyCode);
 
 

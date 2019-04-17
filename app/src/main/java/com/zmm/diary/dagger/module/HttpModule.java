@@ -1,6 +1,9 @@
 package com.zmm.diary.dagger.module;
 
 
+import com.franmontiel.persistentcookiejar.PersistentCookieJar;
+import com.franmontiel.persistentcookiejar.cache.SetCookieCache;
+import com.franmontiel.persistentcookiejar.persistence.SharedPrefsCookiePersistor;
 import com.zmm.diary.http.cookie.AddCookiesInterceptor;
 import com.zmm.diary.http.cookie.ReceivedCookiesInterceptor;
 import com.zmm.diary.http.ApiService;
@@ -40,11 +43,21 @@ public class HttpModule {
         // 开发模式记录整个body，否则只记录基本信息如返回200，http协议版本等
         logging.setLevel(HttpLoggingInterceptor.Level.BODY);
 
+//        OkHttpClient okHttpClient = new OkHttpClient.Builder()
+//                // HeadInterceptor实现了Interceptor，用来往Request Header添加一些业务相关数据，如APP版本，token信息
+//                .addInterceptor(logging)
+//                .addInterceptor(new ReceivedCookiesInterceptor(UIUtils.getContext()))
+//                .addInterceptor(new AddCookiesInterceptor(UIUtils.getContext()))
+//                // 连接超时时间设置
+//                .connectTimeout(10, TimeUnit.SECONDS)
+//                // 读取超时时间设置
+//                .readTimeout(10, TimeUnit.SECONDS)
+//                .build();
+
         OkHttpClient okHttpClient = new OkHttpClient.Builder()
                 // HeadInterceptor实现了Interceptor，用来往Request Header添加一些业务相关数据，如APP版本，token信息
                 .addInterceptor(logging)
-                .addInterceptor(new ReceivedCookiesInterceptor(UIUtils.getContext()))
-                .addInterceptor(new AddCookiesInterceptor(UIUtils.getContext()))
+                .cookieJar(new PersistentCookieJar(new SetCookieCache(), new SharedPrefsCookiePersistor(UIUtils.getContext())))
                 // 连接超时时间设置
                 .connectTimeout(10, TimeUnit.SECONDS)
                 // 读取超时时间设置
